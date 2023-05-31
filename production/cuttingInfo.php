@@ -197,16 +197,16 @@ include '../parts/header.php';
                                         echo '<table id="myTable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                                  <thead>
                                                    <tr>
-            <th>Cushion</th>
-            <th>Part Number</th>
-            <th>Raw Material</th>
-            <th>Quantity Cut</th>
-            <th>Qty</th>     
-            <th>Cumulative Volume</th>
-            <th>Total Consumption</th>
-          </tr>
-        </thead>
-        <tbody>';
+                                                       <th>Cushion</th>
+                                                       <th>Part Number</th>
+                                                       <th>Raw Material</th>
+                                                       <th>Quantity Cut</th>
+                                                       <th>Qty</th>     
+                                                       <th>Cumulative Volume</th>
+                                                       <th>Total Consumption</th>
+                                                   </tr>
+                                                 </thead>
+                                                 <tbody>';
 
                                         foreach ($data as $record) {
                                             $partNumber = isset($record["Part Number"]) ? $record["Part Number"] : "";
@@ -219,14 +219,14 @@ include '../parts/header.php';
                                                 $value = $record[$key];
 
                                                 echo '<tr>
-                <td>' . $Category. '</td>
-                <td>' . $partNumber . '</td>
-                <td>' . $key . '</td>
-                <td>' . $value*$cutSKUQuantity . '</td>
-                <td>' . $cutSKUQuantity . '</td>
-                <td>' . number_format($TotalVolume,4). '</td>
-                <td>' . $value. '</td>
-              </tr>';
+                                                            <td>' . $Category. '</td>
+                                                            <td>' . $partNumber . '</td>
+                                                            <td>' . $key . '</td>
+                                                            <td>' . $value/$cutSKUQuantity . '</td>
+                                                            <td>' . $cutSKUQuantity . '</td>
+                                                            <td>' . number_format($TotalVolume,4). '</td>
+                                                            <td>' . $value. '</td>
+                                                       </tr>';
                                             }
                                         }
 
