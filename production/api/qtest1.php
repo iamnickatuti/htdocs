@@ -20,7 +20,7 @@ if ($json1Array === null || $json2Array === null) {
     die("Failed to decode JSON data.");
 }
 
-$result = [];
+$results = [];
 
 foreach ($json1Array as $json1Item) {
     $blockSKU = isset($json1Item["Block SKU"]) ? $json1Item["Block SKU"] : "";
@@ -28,18 +28,18 @@ foreach ($json1Array as $json1Item) {
 
     $groupKey = $partNumber;
 
-    if (isset($result[$groupKey])) {
+    if (isset($results[$groupKey])) {
         // Records with same Part Number exist, merge the data
-        $result[$groupKey]["Cut SKU Quantity"] += intval($json1Item["Cut SKU Quantity"]);
-        $result[$groupKey]["Average Cut SKU Weight"] += floatval($json1Item["Average Cut SKU Weight"]);
+        $results[$groupKey]["Cut SKU Quantity"] += intval($json1Item["Cut SKU Quantity"]);
+        $results[$groupKey]["Average Cut SKU Weight"] += floatval($json1Item["Average Cut SKU Weight"]);
     } else {
         // Create a new record
-        $result[$groupKey] = $json1Item;
+        $results[$groupKey] = $json1Item;
     }
 }
 
 // Convert the associative array to a sequential array
-$result = array_values($result);
+$result = array_values($results);
 
 foreach ($result as &$newItem) {
     $blockSKU = isset($newItem["Block SKU"]) ? $newItem["Block SKU"] : "";
@@ -48,16 +48,16 @@ foreach ($result as &$newItem) {
     $financeKey = isset($newItem["Finance Key"]) ? $newItem["Finance Key"] : "";
     $bomCategory = isset($newItem["BOM Category"]) ? $newItem["BOM Category"] : "";
     $partNumber = isset($newItem["Part Number"]) ? $newItem["Part Number"] : "";
-    $volume = isset($newItem["TotalVolume"]) ? floatval($newItem["TotalVolume"]) : 0.0;
+    $volume = isset($newItem["volume"]) ? floatval($newItem["volume"]) : 0.0; // Use "Volume" as the key
 
-    $newItem[] = [
+    $newItem = [
         "Finance Key" => $financeKey,
         "BOM Category" => $bomCategory,
         "Part Number" => $partNumber,
         "Block-RM" => $blockSKU,
         "Cut SKU Quantity" => $cutSKUQuantity,
         "Average Cut SKU Weight" => $averageCutSKUWeight,
-        "Volume" => number_format($volume,4) // Add the "Volume" field to the output
+        "Volume" => number_format($volume, 4) // Add the "Volume" field to the output
     ];
 
     foreach ($json2Array as $json2Item) {
@@ -70,7 +70,7 @@ foreach ($result as &$newItem) {
     }
 }
 
-$jsonResult = json_encode($newItem);
+$jsonResult = json_encode($result);
 
 if ($jsonResult === false) {
     // Error occurred while encoding JSON data

@@ -42,7 +42,7 @@ foreach ($data as $record) {
                 <td>' . $partNumber . '</td>
                 <td>' . $key . '</td>
                 <td>' . $cutSKUQuantity . '</td>
-                <td>' . $value/$cutSKUQuantity . '</td>
+                <td>' . $value*$cutSKUQuantity . '</td>
                 <td>' . number_format($TotalVolume,4). '</td>
                 <td>' . $value. '</td>
               </tr>';
