@@ -4,7 +4,7 @@
 </head>
 
 <?php
-$url1 = 'https://reports.moko.co.ke/production/api/qtest1.php';
+$url1 = 'http://localhost/reportsqb/production/api/qtest1.php';
 
 $json = file_get_contents($url1);
 
