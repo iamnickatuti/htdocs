@@ -200,8 +200,8 @@ include '../parts/header.php';
                                                        <th>Cushion</th>
                                                        <th>Part Number</th>
                                                        <th>Raw Material</th>
-                                                       <th>Quantity Cut</th>
                                                        <th>Qty</th>     
+                                                       <th>Quantity Cut</th>    
                                                        <th>Cumulative Volume</th>
                                                        <th>Total Consumption</th>
                                                    </tr>
