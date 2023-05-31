@@ -4,7 +4,7 @@
 </head>
 
 <?php
-$url1 = 'https://reports.moko.co.ke/production/api/qtest1.php';
+$url1 = 'http://localhost/reportsqb/production/api/qtest1.php';
 
 $json = file_get_contents($url1);
 
@@ -42,7 +42,7 @@ foreach ($data as $record) {
                 <td>' . $partNumber . '</td>
                 <td>' . $key . '</td>
                 <td>' . $cutSKUQuantity . '</td>
-                <td>' . $value/$cutSKUQuantity . '</td>
+                <td>' . $value*$cutSKUQuantity . '</td>
                 <td>' . number_format($TotalVolume,4). '</td>
                 <td>' . $value. '</td>
               </tr>';

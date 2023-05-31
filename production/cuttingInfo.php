@@ -88,8 +88,7 @@ include '../parts/header.php';
                                 <div class="tab-content">
                                     <div class="tab-pane" id="home">
                                         <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                            <thead>
+                                            <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">                                            <thead>
                                             <tr>
                                                 <th>Cut SKU Category</th>
                                                 <th>Finance Key</th>
@@ -183,23 +182,86 @@ include '../parts/header.php';
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="profile">
+                                        <button class="btn btn-warning" onclick="exportToExcel()">Export to Excel</button>
                                         <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Block SKU </th>
-                                                <th>Block SKU Count</th>
-                                                <th>Sum Dry Block Weight</th>
-<!--                                                <th>Sum Original Rebonded Weight</th>-->
-<!--                                                <th>Difference</th>-->
-                                                <th>Average Dry Block Weight</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php include 'functions/funcCutTwo.php'; ?>
-                                            </tbody>
-                                        </table>
-                                        </div>
+                                        <?php
+                                        $url1 = 'http://localhost/reportsqb/production/api/qtest1.php';
+
+                                        $json = file_get_contents($url1);
+
+                                        $data = json_decode($json, true);
+
+                                        $keys = array_keys($data[0]);
+                                        $startIndex = 7;
+
+                                        echo '<table id="myTable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                                 <thead>
+                                                   <tr>
+            <th>Cushion</th>
+            <th>Part Number</th>
+            <th>Raw Material</th>
+            <th>Quantity Cut</th>
+            <th>Qty</th>     
+            <th>Cumulative Volume</th>
+            <th>Total Consumption</th>
+          </tr>
+        </thead>
+        <tbody>';
+
+                                        foreach ($data as $record) {
+                                            $partNumber = isset($record["Part Number"]) ? $record["Part Number"] : "";
+                                            $cutSKUQuantity = isset($record["Cut SKU Quantity"]) ? $record["Cut SKU Quantity"] : "";
+                                            $TotalVolume = isset($record["Volume"]) ? $record["Volume"] : 0;
+                                            $Category = isset($record["BOM Category"]) ? $record["BOM Category"] : 0;
+
+                                            for ($i = $startIndex; $i < count($keys); $i++) {
+                                                $key = $keys[$i];
+                                                $value = $record[$key];
+
+                                                echo '<tr>
+                <td>' . $Category. '</td>
+                <td>' . $partNumber . '</td>
+                <td>' . $key . '</td>
+                <td>' . $value*$cutSKUQuantity . '</td>
+                <td>' . $cutSKUQuantity . '</td>
+                <td>' . number_format($TotalVolume,4). '</td>
+                <td>' . $value. '</td>
+              </tr>';
+                                            }
+                                        }
+
+                                        echo '</tbody>
+      </table>';
+                                        ?>
+                                        <script>
+                                            function exportToExcel() {
+                                                // Get the HTML table element
+                                                var table = document.getElementById("myTable");
+
+                                                // Create a new Workbook
+                                                var wb = XLSX.utils.table_to_book(table);
+
+                                                // Generate the Excel file
+                                                var wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+                                                // Convert the Excel file to a Blob
+                                                function s2ab(s) {
+                                                    var buf = new ArrayBuffer(s.length);
+                                                    var view = new Uint8Array(buf);
+                                                    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+                                                    return buf;
+                                                }
+
+                                                var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+
+                                                // Create a download link and trigger the download
+                                                var link = document.createElement("a");
+                                                link.href = URL.createObjectURL(blob);
+                                                link.download = "table.xlsx";
+                                                link.click();
+                                            }
+                                        </script>
+                                    </div>
                                     </div>
                                     <div class="tab-pane show active" id="settings">
                                         <div class="table-responsive">
@@ -221,6 +283,7 @@ include '../parts/header.php';
                                         </table>
                                         </div>
                                     </div>
+
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->

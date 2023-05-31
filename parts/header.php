@@ -24,5 +24,7 @@
     <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/theme.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/theme.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
 
 </head>
