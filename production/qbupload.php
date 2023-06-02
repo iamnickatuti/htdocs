@@ -14,7 +14,7 @@ $json = file_get_contents($url1);
 $data = json_decode($json, true);
 
 $keys = array_keys($data[0]);
-$startIndex = 7;
+$startIndex = 8;
 
 $filteredData = array_filter($data, function($record) use ($start, $end) {
     $cuttingDate = isset($record["Cutting Date"]) ? $record["Cutting Date"] : "";
