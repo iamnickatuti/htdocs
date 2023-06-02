@@ -8,7 +8,7 @@ global $conn;
 $query= "WITH Cutting_output AS (
     SELECT
     ROW_NUMBER() OVER () AS 'index',
-    outputs.cutting_date AS 'Cutting_Date',
+    DATE_FORMAT(outputs.cutting_date,'%Y-%m-%d') AS 'Cutting_Date',
     outputs.block_id AS 'Key_',
     blocks.name AS 'Block_ID',
     blocks.is_cut,
@@ -43,6 +43,7 @@ $query= "WITH Cutting_output AS (
     
     SELECT *
     FROM Cutting_output
+    WHERE Cutting_output.Cutting_Date BETWEEN '2023-02-22' AND CURDATE()
     ORDER BY Key_ DESC, Cut_SKU_Weights ASC";
 $result = mysqli_query($conn, $query);
 $row_countt = 0;
