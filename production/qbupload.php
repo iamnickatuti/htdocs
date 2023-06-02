@@ -4,6 +4,7 @@ if (!isset($_SESSION['id']))
 {?>
     <?php include './notloggedin.php'?>
     <?php  die(); }
+include '../parts/header.php';
 ?>
 
 
