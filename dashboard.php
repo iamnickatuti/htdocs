@@ -54,6 +54,7 @@ include'./dash/funcDash.php';
                                     <a href="production/materialFlow.php" class="dropdown-item">Monthly Material Flow</a>
                                     <a href="production/cuttingOutput" class="dropdown-item">Cutting Output</a>
                                     <a href="production/cuttingInfo" class="dropdown-item">Cutting Info</a>
+                                    <a href="production/qbupload.php" class="dropdown-item">QB Upload</a>
                                     <a href="production/blockFlow" class="dropdown-item">Blocks Flow</a>
                                 </div>
                             </li>

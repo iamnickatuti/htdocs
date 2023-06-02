@@ -77,12 +77,7 @@ include '../parts/header.php';
                                             <span class="d-none d-lg-block">Cut SKU Densities Summary</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link">
-                                            <i class="mdi mdi-account-circle d-lg-none d-block"></i>
-                                            <span class="d-none d-lg-block">Proposed BOM</span>
-                                        </a>
-                                    </li>
+
 
                                 </ul>
                                 <div class="tab-content">
@@ -183,56 +178,7 @@ include '../parts/header.php';
                                     </div>
                                     <div class="tab-pane" id="profile">
                                         <button class="btn btn-warning" onclick="exportToExcel()">Export to Excel</button>
-                                        <div class="table-responsive">
-                                        <?php
-                                        $url1 = 'https://reports.moko.co.ke/production/api/qtest1.php';
 
-                                        $json = file_get_contents($url1);
-
-                                        $data = json_decode($json, true);
-
-                                        $keys = array_keys($data[0]);
-                                        $startIndex = 8;
-
-                                        echo '<table id="myTable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                                 <thead>
-                                                   <tr>
-                                                       <th>Cushion</th>
-                                                       <th>Part Number</th>
-                                                       <th>Raw Material</th>
-                                                       <th>Qty</th>     
-                                                       <th>Quantity Cut</th>    
-                                                       <th>Cumulative Volume</th>
-                                                       <th>Total Consumption</th>
-                                                   </tr>
-                                                 </thead>
-                                                 <tbody>';
-
-                                        foreach ($data as $record) {
-                                            $partNumber = isset($record["Part Number"]) ? $record["Part Number"] : "";
-                                            $cutSKUQuantity = isset($record["Cut SKU Quantity"]) ? $record["Cut SKU Quantity"] : "";
-                                            $TotalVolume = isset($record["Volume"]) ? $record["Volume"] : 0;
-                                            $Category = isset($record["BOM Category"]) ? $record["BOM Category"] : 0;
-
-                                            for ($i = $startIndex; $i < count($keys); $i++) {
-                                                $key = $keys[$i];
-                                                $value = $record[$key];
-
-                                                echo '<tr>
-                                                            <td>' . $Category. '</td>
-                                                            <td>' . $partNumber . '</td>
-                                                            <td>' . $key . '</td>
-                                                            <td>' . $value/$cutSKUQuantity . '</td>
-                                                            <td>' . $cutSKUQuantity . '</td>
-                                                            <td>' . number_format($TotalVolume,4). '</td>
-                                                            <td>' . $value. '</td>
-                                                       </tr>';
-                                            }
-                                        }
-
-                                        echo '</tbody>
-      </table>';
-                                        ?>
                                         <script>
                                             function exportToExcel() {
                                                 // Get the HTML table element
