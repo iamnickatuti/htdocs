@@ -46,6 +46,7 @@ foreach ($result as &$newItem) {
     $cutSKUQuantity = isset($newItem["Cut SKU Quantity"]) ? intval($newItem["Cut SKU Quantity"]) : 0;
     $averageCutSKUWeight = isset($newItem["Average Cut SKU Weight"]) ? floatval($newItem["Average Cut SKU Weight"]) : 0.0;
     $financeKey = isset($newItem["Finance Key"]) ? $newItem["Finance Key"] : "";
+    $cutting_date = isset($newItem["Cutting Date"]) ? $newItem["Cutting Date"] : "";
     $bomCategory = isset($newItem["BOM Category"]) ? $newItem["BOM Category"] : "";
     $partNumber = isset($newItem["Part Number"]) ? $newItem["Part Number"] : "";
     $volume = isset($newItem["volume"]) ? floatval($newItem["volume"]) : 0.0; // Use "Volume" as the key
@@ -57,6 +58,7 @@ foreach ($result as &$newItem) {
         "Block-RM" => $blockSKU,
         "Cut SKU Quantity" => $cutSKUQuantity,
         "Average Cut SKU Weight" => $averageCutSKUWeight,
+        "Cutting Date" => $cutting_date,
         "Volume" => number_format($volume, 4) // Add the "Volume" field to the output
     ];
 

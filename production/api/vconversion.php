@@ -4,7 +4,7 @@ $json_data = file_get_contents('https://reports.moko.co.ke/production/api/densit
 $data = json_decode($json_data, true);
 $groupedData = array_reduce($data, function ($result, $item) {
 //    $cut_sku_part_description = $item['Cut SKU Part Description'];
-//    $cutting_date = $item['Cutting Date'];
+    $cutting_date = $item['Cutting Date'];
     $category = $item['Cut SKU Category'];
     $financeKey = $item['Finance Key'];
     $partNumber = $item['Cut SKU Part Number'];
@@ -47,7 +47,7 @@ foreach ($groupedData as $category => $financeKeys) {
                 $cut_sku_weight_avg = $cut_sku_qty != 0 ? $cut_sku_weight_total / $cut_sku_qty : 0;
 
                 $jsonArray[] = array(
-//                    'Cutting Date' => $item['Cutting Date'],
+                    'Cutting Date' => $item['Cutting Date'],
                     'BOM Category' => $category,
                     'Finance Key' => $financeKey,
                     'Part Number' => $partNumber,
