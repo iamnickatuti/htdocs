@@ -43,7 +43,6 @@ $query= "WITH Cutting_output AS (
     
     SELECT *
     FROM Cutting_output
-    WHERE Cutting_output.Cutting_Date BETWEEN '2023-02-22' AND CURDATE()
     ORDER BY Key_ DESC, Cut_SKU_Weights ASC";
 $result = mysqli_query($conn, $query);
 $row_countt = 0;
