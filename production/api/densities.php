@@ -9,6 +9,7 @@ $groupedData = array_reduce($data, function ($result, $item) {
     $blockSKU = $item['Block SKU'];
     $cut_sku_qty = $item['Cut SKU Quantity'];
     $cut_sku_weight = $item['Average Cut SKU Weight'];
+    $Cutting_Date = $item['Cutting Date'];
     if (!isset($result[$category])) {
         $result[$category] = array();
     }
@@ -43,6 +44,7 @@ foreach ($groupedData as $category => $financeKeys) {
                 }
                 $cut_sku_weight_avg = $cut_sku_qty != 0 ? $cut_sku_weight_total / $cut_sku_qty : 0; // Calculate average weight
                 $cut_sku_part_description = $item['Cut SKU Part Description'];
+                $Cutting_Date = $item['Cutting Date'];
 
                 $resultItem = array(
                     'Cut SKU Category' => $category,
@@ -52,7 +54,9 @@ foreach ($groupedData as $category => $financeKeys) {
                     'Cut SKU Quantity' => $cut_sku_qty,
                     'Average Cut SKU Weight' => $cut_sku_weight_avg,
                     'Cut SKU Weights' => $cut_sku_weight_avg * $cut_sku_qty,
-                    'Cut SKU Part Description' => $cut_sku_part_description
+                    'Cut SKU Part Description' => $cut_sku_part_description,
+                    'Cutting Date' => $Cutting_Date
+
                 );
                 $pattern = '/(\d+\.?\d*)[xX\*](\d+\.?\d*)[xX\*](\d+\.?\d*)/'; // regular expression pattern to match dimensions and capture each dimension, including decimals
                 preg_match($pattern, $cut_sku_part_description, $matches); // search for dimensions in the string and capture each dimension
