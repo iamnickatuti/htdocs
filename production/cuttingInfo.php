@@ -192,7 +192,7 @@ include '../parts/header.php';
                                         $data = json_decode($json, true);
 
                                         $keys = array_keys($data[0]);
-                                        $startIndex = 7;
+                                        $startIndex = 8;
 
                                         echo '<table id="myTable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                                  <thead>
