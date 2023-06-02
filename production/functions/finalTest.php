@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 global $conn;
-$query= "WITH Cutting_output AS (
+    $query= "WITH Cutting_output AS (
     SELECT
     ROW_NUMBER() OVER () AS 'index',
     DATE_FORMAT(outputs.cutting_date,'%Y-%m-%d') AS 'Cutting_Date',
@@ -43,7 +43,7 @@ $query= "WITH Cutting_output AS (
     
     SELECT *
     FROM Cutting_output
-    WHERE Cutting_output.Cutting_Date BETWEEN '2023-05-16' AND '2023-05-21'
+    WHERE Cutting_output.Cutting_Date BETWEEN '2023-05-01' AND curdate()
     ORDER BY Key_ DESC, Cut_SKU_Weights ASC";
 $result = mysqli_query($conn, $query);
 $row_countt = 0;
