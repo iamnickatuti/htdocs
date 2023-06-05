@@ -100,7 +100,7 @@ include 'sql/sqlOpening.php';
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $json_data = file_get_contents('https://reports.moko.co.ke/production/api/api_flow.php');
+                                    $json_data = file_get_contents('https://reports.moko.co.ke/production/api/materialFlow.php');
                                     $data = json_decode($json_data, true);
                                     ?>
                                     <?php foreach ($data as $row) {?>

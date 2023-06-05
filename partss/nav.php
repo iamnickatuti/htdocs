@@ -34,7 +34,7 @@
                         <div class="dropdown-menu" aria-labelledby="topnav-charts">
                             <a href="../production/materialFlow" class="dropdown-item">Monthly Material Flow</a>
                             <a href="../production/cuttingInfo" class="dropdown-item">Cutting Info</a>
-                            <a href="../production/qbupload.php" class="dropdown-item">QB Upload</a>
+                            <a href="../production/qbupload" class="dropdown-item">QB Upload</a>
                             <a href="../production/cuttingOutput" class="dropdown-item">Cutting Costs</a>
                             <a href="../production/blockFlow" class="dropdown-item">Blocks Flow</a>
                         </div>

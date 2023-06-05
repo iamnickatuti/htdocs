@@ -49,8 +49,6 @@ include '../parts/header.php';
 <?php
 include '../cradle_config.php';
 global $conn;
-
-
 echo '<form method="GET" action="">
     <label for="start">Start Date:</label>
     <input type="date" id="start" name="start" required>
@@ -67,11 +65,7 @@ $end = isset($_GET["end"]) ? date("Y-m-d", strtotime($_GET["end"])) : "";
 if (empty($start) || empty($end)) {
     echo "Please choose a date range.";
 }
-
 else{
-
-
-
     $query= "WITH Cutting_output AS (
     SELECT
     ROW_NUMBER() OVER () AS 'index',

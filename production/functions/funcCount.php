@@ -449,8 +449,6 @@ $sumconsumption = $conSP + $conCH + $conJP + $conFL + $con8H + $conR1 + $conBR +
 $sumclosing = $SpC + $ChC + $JpC + $FlC + $C8HC + $R1C + $BrC + $MdC + $R5C + $PlC + $SwC + $R1C;
 
 
-echo    
-
 
 
 
