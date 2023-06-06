@@ -163,7 +163,7 @@ include 'sql/sqlOpening.php';
                                                 tdPartNumber.textContent = row['Part Number'];
 
                                                 var tdName = document.createElement('td');
-                                                tdName.textContent = row['Part Description'];
+                                                tdName.textContent = row['Part Name'];
 
                                                 var tdReceipts = document.createElement('td');
                                                 tdReceipts.textContent = row.manufacturingReceipts;

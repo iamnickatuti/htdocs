@@ -174,7 +174,7 @@ if ($result) {
     }
 
 // Encode the modified data array back to JSON
-    $resultJson = json_encode($data);
+    $material = json_encode($data);
 
 // Output the result JSON
 
@@ -190,8 +190,6 @@ cage_receipts.created_at AS 'Masaa'
 FROM
 (cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
 
-$resultCage = mysqli_query($conn, $cageQuery);
-$data = array();
 
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
@@ -259,41 +257,64 @@ foreach ($data as $row) {
     }
 }
 
+// Find the missing combinations of Masaa and Part Name
+$allCombinations = array();
+foreach ($data as $row) {
+    $key = $row['Masaa'] . '-' . $row['Part Name'];
+    $allCombinations[$key] = true;
+}
+
+$missingCombinations = array_diff_key($allCombinations, $groupedData);
+
+// Assign quantity of 0 to missing combinations
+foreach ($missingCombinations as $key => $value) {
+    list($masaa, $partName) = explode('-', $key);
+    $missingRow = array(
+        'Masaa' => $masaa,
+        'Part Name' => $partName,
+        'Quantity' => 0
+    );
+    $groupedData[$key] = $missingRow;
+}
+
 // Convert the groupedData array to a sequential array
 $groupedArray = array_values($groupedData);
 
 // Convert the grouped array to JSON
-$groupedJson = json_encode($groupedArray);
+$cageReceipts = json_encode($groupedArray);
 
-
-
-$material = json_decode($resultJson, true);
-$cageReceipts= json_decode($groupedJson, true);
+$cageData = json_decode($cageReceipts, true);
+$materialData = json_decode($material, true);
 
 // Initialize the merged array
 $mergedArray = [];
 
-// Iterate over each element in array2
-foreach ($cageReceipts as $item2) {
-    // Iterate over each element in array1
-    foreach ($material as $item1) {
-        // Check if Part Name matches Part Description and Masaa matches Duration
-        if ($item2['Part Name'] === $item1['Part Description'] && $item2['Masaa'] === $item1['Duration']) {
+// Iterate over each element in $materialData array
+foreach ($materialData as $item1) {
+    // Flag to track if a match is found
+    $matchFound = false;
+
+    // Iterate over each element in $cageData array
+    foreach ($cageData as $item2) {
+        // Check if Part Description matches Part Name and Duration matches Masaa
+        if ($item1['Part Description'] === $item2['Part Name'] && $item1['Duration'] === $item2['Masaa']) {
             // Merge the two items into a new array
             $mergedItem = array_merge($item1, $item2);
             // Add the merged item to the merged array
             $mergedArray[] = $mergedItem;
+            // Set match found flag to true
+            $matchFound = true;
         }
+    }
+
+    // If no match is found, add the item from $materialData as is
+    if (!$matchFound) {
+        $mergedArray[] = $item1;
     }
 }
 
-// Convert the merged array back to JSON
+// Convert the merged array to JSON
 $mergedJson = json_encode($mergedArray);
 header('Content-Type: application/json');
-
 // Output the merged JSON array
 echo $mergedJson;
-
-
-
-
