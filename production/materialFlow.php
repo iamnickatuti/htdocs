@@ -87,37 +87,166 @@ include 'sql/sqlOpening.php';
                                 <table class="table table-centered table-striped mb-0" style="font-size: 11px">
                                     <thead>
                                     <tr>
-                                        <th style=" width: 130px;">Part Number</th>
-                                        <th style=" width: 300px; font-size: 11px;" >Name</th>
-                                        <th style=" font-size: 11px;">Opening Balance (Kgs)</th>
-                                        <th style=" font-size: 11px;">Receipts</th>
-                                        <th style=" font-size: 11px;">Total Available for Rebonding (Kgs)</th>
-                                            <th style=" font-size: 11px;">Consumption (Kgs)</th>
-                                        <th style=" font-size: 11px;">Expected Closing Balance (Kgs)</th>
-                                        <th style=" font-size: 11px;">Actual Closing Balance (Kgs)</th>
-                                        <th style=" font-size: 11px;">Variance</th>
+                                        <th style="width: 130px;">Part Number</th>
+                                        <th style="width: 300px; font-size: 11px;">Name</th>
+                                        <th style="font-size: 11px;">Opening Balance (Kgs)</th>
+                                        <th style="font-size: 11px;">Receipts</th>
+                                        <th style="font-size: 11px;">Total Available for Rebonding (Kgs)</th>
+                                        <th style="font-size: 11px;">Consumption (Kgs)</th>
+                                        <th style="font-size: 11px;">Expected Closing Balance (Kgs)</th>
+                                        <th style="font-size: 11px;">Actual Closing Balance (Kgs)</th>
+                                        <th style="font-size: 11px;">Variance</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     $json_data = file_get_contents('https://reports.moko.co.ke/production/api/materialFlow.php');
                                     $data = json_decode($json_data, true);
+
+                                    // Get unique "duration" values
+                                    $durations = array_unique(array_column($data, 'Duration'));
+
+                                    // Filter the data based on the selected "duration" value
+                                    $selectedDuration = isset($_GET['duration']) ? $_GET['duration'] : null;
+
+                                    // Prepare the filtered data for JavaScript usage
+                                    $filteredData = array_filter($data, function ($row) use ($selectedDuration) {
+                                        return $selectedDuration === null || $row['Duration'] === $selectedDuration;
+                                    });
+                                    $filteredDataJSON = json_encode($filteredData);
                                     ?>
-                                    <?php foreach ($data as $row) {?>
-                                        <tr>
-                                            <td><?php echo $row['partNumber']; ?></td>
-                                            <td><?php echo $row['partDescription']; ?></td>
-                                            <td><?php echo $row['openingBalance']; ?></td>
-                                            <td><?php echo $row['manufacturingReceipts']; ?></td>
-                                            <td><?php echo $row['totalRebonding']; ?></td>
-                                            <td><?php echo $row['bomConsumption']; ?></td>
-                                            <td><?php echo $row['closingBalance']; ?></td>
-                                            <td><?php echo $row['actualBalance']; ?></td>
-                                            <td><?php echo $row['variancee']; ?></td>
-                                        </tr>
-                                    <?php }?>
+
+                                    <!-- Display the dropdown to select the "duration" -->
+                                    <select name="duration" id="durationSelect">
+                                        <option value="">All Durations</option>
+                                        <?php foreach ($durations as $duration) { ?>
+                                            <option value="<?php echo $duration; ?>" <?php echo ($duration === $selectedDuration) ? 'selected' : ''; ?>>
+                                                <?php echo $duration; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <!-- Display the filtered data in the table -->
+                                    <script>
+                                        var filteredData = <?php echo $filteredDataJSON; ?>;
+
+                                        function updateTable() {
+                                            var durationSelect = document.getElementById('durationSelect');
+                                            var selectedDuration = durationSelect.value;
+                                            var filteredRows = '';
+
+                                            if (selectedDuration === '') {
+                                                filteredRows = filteredData;
+                                            } else {
+                                                filteredRows = filteredData.filter(function(row) {
+                                                    return row.Duration === selectedDuration;
+                                                });
+                                            }
+
+                                            var tableBody = document.getElementById('tableBody');
+                                            tableBody.innerHTML = '';
+                                            var totalQuantity = 0;
+                                            var manufacturingReceipts = 0;
+                                            var totalRebonding = 0;
+                                            var bomConsumption = 0;
+                                            var closingBalance = 0;
+                                            var openingBalance = 0;
+                                            var actualBalance = 0;
+                                            var variance = 0;
+
+                                            filteredRows.forEach(function(row) {
+                                                var tr = document.createElement('tr');
+                                                var tdPartNumber = document.createElement('td');
+                                                tdPartNumber.textContent = row['Part Number'];
+                                                var tdName = document.createElement('td');
+                                                tdName.textContent = row.name;
+                                                var tdReceipts = document.createElement('td');
+                                                tdReceipts.textContent = row.manufacturingReceipts;
+                                                var tdTotalRebonding = document.createElement('td');
+                                                tdTotalRebonding.textContent = row.totalRebonding;
+                                                var tdConsumption = document.createElement('td');
+                                                tdConsumption.textContent = row.bomConsumption;
+                                                var tdClosingBalance = document.createElement('td');
+                                                tdClosingBalance.textContent = row.closingBalance;
+                                                var tdOpeningBalance = document.createElement('td');
+                                                tdOpeningBalance.textContent = row.openingBalance;
+                                                var tdTotalQuantity = document.createElement('td');
+                                                tdTotalQuantity.textContent = row.total_quantity;
+                                                var tdActualBalance = document.createElement('td');
+                                                tdActualBalance.textContent = row.actualBalance;
+                                                var tdVariance = document.createElement('td');
+                                                tdVariance.textContent = row.variancee;
+
+                                                tr.appendChild(tdPartNumber);
+                                                tr.appendChild(tdName);
+                                                tr.appendChild(tdReceipts);
+                                                tr.appendChild(tdTotalRebonding);
+                                                tr.appendChild(tdConsumption);
+                                                tr.appendChild(tdClosingBalance);
+                                                tr.appendChild(tdOpeningBalance);
+                                                tr.appendChild(tdTotalQuantity);
+                                                tr.appendChild(tdActualBalance);
+                                                tr.appendChild(tdVariance);
+
+                                                tableBody.appendChild(tr);
+
+                                                totalQuantity += parseFloat(row.total_quantity);
+                                                manufacturingReceipts += parseFloat(row.manufacturingReceipts);
+                                                totalRebonding += parseFloat(row.totalRebonding);
+                                                bomConsumption += parseFloat(row.bomConsumption);
+                                                closingBalance += parseFloat(row.closingBalance);
+                                                openingBalance += parseFloat(row.openingBalance);
+                                                actualBalance += parseFloat(row.actualBalance);
+                                                variance += parseFloat(row.variancee);
+                                            });
+
+                                            // Add total amount row
+                                            var trTotal = document.createElement('tr');
+                                            var tdTotalLabel = document.createElement('td');
+                                            tdTotalLabel.textContent = 'Total Amount';
+                                            var tdTotalReceipts = document.createElement('td');
+                                            tdTotalReceipts.textContent = manufacturingReceipts.toFixed(2);
+                                            var tdTotalRebonding = document.createElement('td');
+                                            tdTotalRebonding.textContent = totalRebonding.toFixed(2);
+                                            var tdTotalConsumption = document.createElement('td');
+                                            tdTotalConsumption.textContent = bomConsumption.toFixed(2);
+                                            var tdTotalClosingBalance = document.createElement('td');
+                                            tdTotalClosingBalance.textContent = closingBalance.toFixed(2);
+                                            var tdTotalOpeningBalance = document.createElement('td');
+                                            tdTotalOpeningBalance.textContent = openingBalance.toFixed(2);
+                                            var tdTotalQuantity = document.createElement('td');
+                                            tdTotalQuantity.textContent = totalQuantity.toFixed(2);
+                                            var tdTotalActualBalance = document.createElement('td');
+                                            tdTotalActualBalance.textContent = actualBalance.toFixed(2);
+                                            var tdTotalVariance = document.createElement('td');
+                                            tdTotalVariance.textContent = variance.toFixed(2);
+
+                                            trTotal.appendChild(tdTotalLabel);
+                                            trTotal.appendChild(document.createElement('td'));
+                                            trTotal.appendChild(tdTotalReceipts);
+                                            trTotal.appendChild(tdTotalRebonding);
+                                            trTotal.appendChild(tdTotalConsumption);
+                                            trTotal.appendChild(tdTotalClosingBalance);
+                                            trTotal.appendChild(tdTotalOpeningBalance);
+                                            trTotal.appendChild(tdTotalQuantity);
+                                            trTotal.appendChild(tdTotalActualBalance);
+                                            trTotal.appendChild(tdTotalVariance);
+
+                                            tableBody.appendChild(trTotal);
+                                        }
+
+                                        // Update the table when the duration is changed
+                                        document.getElementById('durationSelect').addEventListener('change', updateTable);
+
+                                        // Initial table population
+                                        updateTable();
+                                    </script>
+
+
+                                    <tbody id="tableBody"></tbody>
                                     </tbody>
                                 </table>
+
 
                                 <style>
                                     tr th:nth-child(4) {

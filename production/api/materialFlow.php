@@ -1,6 +1,9 @@
 <?php
 include '../../cradle_config.php';
 global $conn;
+
+
+
 $sql = "
 SELECT
   skus.name,
@@ -37,9 +40,10 @@ ORDER BY
 
 $result = $conn->query($sql);
 
-// Check if the query was successful
 if ($result) {
     $groupedRows = array();
+    $openingBalanceMap = array(); // Map to store the opening balance for each SKU and month
+
 
     // Fetch each row from the result set
     while ($row = $result->fetch_assoc()) {
@@ -55,48 +59,64 @@ if ($result) {
         $partMD1518H = array('RM-CH-MD008');
 
         if (in_array($row['name'], $partSpain)) {
-           $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
+            $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
         } elseif (in_array($row['name'], $partJapan)) {
-           $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
+            $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
         } elseif (in_array($row['name'], $partRecycle)) {
-           $psku = 'Raw Material:Foam Scrap:Recycle Foam';
+            $psku = 'Raw Material:Foam Scrap:Recycle Foam';
         } elseif (in_array($row['name'], $partChina)) {
-           $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
+            $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
         } elseif (in_array($row['name'], $partTrial)) {
-           $psku = 'RM:Foam Scrap: Trial Foam';
+            $psku = 'RM:Foam Scrap: Trial Foam';
         } elseif (in_array($row['name'], $partBra)) {
-           $psku = 'Raw Material:Foam Scrap:Bra - Code B';
+            $psku = 'Raw Material:Foam Scrap:Bra - Code B';
         } elseif (in_array($row['name'], $partSweepings)) {
-           $psku = 'Raw Material:Foam Scrap:Sweepings';
+            $psku = 'Raw Material:Foam Scrap:Sweepings';
         } elseif (in_array($row['name'], $partMD1518)) {
-           $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
+            $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
         } elseif (in_array($row['name'], $partMD1518H)) {
-           $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
+            $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
         } elseif ($row['name'] === 'RM-FM-FR007') {
-           $psku = 'Raw Material:Foam Scrap:Recon Mixed';
+            $psku = 'Raw Material:Foam Scrap:Recon Mixed';
         } elseif ($row['name'] === 'RM-FS-FL001') {
-           $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
+            $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
         } elseif ($row['name'] === 'RM-FS-FL002') {
-           $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
+            $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
         } elseif ($row['name'] === 'RM-CH-MD009') {
-           $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
+            $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
         } elseif ($row['name'] === 'RM-FS-CM051') {
-           $psku = 'Raw Material:Local Loose Foam';
+            $psku = 'Raw Material:Local Loose Foam';
         }
+
+
+        $string = $row['Duration'];
+        $date = DateTime::createFromFormat('Y M \S\t\o\c\k\t\a\k\e', $string);
+        $dateFormat = $date->format('Y-m');
+        $dateString = $dateFormat;
+        $date = new DateTime($dateString);
+        $date->modify('-1 month');
+        $resultDate = $date->format('Y-m');
+
 
         // Create a unique key for grouping based on the combination of Duration and parent_sku
         $groupKey = $row['Duration'] . '-' . $psku;
+        $resultDateKey = $resultDate . '-' . $psku;
+        $openingBalanceMap[$resultDateKey] = $row['Qty'];
+
 
         if (!isset($groupedRows[$groupKey])) {
             $groupedRows[$groupKey] = array(
                 'Part Number' => $row['name'],
-                'Duration' => $row['Duration'],
-                'name' => $psku,
-                'total_quantity' => $row['Qty']
+                'Part Description' => $psku,
+                'Duration' => $dateFormat,
+                'Closing Balance' => $row['Qty']
             );
         } else {
-            $groupedRows[$groupKey]['total_quantity'] += $row['Qty'];
+            $groupedRows[$groupKey]['Closing Balance'] += $row['Qty'];
         }
+
+        // Store the current month's closing balance as the opening balance for the next month
+        $openingBalanceMap[$groupKey] = $row['Qty'];
     }
 
     // Convert the grouped rows to a simple array
@@ -105,7 +125,58 @@ if ($result) {
     // Convert the result to JSON
     $jsonArray = json_encode($groupedArray);
 
-    // Output the JSON array
+
+// Decode the JSON data into an associative array
+    $data = json_decode($jsonArray, true);
+
+// Sort the data by duration in ascending order
+    usort($data, function ($a, $b) {
+        return strtotime($a['Duration']) - strtotime($b['Duration']);
+    });
+
+// Create a new array to store the processed data
+    $result = [];
+// Iterate over the data array
+    // Iterate over the data array
+    foreach ($data as $key => $item) {
+        // Get the part description and duration
+        $partDescription = $item['Part Description'];
+        $duration = $item['Duration'];
+
+        // Calculate the previous month
+        $date = new DateTime($duration);
+        $date->modify('-1 month');
+        $previousMonth = $date->format('Y-m');
+
+        // Search for the item with the previous month and the same part description
+        $previousItem = null;
+        foreach ($data as $prevItem) {
+            if ($prevItem['Part Description'] === $partDescription && $prevItem['Duration'] === $previousMonth) {
+                $previousItem = $prevItem;
+                break;
+            }
+        }
+
+        // Check if a previous item was found
+        if ($previousItem !== null) {
+            // Get the closing balance of the previous month
+            $previousClosingBalance = $previousItem['Closing Balance'];
+
+            // Calculate the opening balance as the previous month's closing balance
+            $openingBalance = $previousClosingBalance;
+        } else {
+            // If there is no previous month, use 0 as the opening balance
+            $openingBalance = 0; // Set the opening balance as 0 for the first month
+        }
+
+        // Update the OpeningBalance value for the current item
+        $data[$key]['Opening Balance'] = $openingBalance;
+    }
+
+// Encode the modified data array back to JSON
+    $resultJson = json_encode($data, JSON_PRETTY_PRINT);
+
+// Output the result JSON
     header('Content-Type: application/json');
-    echo $jsonArray;
+    echo $resultJson;
 }
