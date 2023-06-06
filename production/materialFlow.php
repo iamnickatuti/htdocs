@@ -148,7 +148,7 @@ include 'sql/sqlOpening.php';
                                             tableBody.innerHTML = '';
 
                                             var totalQuantity = 0;
-                                            var manufacturingReceipts = 0;
+                                            var cageReceipts = 0;
                                             var totalRebonding = 0;
                                             var bomConsumption = 0;
                                             var closingBalance = 0;
@@ -165,8 +165,8 @@ include 'sql/sqlOpening.php';
                                                 var tdName = document.createElement('td');
                                                 tdName.textContent = row['Part Description'];
 
-                                                var tdReceipts = document.createElement('td');
-                                                tdReceipts.textContent = row.manufacturingReceipts;
+                                                var tdcReceipts = document.createElement('td');
+                                                tdcReceipts.textContent = row['Cages'];
 
                                                 var tdTotalRebonding = document.createElement('td');
                                                 tdTotalRebonding.textContent = row.totalRebonding;
@@ -192,7 +192,7 @@ include 'sql/sqlOpening.php';
                                                 tr.appendChild(tdPartNumber);
                                                 tr.appendChild(tdName);
                                                 tr.appendChild(tdOpeningBalance);
-                                                tr.appendChild(tdReceipts);
+                                                tr.appendChild(tdcReceipts);
                                                 tr.appendChild(tdTotalRebonding);
                                                 tr.appendChild(tdConsumption);
                                                 tr.appendChild(tdClosingBalance);
@@ -203,7 +203,7 @@ include 'sql/sqlOpening.php';
                                                 tableBody.appendChild(tr);
 
                                                 totalQuantity += parseFloat(row.total_quantity);
-                                                manufacturingReceipts += parseFloat(row.manufacturingReceipts);
+                                                cageReceipts += parseFloat(row.cageReceipts);
                                                 totalRebonding += parseFloat(row.totalRebonding);
                                                 bomConsumption += parseFloat(row.bomConsumption);
                                                 closingBalance += parseFloat(row['Closing Balance']);
@@ -217,8 +217,8 @@ include 'sql/sqlOpening.php';
                                             var tdTotalLabel = document.createElement('td');
                                             tdTotalLabel.textContent = 'Total Amount';
 
-                                            var tdTotalReceipts = document.createElement('td');
-                                            tdTotalReceipts.textContent = manufacturingReceipts.toFixed(2);
+                                            var tdTotalcReceipts = document.createElement('td');
+                                            tdTotalcReceipts.textContent = cageReceipts.toFixed(2);
 
                                             var tdTotalRebonding = document.createElement('td');
                                             tdTotalRebonding.textContent = totalRebonding.toFixed(2);
@@ -244,7 +244,7 @@ include 'sql/sqlOpening.php';
                                             trTotal.appendChild(tdTotalLabel);
                                             trTotal.appendChild(document.createElement('td'));
                                             trTotal.appendChild(tdTotalOpeningBalance);
-                                            trTotal.appendChild(tdTotalReceipts);
+                                            trTotal.appendChild(tdTotalcReceipts);
                                             trTotal.appendChild(tdTotalRebonding);
                                             trTotal.appendChild(tdTotalConsumption);
                                             trTotal.appendChild(tdTotalClosingBalance);
