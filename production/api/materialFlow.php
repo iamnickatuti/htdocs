@@ -330,9 +330,7 @@ FROM
     LEFT JOIN categories ON categories.id = skus.category_id)
     LEFT JOIN units ON units.id = skus.unit_id)
     LEFT JOIN locations ON locations.id = manufacturing_receipts.location_id)
-    LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id)
-WHERE
-    sku_id IN (848,90,75,89,79,77,78,80,88,94,970,218,222)";
+    LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id)";
 
 // Execute the query to retrieve the data
     $resultYard = mysqli_query($conn, $queryYard);
