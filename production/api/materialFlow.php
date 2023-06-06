@@ -174,7 +174,7 @@ if ($result) {
     }
 
 // Encode the modified data array back to JSON
-    $resultJson = json_encode($data, JSON_PRETTY_PRINT);
+    $resultJson = json_encode($data);
 
 // Output the result JSON
 
@@ -189,6 +189,9 @@ cage_receipts.value AS 'Quantity',
 cage_receipts.created_at AS 'Masaa'
 FROM
 (cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
+
+$resultCage = mysqli_query($conn, $cageQuery);
+$data = array();
 
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
@@ -232,35 +235,18 @@ while ($row = mysqli_fetch_assoc($resultCage)) {
     } elseif ($row['Part Name'] === 'RM-FS-CM051') {
         $psku = 'Raw Material:Local Loose Foam';
     }
-    // Convert the date format from 'Masaa' to '2022-04'
+
     $date = date('Y-m', strtotime($row['Masaa']));
     $row['Masaa'] = $date;
     $row['Part Name'] = $psku; // Update the "Part Name" column value
     $data[] = $row;
-
 }
 
-
-
-
-$groupedData = [];
-
-/// Assuming you have an array of rows: $data
-
-// Initialize the one-dimensional array
-$combinedArray = [];
-// Assuming you have an array of rows: $data
-
-// Create an associative array to store the grouped results
-$groupedData = [];
+// Initialize the groupedData array
+$groupedData = array();
 
 // Iterate over each row in the data array
 foreach ($data as $row) {
-    $date = date('Y-m', strtotime($row['Masaa']));
-    $row['Masaa'] = $date;
-    $row['Part Name'] = $psku; // Update the "Part Name" column value
-
-    // Generate a unique key based on the combination of Masaa and Part Name
     $key = $row['Masaa'] . '-' . $row['Part Name'];
 
     // Check if the key already exists in the groupedData array
@@ -278,6 +264,8 @@ $groupedArray = array_values($groupedData);
 
 // Convert the grouped array to JSON
 $groupedJson = json_encode($groupedArray);
+
+
 
 $material = json_decode($resultJson, true);
 $cageReceipts= json_decode($groupedJson, true);
@@ -302,11 +290,9 @@ foreach ($cageReceipts as $item2) {
 // Convert the merged array back to JSON
 $mergedJson = json_encode($mergedArray);
 header('Content-Type: application/json');
+
 // Output the merged JSON array
 echo $mergedJson;
-
-
-
 
 
 
