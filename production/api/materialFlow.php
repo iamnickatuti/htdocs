@@ -185,7 +185,7 @@ if ($result) {
 $cageQuery = "SELECT 
 skus.name as 'Part Name',
 skus.description as 'Part Description',
-cage_receipts.value AS 'Quantity',
+cage_receipts.value AS 'Cages',
 cage_receipts.created_at AS 'Masaa'
 FROM
 (cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
@@ -307,8 +307,9 @@ foreach ($materialData as $item1) {
         }
     }
 
-    // If no match is found, add the item from $materialData as is
+    // If no match is found, add the item from $materialData with quantity 0
     if (!$matchFound) {
+        $item1['Cages'] = 0;
         $mergedArray[] = $item1;
     }
 }
