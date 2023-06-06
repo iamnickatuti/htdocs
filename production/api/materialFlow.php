@@ -1,7 +1,7 @@
 <?php
 include '../../cradle_config.php';
 global $conn;
-
+header('Content-Type: application/json');
 
 
 $sql = "
@@ -315,6 +315,129 @@ foreach ($materialData as $item1) {
 
 // Convert the merged array to JSON
 $mergedJson = json_encode($mergedArray);
-header('Content-Type: application/json');
-// Output the merged JSON array
-echo $mergedJson;
+
+
+
+    $queryYard = "SELECT
+    manufacturing_receipts.created_at AS 'Timed',
+    manufacturing_receipts.quantity AS 'Yards',
+    skus.name AS 'Part Name'
+FROM
+    (((((((manufacturing_receipts
+    LEFT JOIN inventories ON inventories.id = manufacturing_receipts.inventory_id)
+    LEFT JOIN items ON items.id = inventories.item_id)
+    LEFT JOIN skus ON skus.id = items.sku_id)
+    LEFT JOIN categories ON categories.id = skus.category_id)
+    LEFT JOIN units ON units.id = skus.unit_id)
+    LEFT JOIN locations ON locations.id = manufacturing_receipts.location_id)
+    LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id)
+WHERE
+    sku_id IN (848,90,75,89,79,77,78,80,88,94,970,218,222)";
+
+// Execute the query to retrieve the data
+    $resultYard = mysqli_query($conn, $queryYard);
+
+// Create an empty array to store the results
+    $data = array();
+    $groupedData = array();
+
+    while ($row = mysqli_fetch_assoc($resultYard)) {
+        while ($row = mysqli_fetch_assoc($resultYard)) {
+            $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
+            $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
+            $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
+            $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
+            $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+            $partBra = array('RM-FS-BR001');
+            $partSweepings = array('RM-FS-SW001');
+            $partMD1518 = array('RM-CH-MD007');
+            $partMD1518H = array('RM-CH-MD008');
+
+            if (in_array($row['Part Name'], $partSpain)) {
+                $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
+            } elseif (in_array($row['Part Name'], $partJapan)) {
+                $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
+            } elseif (in_array($row['Part Name'], $partRecycle)) {
+                $psku = 'Raw Material:Foam Scrap:Recycle Foam';
+            } elseif (in_array($row['Part Name'], $partChina)) {
+                $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
+            } elseif (in_array($row['Part Name'], $partTrial)) {
+                $psku = 'RM:Foam Scrap: Trial Foam';
+            } elseif (in_array($row['Part Name'], $partBra)) {
+                $psku = 'Raw Material:Foam Scrap:Bra - Code B';
+            } elseif (in_array($row['Part Name'], $partSweepings)) {
+                $psku = 'Raw Material:Foam Scrap:Sweepings';
+            } elseif (in_array($row['Part Name'], $partMD1518)) {
+                $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
+            } elseif (in_array($row['Part Name'], $partMD1518H)) {
+                $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
+            } elseif ($row['Part Name'] === 'RM-FM-FR007') {
+                $psku = 'Raw Material:Foam Scrap:Recon Mixed';
+            } elseif ($row['Part Name'] === 'RM-FS-FL001') {
+                $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
+            } elseif ($row['Part Name'] === 'RM-FS-FL002') {
+                $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
+            } elseif ($row['Part Name'] === 'RM-CH-MD009') {
+                $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
+            } elseif ($row['Part Name'] === 'RM-FS-CM051') {
+                $psku = 'Raw Material:Local Loose Foam';
+            }
+            // Format the date
+            $date = date('Y-m', strtotime($row['Timed']));
+            $row['Timed'] = $date;
+            $row['Part Name'] = $psku;
+
+            // Generate a unique key based on the combination of PSKU and Date
+            $key = $row['Part Name'] . '-' . $row['Timed'];
+
+            // Check if the key already exists in the groupedData array
+            if (isset($groupedData[$key])) {
+                // If the key exists, append the row to the existing array under the key
+                $groupedData[$key]['Yards'] += $row['Yards'];
+            } else {
+                // If the key does not exist, create a new array with the row under the key
+                $groupedData[$key] = $row;
+            }
+        }
+
+// Convert the groupedData array to a sequential array
+        $groupedArray = array_values($groupedData);
+
+// Convert the grouped array to JSON
+        $jsonDataa = json_encode($groupedArray);
+    }
+
+
+$allData = json_decode($mergedJson, true);
+$yardData = json_decode($jsonDataa, true);
+
+$combinedData = [];
+
+foreach ($allData as $allItem) {
+    $partDescription = $allItem['Part Description'];
+    $duration = $allItem['Duration'];
+    $matched = false;
+
+    foreach ($yardData as $yardItem) {
+        $partName = $yardItem['Part Name'];
+        $timed = $yardItem['Timed'];
+
+        if ($partDescription === $partName && $duration === $timed) {
+            $combinedItem = array_merge($allItem, $yardItem);
+            $combinedData[] = $combinedItem;
+            $matched = true;
+        }
+    }
+
+    if (!$matched) {
+        $combinedItem = $allItem;
+        $combinedItem['Yards'] = 0;
+        $combinedData[] = $combinedItem;
+    }
+}
+
+// Convert the combined data to JSON
+$combinedJson = json_encode($combinedData);
+
+// Output the combined JSON
+echo $combinedJson;

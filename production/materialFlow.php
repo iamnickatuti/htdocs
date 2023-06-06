@@ -203,7 +203,7 @@ include 'sql/sqlOpening.php';
                                                 tableBody.appendChild(tr);
 
                                                 totalQuantity += parseFloat(row.total_quantity);
-                                                cageReceipts += parseFloat(row.cageReceipts);
+                                                cageReceipts += parseFloat(row['Cages']);
                                                 totalRebonding += parseFloat(row.totalRebonding);
                                                 bomConsumption += parseFloat(row.bomConsumption);
                                                 closingBalance += parseFloat(row['Closing Balance']);
