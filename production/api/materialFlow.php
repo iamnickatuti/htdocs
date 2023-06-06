@@ -439,5 +439,105 @@ foreach ($allData as $allItem) {
 // Convert the combined data to JSON
 $combinedJson = json_encode($combinedData);
 
-// Output the combined JSON
+
+$sql = "SELECT skus.name AS 'Part Name',
+               block_components.weight AS 'Consumption',
+               block_components.date as 'Tarehe'
+        FROM block_components
+        LEFT JOIN skus ON skus.id = block_components.sku_id
+        WHERE block_components.sku_id IN (848, 90, 75, 89, 79, 77, 78, 80, 88, 94, 970, 218, 222)";
+
+$resultConsumption = $conn->query($sql);
+// Fetch the result and store it in an array
+$data = array();
+// Fetch each row from the result set
+while ($row = $resultConsumption->fetch_assoc()) {
+    $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
+    $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
+    $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
+    $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
+    $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+    $partBra = array('RM-FS-BR001');
+    $partSweepings = array('RM-FS-SW001');
+    $partMD1518 = array('RM-CH-MD007');
+    $partMD1518H = array('RM-CH-MD008');
+
+    if (in_array($row['Part Name'], $partSpain)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
+    } elseif (in_array($row['Part Name'], $partJapan)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
+    } elseif (in_array($row['Part Name'], $partRecycle)) {
+        $psku = 'Raw Material:Foam Scrap:Recycle Foam';
+    } elseif (in_array($row['Part Name'], $partChina)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
+    } elseif (in_array($row['Part Name'], $partTrial)) {
+        $psku = 'RM:Foam Scrap: Trial Foam';
+    } elseif (in_array($row['Part Name'], $partBra)) {
+        $psku = 'Raw Material:Foam Scrap:Bra - Code B';
+    } elseif (in_array($row['Part Name'], $partSweepings)) {
+        $psku = 'Raw Material:Foam Scrap:Sweepings';
+    } elseif (in_array($row['Part Name'], $partMD1518)) {
+        $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
+    } elseif (in_array($row['Part Name'], $partMD1518H)) {
+        $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
+    } elseif ($row['Part Name'] === 'RM-FM-FR007') {
+        $psku = 'Raw Material:Foam Scrap:Recon Mixed';
+    } elseif ($row['Part Name'] === 'RM-FS-FL001') {
+        $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
+    } elseif ($row['Part Name'] === 'RM-FS-FL002') {
+        $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
+    } elseif ($row['Part Name'] === 'RM-CH-MD009') {
+        $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
+    } elseif ($row['Part Name'] === 'RM-FS-CM051') {
+        $psku = 'Raw Material:Local Loose Foam';
+    }
+    // Format the date
+    $datee = date('Y-m', strtotime($row['Tarehe']));
+    $row['Tarehe'] = $datee;
+    $row['Part Name'] = $psku;
+
+    // Generate a unique key based on the combination of PSKU and date
+    $key = $row['Part Name'] . '-' . $row['Tarehe'];
+
+    // Check if the key already exists in the groupedData array
+    if (isset($groupedDataa[$key])) {
+        // If the key exists, merge the row with the existing groupedData item
+        $groupedDataa[$key] = array_merge($groupedDataa[$key], $row);
+    } else {
+        // If the key does not exist, create a new item in the groupedData array
+        $groupedDataa[$key] = $row;
+    }
+}
+
+// Convert the groupedData array to a sequential array
+$groupedArray = array_values($groupedDataa);
+
+// Convert the grouped array to JSON
+$jsonDataa = json_encode($groupedArray);
+
+$finalData = json_decode($combinedJson, true);
+$consData = json_decode($jsonDataa, true);
+
+$combinedArray = [];
+
+foreach ($finalData as $finalItem) {
+    $matched = false; // Flag to check if a match is found
+
+    foreach ($consData as $consItem) {
+        if ($finalItem['Part Description'] === $consItem['Part Name'] && $finalItem['Duration'] === $consItem['Tarehe']) {
+            $combinedItem = array_merge($finalItem, $consItem);
+            $combinedArray[] = $combinedItem;
+            $matched = true;
+            break; // Exit the inner loop since a match is found
+        }
+    }
+
+    if (!$matched) {
+        // No match found, assign consumption to 0
+        $finalItem['consumption'] = 0;
+        $combinedArray[] = $finalItem;
+    }
+}
+
+$combinedJson = json_encode($combinedArray);
 echo $combinedJson;

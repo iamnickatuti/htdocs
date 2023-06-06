@@ -48,22 +48,7 @@ include 'sql/sqlOpening.php';
                                 Material Flow 2023
                             </h4>
                             <div class="page-title-right">
-<!--                                <form action="prodCountFilter.php" method="post">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-9">-->
-<!--                                            <select class="form-control mb-3" name = "dur">-->
-<!--                                                <option >Choose Month</option>-->
-<!--                                                <option value="2023 Jan%">January 2023</option>-->
-<!--                                                <option value="2023 Feb%">February 2023</option>-->
-<!--                                                <option value="2023 Mar%">March 2023</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-3">-->
-<!--                                            <input type="submit" class="btn btn-warning" value="Get" name="search">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-                                <span>Filter <b>Month</b> coming soon</span>
+                                <span>Price equivalent coming soon</span>
                             </div>
                         </div>
                     </div>
@@ -149,6 +134,7 @@ include 'sql/sqlOpening.php';
 
                                             var totalQuantity = 0;
                                             var cageReceipts = 0;
+                                            var yardReceipts = 0;
                                             var totalRebonding = 0;
                                             var bomConsumption = 0;
                                             var closingBalance = 0;
@@ -167,6 +153,9 @@ include 'sql/sqlOpening.php';
 
                                                 var tdcReceipts = document.createElement('td');
                                                 tdcReceipts.textContent = row['Cages'];
+
+                                                var tdyReceipts = document.createElement('td');
+                                                tdyReceipts.textContent = row['Yards'];
 
                                                 var tdTotalRebonding = document.createElement('td');
                                                 tdTotalRebonding.textContent = row.totalRebonding;
@@ -189,21 +178,31 @@ include 'sql/sqlOpening.php';
                                                 var tdVariance = document.createElement('td');
                                                 tdVariance.textContent = row.variancee;
 
+
+                                                var tdRebonding = document.createElement('td');
+                                                var openingBalance = parseFloat(row['Opening Balance']);
+                                                var cageReceipts = parseFloat(row['Cages']);
+                                                var yardReceipts = parseFloat(row['Yards']);
+                                                var rebonding = openingBalance + cageReceipts + yardReceipts;
+                                                tdRebonding.textContent = rebonding.toFixed(2);
+
                                                 tr.appendChild(tdPartNumber);
                                                 tr.appendChild(tdName);
                                                 tr.appendChild(tdOpeningBalance);
                                                 tr.appendChild(tdcReceipts);
+                                                tr.appendChild(tdyReceipts);
+                                                tr.appendChild(tdRebonding);
                                                 tr.appendChild(tdTotalRebonding);
                                                 tr.appendChild(tdConsumption);
                                                 tr.appendChild(tdClosingBalance);
                                                 tr.appendChild(tdTotalQuantity);
                                                 tr.appendChild(tdActualBalance);
                                                 tr.appendChild(tdVariance);
-
                                                 tableBody.appendChild(tr);
 
                                                 totalQuantity += parseFloat(row.total_quantity);
                                                 cageReceipts += parseFloat(row['Cages']);
+                                                yardReceipts += parseFloat(row['Yards']);
                                                 totalRebonding += parseFloat(row.totalRebonding);
                                                 bomConsumption += parseFloat(row.bomConsumption);
                                                 closingBalance += parseFloat(row['Closing Balance']);
@@ -212,47 +211,7 @@ include 'sql/sqlOpening.php';
                                                 variance += parseFloat(row.variancee);
                                             });
 
-                                            // Add total amount row
-                                            var trTotal = document.createElement('tr');
-                                            var tdTotalLabel = document.createElement('td');
-                                            tdTotalLabel.textContent = 'Total Amount';
 
-                                            var tdTotalcReceipts = document.createElement('td');
-                                            tdTotalcReceipts.textContent = cageReceipts.toFixed(2);
-
-                                            var tdTotalRebonding = document.createElement('td');
-                                            tdTotalRebonding.textContent = totalRebonding.toFixed(2);
-
-                                            var tdTotalConsumption = document.createElement('td');
-                                            tdTotalConsumption.textContent = bomConsumption.toFixed(2);
-
-                                            var tdTotalClosingBalance = document.createElement('td');
-                                            tdTotalClosingBalance.textContent = closingBalance.toFixed(2);
-
-                                            var tdTotalOpeningBalance = document.createElement('td');
-                                            tdTotalOpeningBalance.textContent = openingBalance.toFixed(2);
-
-                                            var tdTotalQuantity = document.createElement('td');
-                                            tdTotalQuantity.textContent = totalQuantity.toFixed(2);
-
-                                            var tdTotalActualBalance = document.createElement('td');
-                                            tdTotalActualBalance.textContent = actualBalance.toFixed(2);
-
-                                            var tdTotalVariance = document.createElement('td');
-                                            tdTotalVariance.textContent = variance.toFixed(2);
-
-                                            trTotal.appendChild(tdTotalLabel);
-                                            trTotal.appendChild(document.createElement('td'));
-                                            trTotal.appendChild(tdTotalOpeningBalance);
-                                            trTotal.appendChild(tdTotalcReceipts);
-                                            trTotal.appendChild(tdTotalRebonding);
-                                            trTotal.appendChild(tdTotalConsumption);
-                                            trTotal.appendChild(tdTotalClosingBalance);
-                                            trTotal.appendChild(tdTotalQuantity);
-                                            trTotal.appendChild(tdTotalActualBalance);
-                                            trTotal.appendChild(tdTotalVariance);
-
-                                            tableBody.appendChild(trTotal);
                                         }
 
                                         // Update the table when the duration is changed
