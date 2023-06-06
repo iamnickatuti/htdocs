@@ -184,7 +184,6 @@ if ($result) {
 
 $cageQuery = "SELECT 
 skus.name as 'Part Name',
-skus.description as 'Part Description',
 cage_receipts.value AS 'Cages',
 cage_receipts.created_at AS 'Masaa'
 FROM
