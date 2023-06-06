@@ -90,7 +90,8 @@ include 'sql/sqlOpening.php';
                                         <th style="width: 130px;">Part Number</th>
                                         <th style="width: 300px; font-size: 11px;">Name</th>
                                         <th style="font-size: 11px;">Opening Balance (Kgs)</th>
-                                        <th style="font-size: 11px;">Receipts</th>
+                                        <th style="font-size: 11px;">Cage Receipts</th>
+                                        <th style="font-size: 11px;">Yard Receipts</th>
                                         <th style="font-size: 11px;">Total Available for Rebonding (Kgs)</th>
                                         <th style="font-size: 11px;">Consumption (Kgs)</th>
                                         <th style="font-size: 11px;">Expected Closing Balance (Kgs)</th>
@@ -145,6 +146,7 @@ include 'sql/sqlOpening.php';
 
                                             var tableBody = document.getElementById('tableBody');
                                             tableBody.innerHTML = '';
+
                                             var totalQuantity = 0;
                                             var manufacturingReceipts = 0;
                                             var totalRebonding = 0;
@@ -156,34 +158,44 @@ include 'sql/sqlOpening.php';
 
                                             filteredRows.forEach(function(row) {
                                                 var tr = document.createElement('tr');
+
                                                 var tdPartNumber = document.createElement('td');
                                                 tdPartNumber.textContent = row['Part Number'];
+
                                                 var tdName = document.createElement('td');
-                                                tdName.textContent = row.name;
+                                                tdName.textContent = row['Part Description'];
+
                                                 var tdReceipts = document.createElement('td');
                                                 tdReceipts.textContent = row.manufacturingReceipts;
+
                                                 var tdTotalRebonding = document.createElement('td');
                                                 tdTotalRebonding.textContent = row.totalRebonding;
+
                                                 var tdConsumption = document.createElement('td');
                                                 tdConsumption.textContent = row.bomConsumption;
+
                                                 var tdClosingBalance = document.createElement('td');
-                                                tdClosingBalance.textContent = row.closingBalance;
+                                                tdClosingBalance.textContent = row['Closing Balance'];
+
                                                 var tdOpeningBalance = document.createElement('td');
-                                                tdOpeningBalance.textContent = row.openingBalance;
+                                                tdOpeningBalance.textContent = row['Opening Balance'];
+
                                                 var tdTotalQuantity = document.createElement('td');
                                                 tdTotalQuantity.textContent = row.total_quantity;
+
                                                 var tdActualBalance = document.createElement('td');
                                                 tdActualBalance.textContent = row.actualBalance;
+
                                                 var tdVariance = document.createElement('td');
                                                 tdVariance.textContent = row.variancee;
 
                                                 tr.appendChild(tdPartNumber);
                                                 tr.appendChild(tdName);
+                                                tr.appendChild(tdOpeningBalance);
                                                 tr.appendChild(tdReceipts);
                                                 tr.appendChild(tdTotalRebonding);
                                                 tr.appendChild(tdConsumption);
                                                 tr.appendChild(tdClosingBalance);
-                                                tr.appendChild(tdOpeningBalance);
                                                 tr.appendChild(tdTotalQuantity);
                                                 tr.appendChild(tdActualBalance);
                                                 tr.appendChild(tdVariance);
@@ -194,8 +206,8 @@ include 'sql/sqlOpening.php';
                                                 manufacturingReceipts += parseFloat(row.manufacturingReceipts);
                                                 totalRebonding += parseFloat(row.totalRebonding);
                                                 bomConsumption += parseFloat(row.bomConsumption);
-                                                closingBalance += parseFloat(row.closingBalance);
-                                                openingBalance += parseFloat(row.openingBalance);
+                                                closingBalance += parseFloat(row['Closing Balance']);
+                                                openingBalance += parseFloat(row['Opening Balance']);
                                                 actualBalance += parseFloat(row.actualBalance);
                                                 variance += parseFloat(row.variancee);
                                             });
@@ -204,30 +216,38 @@ include 'sql/sqlOpening.php';
                                             var trTotal = document.createElement('tr');
                                             var tdTotalLabel = document.createElement('td');
                                             tdTotalLabel.textContent = 'Total Amount';
+
                                             var tdTotalReceipts = document.createElement('td');
                                             tdTotalReceipts.textContent = manufacturingReceipts.toFixed(2);
+
                                             var tdTotalRebonding = document.createElement('td');
                                             tdTotalRebonding.textContent = totalRebonding.toFixed(2);
+
                                             var tdTotalConsumption = document.createElement('td');
                                             tdTotalConsumption.textContent = bomConsumption.toFixed(2);
+
                                             var tdTotalClosingBalance = document.createElement('td');
                                             tdTotalClosingBalance.textContent = closingBalance.toFixed(2);
+
                                             var tdTotalOpeningBalance = document.createElement('td');
                                             tdTotalOpeningBalance.textContent = openingBalance.toFixed(2);
+
                                             var tdTotalQuantity = document.createElement('td');
                                             tdTotalQuantity.textContent = totalQuantity.toFixed(2);
+
                                             var tdTotalActualBalance = document.createElement('td');
                                             tdTotalActualBalance.textContent = actualBalance.toFixed(2);
+
                                             var tdTotalVariance = document.createElement('td');
                                             tdTotalVariance.textContent = variance.toFixed(2);
 
                                             trTotal.appendChild(tdTotalLabel);
                                             trTotal.appendChild(document.createElement('td'));
+                                            trTotal.appendChild(tdTotalOpeningBalance);
                                             trTotal.appendChild(tdTotalReceipts);
                                             trTotal.appendChild(tdTotalRebonding);
                                             trTotal.appendChild(tdTotalConsumption);
                                             trTotal.appendChild(tdTotalClosingBalance);
-                                            trTotal.appendChild(tdTotalOpeningBalance);
                                             trTotal.appendChild(tdTotalQuantity);
                                             trTotal.appendChild(tdTotalActualBalance);
                                             trTotal.appendChild(tdTotalVariance);
@@ -240,6 +260,7 @@ include 'sql/sqlOpening.php';
 
                                         // Initial table population
                                         updateTable();
+
                                     </script>
 
 
@@ -249,35 +270,35 @@ include 'sql/sqlOpening.php';
 
 
                                 <style>
-                                    tr th:nth-child(4) {
+                                    tr th:nth-child(3) {
                                         background-color:#bdffbf;
                                         color: #000;
                                     }
-                                    tr td:nth-child(4) {
+                                    tr td:nth-child(3) {
                                         background-color: #bdffbf;
                                         color: #000;
                                     }
-                                    tr th:nth-child(5) {
+                                    tr th:nth-child(4) {
                                         background-color:#e3e3e3;
                                         color: #000;
                                     }
-                                    tr td:nth-child(5) {
+                                    tr td:nth-child(4) {
                                         background-color: #e3e3e3;
                                         color: #000;
                                     }
-                                    tr th:nth-child(6) {
+                                    tr th:nth-child(7) {
                                         background-color:#ffbdbd;
                                         color: #000;
                                     }
-                                    tr td:nth-child(6) {
+                                    tr td:nth-child(7) {
                                         background-color: #ffbdbd;
                                         color: #000;
                                     }
-                                    tr th:nth-child(7) {
+                                    tr th:nth-child(8) {
                                         background-color:#ffedbd;
                                         color: #000;
                                     }
-                                    tr td:nth-child(7) {
+                                    tr td:nth-child(8) {
                                         background-color: #ffedbd;
                                         color: #000;
                                     }

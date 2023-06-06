@@ -177,6 +177,137 @@ if ($result) {
     $resultJson = json_encode($data, JSON_PRETTY_PRINT);
 
 // Output the result JSON
-    header('Content-Type: application/json');
-    echo $resultJson;
+
 }
+
+//cage receipts
+
+$cageQuery = "SELECT 
+skus.name as 'Part Name',
+skus.description as 'Part Description',
+cage_receipts.value AS 'Quantity',
+cage_receipts.created_at AS 'Masaa'
+FROM
+(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
+
+$resultCage = mysqli_query($conn, $cageQuery);
+$data = array();
+while ($row = mysqli_fetch_assoc($resultCage)) {
+    $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
+    $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
+    $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
+    $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
+    $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+    $partBra = array('RM-FS-BR001');
+    $partSweepings = array('RM-FS-SW001');
+    $partMD1518 = array('RM-CH-MD007');
+    $partMD1518H = array('RM-CH-MD008');
+
+    if (in_array($row['Part Name'], $partSpain)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
+    } elseif (in_array($row['Part Name'], $partJapan)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
+    } elseif (in_array($row['Part Name'], $partRecycle)) {
+        $psku = 'Raw Material:Foam Scrap:Recycle Foam';
+    } elseif (in_array($row['Part Name'], $partChina)) {
+        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
+    } elseif (in_array($row['Part Name'], $partTrial)) {
+        $psku = 'RM:Foam Scrap: Trial Foam';
+    } elseif (in_array($row['Part Name'], $partBra)) {
+        $psku = 'Raw Material:Foam Scrap:Bra - Code B';
+    } elseif (in_array($row['Part Name'], $partSweepings)) {
+        $psku = 'Raw Material:Foam Scrap:Sweepings';
+    } elseif (in_array($row['Part Name'], $partMD1518)) {
+        $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
+    } elseif (in_array($row['Part Name'], $partMD1518H)) {
+        $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
+    } elseif ($row['Part Name'] === 'RM-FM-FR007') {
+        $psku = 'Raw Material:Foam Scrap:Recon Mixed';
+    } elseif ($row['Part Name'] === 'RM-FS-FL001') {
+        $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
+    } elseif ($row['Part Name'] === 'RM-FS-FL002') {
+        $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
+    } elseif ($row['Part Name'] === 'RM-CH-MD009') {
+        $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
+    } elseif ($row['Part Name'] === 'RM-FS-CM051') {
+        $psku = 'Raw Material:Local Loose Foam';
+    }
+    // Convert the date format from 'Masaa' to '2022-04'
+    $date = date('Y-m', strtotime($row['Masaa']));
+    $row['Masaa'] = $date;
+    $row['Part Name'] = $psku; // Update the "Part Name" column value
+    $data[] = $row;
+
+}
+
+
+
+
+$groupedData = [];
+
+/// Assuming you have an array of rows: $data
+
+// Initialize the one-dimensional array
+$combinedArray = [];
+// Assuming you have an array of rows: $data
+
+// Create an associative array to store the grouped results
+$groupedData = [];
+
+// Iterate over each row in the data array
+foreach ($data as $row) {
+    $date = date('Y-m', strtotime($row['Masaa']));
+    $row['Masaa'] = $date;
+    $row['Part Name'] = $psku; // Update the "Part Name" column value
+
+    // Generate a unique key based on the combination of Masaa and Part Name
+    $key = $row['Masaa'] . '-' . $row['Part Name'];
+
+    // Check if the key already exists in the groupedData array
+    if (isset($groupedData[$key])) {
+        // If the key exists, merge the row with the existing groupedData item
+        $groupedData[$key] = array_merge($groupedData[$key], $row);
+    } else {
+        // If the key does not exist, create a new item in the groupedData array
+        $groupedData[$key] = $row;
+    }
+}
+
+// Convert the groupedData array to a sequential array
+$groupedArray = array_values($groupedData);
+
+// Convert the grouped array to JSON
+$groupedJson = json_encode($groupedArray);
+
+$material = json_decode($resultJson, true);
+$cageReceipts= json_decode($groupedJson, true);
+
+// Initialize the merged array
+$mergedArray = [];
+
+// Iterate over each element in array2
+foreach ($cageReceipts as $item2) {
+    // Iterate over each element in array1
+    foreach ($material as $item1) {
+        // Check if Part Name matches Part Description and Masaa matches Duration
+        if ($item2['Part Name'] === $item1['Part Description'] && $item2['Masaa'] === $item1['Duration']) {
+            // Merge the two items into a new array
+            $mergedItem = array_merge($item1, $item2);
+            // Add the merged item to the merged array
+            $mergedArray[] = $mergedItem;
+        }
+    }
+}
+
+// Convert the merged array back to JSON
+$mergedJson = json_encode($mergedArray);
+header('Content-Type: application/json');
+// Output the merged JSON array
+echo $mergedJson;
+
+
+
+
+
+
+

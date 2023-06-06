@@ -502,7 +502,6 @@ WHERE
 order by
   stocktakes.date desc ";
 
-
 //material receipts in cages
 
 $R1rec = "SELECT sum(cage_receipts.value) AS 'r001' FROM
