@@ -534,10 +534,12 @@ foreach ($finalData as $finalItem) {
 
     if (!$matched) {
         // No match found, assign consumption to 0
-        $finalItem['consumption'] = 0;
+        $finalItem['Consumption'] = 0;
         $combinedArray[] = $finalItem;
     }
 }
 
-$combinedJson = json_encode($combinedArray);
-echo $combinedJson;
+
+
+$combinedJsonn = json_encode($combinedArray);
+echo $combinedJsonn;

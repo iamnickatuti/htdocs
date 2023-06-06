@@ -161,7 +161,7 @@ include 'sql/sqlOpening.php';
                                                 tdTotalRebonding.textContent = row.totalRebonding;
 
                                                 var tdConsumption = document.createElement('td');
-                                                tdConsumption.textContent = row.bomConsumption;
+                                                tdConsumption.textContent = row['Consumption'];
 
                                                 var tdClosingBalance = document.createElement('td');
                                                 tdClosingBalance.textContent = row['Closing Balance'];
@@ -192,8 +192,8 @@ include 'sql/sqlOpening.php';
                                                 tr.appendChild(tdcReceipts);
                                                 tr.appendChild(tdyReceipts);
                                                 tr.appendChild(tdRebonding);
-                                                tr.appendChild(tdTotalRebonding);
                                                 tr.appendChild(tdConsumption);
+                                                tr.appendChild(tdTotalRebonding);
                                                 tr.appendChild(tdClosingBalance);
                                                 tr.appendChild(tdTotalQuantity);
                                                 tr.appendChild(tdActualBalance);
