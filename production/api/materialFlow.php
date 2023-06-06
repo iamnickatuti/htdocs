@@ -444,9 +444,7 @@ $sql = "SELECT skus.name AS 'Part Name',
         block_components.weight AS 'Consumption',
         block_components.date as 'Tarehe'
         FROM block_components
-        LEFT JOIN skus ON skus.id = block_components.sku_id
-        WHERE block_components.sku_id IN (848, 90, 75, 89, 79, 77, 78, 80, 88, 94, 970, 218, 222, 1804, 1806, 1807, 1808, 1809, 1818, 1819, 1818, 1819, 1820, 1821, 1822, 1823, 1824 , 1980)";
-
+        LEFT JOIN skus ON skus.id = block_components.sku_id";
 $resultConsumption = $conn->query($sql);
 // Fetch the result and store it in an array
 $data = array();
