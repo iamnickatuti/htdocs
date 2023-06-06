@@ -132,15 +132,6 @@ include 'sql/sqlOpening.php';
                                             var tableBody = document.getElementById('tableBody');
                                             tableBody.innerHTML = '';
 
-                                            var totalQuantity = 0;
-                                            var cageReceipts = 0;
-                                            var yardReceipts = 0;
-                                            var totalRebonding = 0;
-                                            var bomConsumption = 0;
-                                            var closingBalance = 0;
-                                            var openingBalance = 0;
-                                            var actualBalance = 0;
-                                            var variance = 0;
 
                                             filteredRows.forEach(function(row) {
                                                 var tr = document.createElement('tr');
@@ -200,15 +191,6 @@ include 'sql/sqlOpening.php';
                                                 tr.appendChild(tdVariance);
                                                 tableBody.appendChild(tr);
 
-                                                totalQuantity += parseFloat(row.total_quantity);
-                                                cageReceipts += parseFloat(row['Cages']);
-                                                yardReceipts += parseFloat(row['Yards']);
-                                                totalRebonding += parseFloat(row.totalRebonding);
-                                                bomConsumption += parseFloat(row.bomConsumption);
-                                                closingBalance += parseFloat(row['Closing Balance']);
-                                                openingBalance += parseFloat(row['Opening Balance']);
-                                                actualBalance += parseFloat(row.actualBalance);
-                                                variance += parseFloat(row.variancee);
                                             });
 
 

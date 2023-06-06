@@ -441,8 +441,8 @@ $combinedJson = json_encode($combinedData);
 
 
 $sql = "SELECT skus.name AS 'Part Name',
-               block_components.weight AS 'Consumption',
-               block_components.date as 'Tarehe'
+        block_components.weight AS 'Consumption',
+        block_components.date as 'Tarehe'
         FROM block_components
         LEFT JOIN skus ON skus.id = block_components.sku_id
         WHERE block_components.sku_id IN (848, 90, 75, 89, 79, 77, 78, 80, 88, 94, 970, 218, 222)";
@@ -451,7 +451,10 @@ $resultConsumption = $conn->query($sql);
 // Fetch the result and store it in an array
 $data = array();
 // Fetch each row from the result set
+$groupedData = array();
+
 while ($row = $resultConsumption->fetch_assoc()) {
+
     $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
     $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
     $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
@@ -495,25 +498,22 @@ while ($row = $resultConsumption->fetch_assoc()) {
     $datee = date('Y-m', strtotime($row['Tarehe']));
     $row['Tarehe'] = $datee;
     $row['Part Name'] = $psku;
+    $consumption = $row['Consumption'];
 
-    // Generate a unique key based on the combination of PSKU and date
+    // Generate a unique key based on the combination of PSKU and datee
     $key = $row['Part Name'] . '-' . $row['Tarehe'];
 
     // Check if the key already exists in the groupedData array
-    if (isset($groupedDataa[$key])) {
-        // If the key exists, merge the row with the existing groupedData item
-        $groupedDataa[$key] = array_merge($groupedDataa[$key], $row);
+    if (isset($groupedData[$key])) {
+        // If the key exists, update the consumption by adding the current row's consumption
+        $groupedData[$key]['Consumption'] += $consumption;
     } else {
         // If the key does not exist, create a new item in the groupedData array
-        $groupedDataa[$key] = $row;
+        $groupedData[$key] = $row;
+        $groupedData[$key]['Consumption'] = $consumption;
     }
 }
-
-// Convert the groupedData array to a sequential array
-$groupedArray = array_values($groupedDataa);
-
-// Convert the grouped array to JSON
-$jsonDataa = json_encode($groupedArray);
+$jsonDataa = json_encode($groupedData);
 
 $finalData = json_decode($combinedJson, true);
 $consData = json_decode($jsonDataa, true);
@@ -538,7 +538,6 @@ foreach ($finalData as $finalItem) {
         $combinedArray[] = $finalItem;
     }
 }
-
 
 
 $combinedJsonn = json_encode($combinedArray);
