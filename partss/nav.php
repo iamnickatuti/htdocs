@@ -32,7 +32,15 @@
                             <i class="mdi mdi-toolbox"></i>Production <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                            <a href="../production/materialFlow" class="dropdown-item">Monthly Material Flow</a>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Count<div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-tables">
+                                    <a href="../production/materialFlow" class="dropdown-item">Monthly</a>
+                                    <a href="../production/dailyWIP" class="dropdown-item">Daily </a>
+                                </div>
+                            </div>
                             <a href="../production/cuttingInfo" class="dropdown-item">Cutting Info</a>
                             <a href="../production/qbupload" class="dropdown-item">QB Upload</a>
                             <a href="../production/cuttingOutput" class="dropdown-item">Cutting Costs</a>
