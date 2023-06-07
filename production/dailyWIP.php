@@ -189,24 +189,29 @@ include '../parts/header.php';
 
                             <script>
                                 function exportTableToExcel() {
-                                    // Select the table element
                                     var table = document.getElementById('resultTable');
+                                    var rows = table.getElementsByTagName('tr');
+                                    var rowData = [];
 
-                                    // Create a TableExport instance
-                                    var tableExport = new TableExport(table, {
-                                        exportButtons: false, // Disable export buttons
-                                        filename: 'TableData', // Set the filename for the exported file
-                                        sheetname: 'Sheet1', // Set the sheet name for the exported file
-                                    });
+                                    for (var i = 0; i < rows.length; i++) {
+                                        var row = [], cols = rows[i].querySelectorAll('td, th');
 
-                                    // Generate the Excel file in XLSX format
-                                    var exportData = tableExport.getExportData()['resultTable']['xlsx'];
+                                        for (var j = 0; j < cols.length; j++)
+                                            row.push(cols[j].innerText);
 
-                                    // Save the file using FileSaver.js
-                                    var xlsxData = new Blob([exportData.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                                    saveAs(xlsxData, exportData.filename + '.xlsx');
+                                        rowData.push(row.join('\t'));
+                                    }
+
+                                    var excelData = rowData.join('\n');
+                                    var blob = new Blob([excelData], { type: 'application/vnd.ms-excel' });
+
+                                    var link = document.createElement('a');
+                                    link.href = URL.createObjectURL(blob);
+                                    link.download = 'TableData.xls';
+                                    link.click();
                                 }
                             </script>
+
 
                             <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
