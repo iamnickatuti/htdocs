@@ -54,8 +54,4 @@ FROM
     LEFT JOIN categories ON categories.id = skus.category_id)
     LEFT JOIN units ON units.id = skus.unit_id)
     LEFT JOIN locations ON locations.id = manufacturing_receipts.location_id)
-    LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id)
-    WHERE
-    sku_id IN (848, 90, 75, 89, 79, 77, 78, 80, 88, 94, 970, 218, 222, 1804, 1806, 1807, 1808, 1809, 1818, 1819, 1818, 1819, 1820, 1821, 1822, 1823, 1824 , 1980)
-    
-    ";
+    LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id) ";
