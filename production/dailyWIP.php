@@ -102,7 +102,6 @@ include '../parts/header.php';
                                     <br>
                                     <p class="card-subtitle mb-4">Choose from the drop-downs to display data</p>
                                 </div>
-
                                 <table id="resultTable" class="table table-centered table-striped mb-0" style="font-size: 11px;">
                                     <thead>
                                     <tr>
@@ -115,9 +114,59 @@ include '../parts/header.php';
                                     </tr>
                                     </thead>
                                     <tbody id="tableBody">
-                                    <!-- Display the filtered data in the table -->
+                                    <!-- Add the export button -->
+                                    <button onclick="exportToExcel()" class = "btn btn-warning">Export to Excel</button>
                                     <script>
                                         var filteredData = <?php echo $filteredDataJSON; ?>;
+
+                                        function updateTable() {
+                                            // Rest of the code...
+
+                                            // Update the totalQty calculation and display
+                                            var totalQty = 0;
+                                            filteredRows.forEach(function(row) {
+                                                // Rest of the code...
+
+                                                totalQty += parseInt(row.Qty);
+                                            });
+
+                                            var totalQtyElement = document.getElementById('totalQty');
+                                            totalQtyElement.textContent = totalQty;
+                                        }
+
+                                        // Export to Excel function
+                                        function exportToExcel() {
+                                            // Create a new Workbook
+                                            var wb = XLSX.utils.book_new();
+
+                                            // Convert filteredData to worksheet format
+                                            var ws = XLSX.utils.json_to_sheet(filteredData);
+
+                                            // Add the worksheet to the Workbook
+                                            XLSX.utils.book_append_sheet(wb, ws, 'Filtered Data');
+
+                                            // Generate a download link for the Excel file
+                                            var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                                            var blob = new Blob([wbout], { type: 'application/octet-stream' });
+                                            var filename = 'Daily Count.xlsx';
+
+                                            if (navigator.msSaveBlob) {
+                                                // For IE
+                                                navigator.msSaveBlob(blob, filename);
+                                            } else {
+                                                // For other browsers
+                                                var link = document.createElement('a');
+                                                if (link.download !== undefined) {
+                                                    var url = URL.createObjectURL(blob);
+                                                    link.setAttribute('href', url);
+                                                    link.setAttribute('download', filename);
+                                                    link.style.visibility = 'hidden';
+                                                    document.body.appendChild(link);
+                                                    link.click();
+                                                    document.body.removeChild(link);
+                                                }
+                                            }
+                                        }
 
                                         function updateTable() {
                                             var tagSelect = document.getElementById('tagSelect');
