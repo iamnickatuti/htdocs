@@ -8,7 +8,6 @@ skus.name AS 'Part Number',
 stocktakes.quantity AS 'Qty',
 skus.description AS 'SKU Description'
 
-  
     FROM
       (((((((((
     cradle.stocktakes 

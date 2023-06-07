@@ -79,7 +79,7 @@ include '../parts/header.php';
                                 <div class="mb-4">
                                     <div class="float-right mr-2">
                                         <select name="team" id="teamSelect" class="form-control form-control-md">
-                                            <option value="">All Teams</option>
+                                            <option value="">Choose Team ID</option>
                                             <?php foreach ($issuanceTeams as $team) { ?>
                                                 <option value="<?php echo $team; ?>" <?php echo ($team === $selectedTeam) ? 'selected' : ''; ?>>
                                                     <?php echo $team; ?>
@@ -89,7 +89,7 @@ include '../parts/header.php';
                                     </div>
                                     <div class="float-right">
                                         <select name="tag" id="tagSelect" class="form-control form-control-md">
-                                            <option value="">All Tags</option>
+                                            <option value="">Choose Date</option>
                                             <?php foreach ($tags as $tag) { ?>
                                                 <option value="<?php echo $tag; ?>" <?php echo ($tag === $selectedTag) ? 'selected' : ''; ?>>
                                                     <?php echo $tag; ?>
@@ -155,10 +155,10 @@ include '../parts/header.php';
 
                                                 tr.appendChild(tdTag);
                                                 tr.appendChild(tdLocation);
-                                                tr.appendChild(tdTeam);
+                                                // tr.appendChild(tdTeam);
                                                 tr.appendChild(tdPartNumber);
-                                                tr.appendChild(tdQty);
                                                 tr.appendChild(tdSkuDescription);
+                                                tr.appendChild(tdQty);
                                                 tableBody.appendChild(tr);
                                             });
                                         }
