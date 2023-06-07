@@ -24,6 +24,7 @@ FROM
 WHERE
     stocktake_references.cycle_id = 1
     AND stocktake_references.date >= CURDATE() - INTERVAL 30 DAY
+    AND stocktakes.deleted_by = 0
 ORDER BY
     stocktakes.date DESC";
 

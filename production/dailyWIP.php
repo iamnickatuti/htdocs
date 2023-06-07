@@ -53,7 +53,7 @@ include '../parts/header.php';
                 </div>
                 <!-- end row-->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-8">
                         <div class="card">
                             <?php
                             $json_data = file_get_contents('https://reports.moko.co.ke/production/api/dailyCount.php');
@@ -102,7 +102,6 @@ include '../parts/header.php';
                                     <br>
                                     <p class="card-subtitle mb-4">Choose from the drop-downs to display data</p>
                                 </div>
-                                <p id="totalQty"></p>
 
                                 <table id="resultTable" class="table table-centered table-striped mb-0">
                                     <thead>
@@ -186,6 +185,24 @@ include '../parts/header.php';
 
 
                         </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-4">
+<!--                                    <span class="badge badge-soft-primary float-right"></span>-->
+                                    <h5 class="card-title mb-0">Total</h5>
+                                </div>
+                                <div class="row d-flex align-items-center mb-4">
+                                    <div class="col-7">
+                                            <h2 id="totalQty" class="d-flex align-items-center mb-0"></h2>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--end card body-->
+                        </div><!-- end card-->
                     </div>
                 </div>
             </div>
