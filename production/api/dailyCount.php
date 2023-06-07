@@ -2,6 +2,7 @@
 include '../../cradle_config.php';
 $query = "SELECT
 stocktake_references.tag AS 'Tag',
+stocktake_references.date AS 'Duration',
 locations.name AS 'Location',
 locations.issuance_team_id,
 skus.name AS 'Part Number',

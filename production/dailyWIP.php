@@ -62,15 +62,22 @@ include '../parts/header.php';
                             // Get unique "Tag" and "issuance_team_id" values
                             $tags = array_unique(array_column($data, 'Tag'));
                             $issuanceTeams = array_unique(array_column($data, 'issuance_team_id'));
+                            $duration = array_unique(array_column($data, 'Duration'));
 
                             // Filter the data based on the selected "Tag" and "issuance_team_id"
                             $selectedTag = isset($_GET['tag']) ? $_GET['tag'] : null;
                             $selectedTeam = isset($_GET['team']) ? $_GET['team'] : null;
 
+                            // Get the current date minus 30 days
+                            $currentDate = date('Y-m-d');
+                            $thirtyDaysAgo = date('Y-m-d', strtotime('-30 days'));
+
                             // Prepare the filtered data for JavaScript usage
-                            $filteredData = array_filter($data, function ($row) use ($selectedTag, $selectedTeam) {
-                                return ($selectedTag === null || $row['Tag'] === $selectedTag)
-                                    && ($selectedTeam === null || $row['issuance_team_id'] === $selectedTeam);
+                            $filteredData = array_filter($data, function ($row) use ($selectedTag, $selectedTeam, $thirtyDaysAgo, $currentDate) {
+                            $rowDate = $row['Duration'];
+                            return ($selectedTag === null || $row['Tag'] === $selectedTag)
+                            && ($selectedTeam === null || $row['issuance_team_id'] === $selectedTeam)
+                            && ($rowDate >= $thirtyDaysAgo && $rowDate <= $currentDate);
                             });
                             $filteredDataJSON = json_encode($filteredData);
                             ?>
