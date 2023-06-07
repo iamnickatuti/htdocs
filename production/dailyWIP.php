@@ -167,55 +167,52 @@ include '../parts/header.php';
                                                 tr.appendChild(tdQty);
                                                 tableBody.appendChild(tr);
 
-                                                totalQty += parseInt(row.Qty); // Accumulate the quantity
-                                            });
+                                    totalQty += parseInt(row.Qty); // Accumulate the quantity
+                                    });
 
-                                            // Display the total quantity
-                                            var totalQtyElement = document.getElementById('totalQty');
-                                            totalQtyElement.textContent = totalQty;
-                                        }
+                                    // Display the total quantity
+                                    var totalQtyElement = document.getElementById('totalQty');
+                                    totalQtyElement.textContent = totalQty;
+                                    }
 
 
-                                        // Update the table when the dropdowns are changed
-                                        document.getElementById('tagSelect').addEventListener('change', updateTable);
-                                        document.getElementById('teamSelect').addEventListener('change', updateTable);
+                                    // Update the table when the dropdowns are changed
+                                    document.getElementById('tagSelect').addEventListener('change', updateTable);
+                                    document.getElementById('teamSelect').addEventListener('change', updateTable);
 
-                                        // Initial table population
-                                        updateTable();
+                                    // Initial table population
+                                    updateTable();
                                     </script>
                                     </tbody>
                                 </table>
+                                <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
                             </div>
 
                             <script>
-                                function exportTableToExcel() {
-                                    var table = document.getElementById('resultTable');
-                                    var rows = table.getElementsByTagName('tr');
-                                    var rowData = [];
+                            function exportTableToExcel() {
+                            var table = document.getElementById('resultTable');
+                            var rows = table.getElementsByTagName('tr');
+                            var rowData = [];
 
-                                    for (var i = 0; i < rows.length; i++) {
-                                        var row = [], cols = rows[i].querySelectorAll('td, th');
+                            for (var i = 0; i < rows.length; i++) {
+                            var row = [], cols = rows[i].querySelectorAll('td, th');
 
-                                        for (var j = 0; j < cols.length; j++)
-                                            row.push(cols[j].innerText);
+                            for (var j = 0; j < cols.length; j++)
+                            row.push(cols[j].innerText);
 
-                                        rowData.push(row.join('\t'));
-                                    }
+                            rowData.push(row.join('\t'));
+                            }
 
-                                    var excelData = rowData.join('\n');
-                                    var blob = new Blob([excelData], { type: 'application/vnd.ms-excel' });
+                            var excelData = rowData.join('\n');
+                            var blob = new Blob([excelData], { type: 'application/vnd.ms-excel' });
 
-                                    var link = document.createElement('a');
-                                    link.href = URL.createObjectURL(blob);
-                                    link.download = 'Daily.xls';
-                                    link.click();
-                                }
+                            var link = document.createElement('a');
+                            link.href = URL.createObjectURL(blob);
+                            link.download = 'Daily.xls';
+                            link.click();
+                            }
                             </script>
-
-
-                            <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
                         </div>
                     </div>
                     <div class="col-3">
