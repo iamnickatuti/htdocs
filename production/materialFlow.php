@@ -1,7 +1,6 @@
 <?php
 session_start ();
 include '../parts/header.php';
-include 'sql/sqlOpening.php';
 ?>
 
 <body style="color: black;">
