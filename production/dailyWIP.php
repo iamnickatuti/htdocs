@@ -102,16 +102,17 @@ include '../parts/header.php';
                                     <br>
                                     <p class="card-subtitle mb-4">Choose from the drop-downs to display data</p>
                                 </div>
+                                <p id="totalQty"></p>
 
                                 <table id="resultTable" class="table table-centered table-striped mb-0">
                                     <thead>
                                     <tr>
                                         <th>Tag</th>
                                         <th>Location</th>
-                                        <th>issuance_team_id</th>
+<!--                                        <th>issuance_team_id</th>-->
+                                        <th>SKU Description</th>
                                         <th>Part Number</th>
                                         <th>Qty</th>
-                                        <th>SKU Description</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tableBody">
@@ -131,6 +132,8 @@ include '../parts/header.php';
 
                                             var tableBody = document.getElementById('tableBody');
                                             tableBody.innerHTML = '';
+
+                                            var totalQty = 0; // Variable to store the total quantity
 
                                             filteredRows.forEach(function(row) {
                                                 var tr = document.createElement('tr');
@@ -155,13 +158,19 @@ include '../parts/header.php';
 
                                                 tr.appendChild(tdTag);
                                                 tr.appendChild(tdLocation);
-                                                tr.appendChild(tdTeam);
                                                 tr.appendChild(tdPartNumber);
-                                                tr.appendChild(tdQty);
                                                 tr.appendChild(tdSkuDescription);
+                                                tr.appendChild(tdQty);
                                                 tableBody.appendChild(tr);
+
+                                                totalQty += parseInt(row.Qty); // Accumulate the quantity
                                             });
+
+                                            // Display the total quantity
+                                            var totalQtyElement = document.getElementById('totalQty');
+                                            totalQtyElement.textContent = 'Total Qty: ' + totalQty;
                                         }
+
 
                                         // Update the table when the dropdowns are changed
                                         document.getElementById('tagSelect').addEventListener('change', updateTable);
