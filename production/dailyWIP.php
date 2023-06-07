@@ -62,31 +62,24 @@ include '../parts/header.php';
                             // Get unique "Tag" and "issuance_team_id" values
                             $tags = array_unique(array_column($data, 'Tag'));
                             $issuanceTeams = array_unique(array_column($data, 'issuance_team_id'));
-                            $duration = array_unique(array_column($data, 'Duration'));
 
                             // Filter the data based on the selected "Tag" and "issuance_team_id"
                             $selectedTag = isset($_GET['tag']) ? $_GET['tag'] : null;
                             $selectedTeam = isset($_GET['team']) ? $_GET['team'] : null;
 
-                            // Get the current date minus 30 days
-                            $currentDate = date('Y-m-d');
-                            $thirtyDaysAgo = date('Y-m-d', strtotime('-30 days'));
-
                             // Prepare the filtered data for JavaScript usage
-                            $filteredData = array_filter($data, function ($row) use ($selectedTag, $selectedTeam, $thirtyDaysAgo, $currentDate) {
-                            $rowDate = $row['Duration'];
-                            return ($selectedTag === null || $row['Tag'] === $selectedTag)
-                            && ($selectedTeam === null || $row['issuance_team_id'] === $selectedTeam)
-                            && ($rowDate >= $thirtyDaysAgo && $rowDate <= $currentDate);
+                            $filteredData = array_filter($data, function ($row) use ($selectedTag, $selectedTeam) {
+                                return ($selectedTag === null || $row['Tag'] === $selectedTag)
+                                    && ($selectedTeam === null || $row['issuance_team_id'] === $selectedTeam);
                             });
                             $filteredDataJSON = json_encode($filteredData);
                             ?>
 
                             <div class="card-body">
                                 <div class="mb-4">
-                                    <div class="float-right mr-2">
+                                    <div class="float-right">
                                         <select name="team" id="teamSelect" class="form-control form-control-md">
-                                            <option value="">Choose Team ID</option>
+                                            <option value="">All Teams</option>
                                             <?php foreach ($issuanceTeams as $team) { ?>
                                                 <option value="<?php echo $team; ?>" <?php echo ($team === $selectedTeam) ? 'selected' : ''; ?>>
                                                     <?php echo $team; ?>
@@ -96,7 +89,7 @@ include '../parts/header.php';
                                     </div>
                                     <div class="float-right">
                                         <select name="tag" id="tagSelect" class="form-control form-control-md">
-                                            <option value="">Choose Date</option>
+                                            <option value="">All Tags</option>
                                             <?php foreach ($tags as $tag) { ?>
                                                 <option value="<?php echo $tag; ?>" <?php echo ($tag === $selectedTag) ? 'selected' : ''; ?>>
                                                     <?php echo $tag; ?>
@@ -162,10 +155,10 @@ include '../parts/header.php';
 
                                                 tr.appendChild(tdTag);
                                                 tr.appendChild(tdLocation);
-                                                // tr.appendChild(tdTeam);
+                                                tr.appendChild(tdTeam);
                                                 tr.appendChild(tdPartNumber);
-                                                tr.appendChild(tdSkuDescription);
                                                 tr.appendChild(tdQty);
+                                                tr.appendChild(tdSkuDescription);
                                                 tableBody.appendChild(tr);
                                             });
                                         }
