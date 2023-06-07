@@ -159,9 +159,9 @@ if ($result) {
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
 while ($row = mysqli_fetch_assoc($resultCage)) {
-    $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
-    $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
-    $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
+    $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP006', 'RM-FS-SP007', 'RM-FS-SP008','RM-FS-SP009');
+    $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP003', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP006', 'RM-FS-JP007', 'RM-FS-JP008');
+    $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005', 'RM-FS-CH006', 'RM-FS-CH007');
     $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
     $partTrial = array('RM-FS-TR001', 'MKE-SKU');
     $partBra = array('RM-FS-BR001');
