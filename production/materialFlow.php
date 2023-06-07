@@ -202,7 +202,7 @@ include 'sql/sqlOpening.php';
 
                                                 var tdVariance = document.createElement('td');
                                                 var closing = parseFloat(row['Closing Balance']);
-                                                var variance = expectedClosingBalance - closing;
+                                                var variance = closing - expectedClosingBalance;
                                                 tdVariance.textContent = variance.toFixed(2);
                                                 totalVariance += variance;
 
@@ -216,9 +216,7 @@ include 'sql/sqlOpening.php';
                                                 tr.appendChild(tdExpectedClosingBalance);
                                                 tr.appendChild(tdClosingBalance);
                                                 tr.appendChild(tdVariance);
-                                                tr.appendChild(tdTotalQuantity);
-                                                tr.appendChild(tdActualBalance);
-                                                tr.appendChild(tdTotalRebonding);
+                                                // tr.appendChild(tdTotalQuantity);
                                                 tableBody.appendChild(tr);
                                             });
 
