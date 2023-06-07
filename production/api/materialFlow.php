@@ -389,12 +389,8 @@ foreach ($allData as $allItem) {
 $combinedJson = json_encode($combinedData);
 
 
-$sql = "SELECT skus.name AS 'Part Name',
-        block_components.weight AS 'Consumption',
-        block_components.date as 'Tarehe'
-        FROM block_components
-        LEFT JOIN skus ON skus.id = block_components.sku_id ";
-$resultConsumption = $conn->query($sql);
+
+$resultConsumption = $conn->query($sqlConsumption);
 // Fetch the result and store it in an array
 $data = array();
 // Fetch each row from the result set
