@@ -80,7 +80,7 @@ include '../parts/header.php';
                             <div class="card-body">
                                 <div class="mb-4">
                                     <div class="float-right mr-4 ml-2" >
-                                        <button onclick="exportTableToExcel()">Export to Excel</button>
+                                        <button onclick="exportTableToExcel()" class="btn btn-warning">Export to Excel</button>
                                     </div>
                                     <div class="float-right mr-4 ml-4" >
                                         <select name="team" id="teamSelect" class="form-control form-control-md">
