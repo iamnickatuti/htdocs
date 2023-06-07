@@ -38,9 +38,7 @@ skus.name as 'Part Name',
 cage_receipts.value AS 'Cages',
 cage_receipts.created_at AS 'Masaa'
 FROM
-(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)
-WHERE
-    sku_id IN (848, 90, 75, 89, 79, 77, 78, 80, 88, 94, 970, 218, 222, 1804, 1806, 1807, 1808, 1809, 1818, 1819, 1818, 1819, 1820, 1821, 1822, 1823, 1824 , 1980)";
+(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
 
 $queryYard = "SELECT
     manufacturing_receipts.created_at AS 'Timed',
