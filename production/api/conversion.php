@@ -19,7 +19,7 @@ FROM
     LEFT JOIN block_types ON block_types.id = blocks.block_type_id)
     LEFT JOIN skus ON skus.id = block_components.sku_id)
     
-WHERE block_components.date BETWEEN '2023-05-22%' AND '2023-05-31%'";
+WHERE block_components.date BETWEEN '2023-05-22%' AND '2023-05-31%' AND blocks.is_cut = 1";
 
 function conversion()
 {
