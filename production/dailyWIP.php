@@ -207,7 +207,7 @@ include '../parts/header.php';
 
                                     var link = document.createElement('a');
                                     link.href = URL.createObjectURL(blob);
-                                    link.download = 'TableData.xls';
+                                    link.download = 'TableData.xlsx';
                                     link.click();
                                 }
                             </script>
