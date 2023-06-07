@@ -53,7 +53,7 @@ include '../parts/header.php';
                 </div>
                 <!-- end row-->
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="card">
                             <?php
                             $json_data = file_get_contents('https://reports.moko.co.ke/production/api/dailyCount.php');
@@ -167,7 +167,7 @@ include '../parts/header.php';
 
                                             // Display the total quantity
                                             var totalQtyElement = document.getElementById('totalQty');
-                                            totalQtyElement.textContent = 'Total Qty: ' + totalQty;
+                                            totalQtyElement.textContent = totalQty;
                                         }
 
 
@@ -186,7 +186,7 @@ include '../parts/header.php';
 
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-4">
