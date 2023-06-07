@@ -52,6 +52,8 @@ include '../parts/header.php';
                     </div>
                 </div>
                 <!-- end row-->
+
+
                 <div class="row">
                     <div class="col-9">
                         <div class="card">
@@ -77,6 +79,9 @@ include '../parts/header.php';
 
                             <div class="card-body">
                                 <div class="mb-4">
+                                    <div class="float-right mr-4 ml-2" >
+                                        <button onclick="exportTableToExcel()">Export to Excel</button>
+                                    </div>
                                     <div class="float-right mr-4 ml-4" >
                                         <select name="team" id="teamSelect" class="form-control form-control-md">
                                             <option value="">All Teams</option>
@@ -115,58 +120,9 @@ include '../parts/header.php';
                                     </thead>
                                     <tbody id="tableBody">
                                     <!-- Add the export button -->
-                                    <button onclick="exportToExcel()" class = "btn btn-warning">Export to Excel</button>
+
                                     <script>
                                         var filteredData = <?php echo $filteredDataJSON; ?>;
-
-                                        function updateTable() {
-                                            // Rest of the code...
-
-                                            // Update the totalQty calculation and display
-                                            var totalQty = 0;
-                                            filteredRows.forEach(function(row) {
-                                                // Rest of the code...
-
-                                                totalQty += parseInt(row.Qty);
-                                            });
-
-                                            var totalQtyElement = document.getElementById('totalQty');
-                                            totalQtyElement.textContent = totalQty;
-                                        }
-
-                                        // Export to Excel function
-                                        function exportToExcel() {
-                                            // Create a new Workbook
-                                            var wb = XLSX.utils.book_new();
-
-                                            // Convert filteredData to worksheet format
-                                            var ws = XLSX.utils.json_to_sheet(filteredData);
-
-                                            // Add the worksheet to the Workbook
-                                            XLSX.utils.book_append_sheet(wb, ws, 'Filtered Data');
-
-                                            // Generate a download link for the Excel file
-                                            var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                                            var blob = new Blob([wbout], { type: 'application/octet-stream' });
-                                            var filename = 'Daily Count.xlsx';
-
-                                            if (navigator.msSaveBlob) {
-                                                // For IE
-                                                navigator.msSaveBlob(blob, filename);
-                                            } else {
-                                                // For other browsers
-                                                var link = document.createElement('a');
-                                                if (link.download !== undefined) {
-                                                    var url = URL.createObjectURL(blob);
-                                                    link.setAttribute('href', url);
-                                                    link.setAttribute('download', filename);
-                                                    link.style.visibility = 'hidden';
-                                                    document.body.appendChild(link);
-                                                    link.click();
-                                                    document.body.removeChild(link);
-                                                }
-                                            }
-                                        }
 
                                         function updateTable() {
                                             var tagSelect = document.getElementById('tagSelect');
@@ -231,7 +187,29 @@ include '../parts/header.php';
                                 </table>
                             </div>
 
+                            <script>
+                                function exportTableToExcel() {
+                                    // Select the table element
+                                    var table = document.getElementById('resultTable');
 
+                                    // Create a TableExport instance
+                                    var tableExport = new TableExport(table, {
+                                        exportButtons: false, // Disable export buttons
+                                        filename: 'TableData', // Set the filename for the exported file
+                                        sheetname: 'Sheet1', // Set the sheet name for the exported file
+                                    });
+
+                                    // Generate the Excel file in XLSX format
+                                    var exportData = tableExport.getExportData()['resultTable']['xlsx'];
+
+                                    // Save the file using FileSaver.js
+                                    var xlsxData = new Blob([exportData.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                                    saveAs(xlsxData, exportData.filename + '.xlsx');
+                                }
+                            </script>
+
+                            <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
                         </div>
                     </div>
