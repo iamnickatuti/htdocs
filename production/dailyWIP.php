@@ -103,7 +103,7 @@ include '../parts/header.php';
                                     <p class="card-subtitle mb-4">Choose from the drop-downs to display data</p>
                                 </div>
 
-                                <table id="resultTable" class="table table-centered table-striped mb-0">
+                                <table id="resultTable" class="table table-centered table-striped mb-0" style="font-size: 11px;">
                                     <thead>
                                     <tr>
                                         <th>Tag</th>
