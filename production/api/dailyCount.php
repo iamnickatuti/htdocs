@@ -21,8 +21,7 @@ skus.description AS 'SKU Description'
     LEFT JOIN sku_types ON sku_types.id = skus.sku_type_id )
     LEFT JOIN units ON units.id = skus.unit_id
     )
-    WHERE stocktake_references.cycle_id = 1 AND locations.id = '63' 
-    ORDER BY stocktakes.date DESC";
+    WHERE stocktake_references.cycle_id = 1 ORDER BY stocktakes.date DESC";
 
 $data = array();
 
