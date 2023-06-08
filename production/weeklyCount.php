@@ -56,7 +56,7 @@ include '../parts/header.php';
                         <div class="col-9">
                             <div class="card">
                                 <?php
-                                $json_data = file_get_contents('https://reports.moko.co.ke/production/api/dailyCount.php');
+                                $json_data = file_get_contents('https://reports.moko.co.ke/production/api/weeklyCount.php');
                                 $data = json_decode($json_data, true);
 
                                 // Get unique "Tag" and "issuance_team_id" values
