@@ -104,7 +104,7 @@ include '../parts/header.php';
                                             <?php
                                             $json_data = file_get_contents('https://reports.moko.co.ke/production/functions/finalTest.php');
                                             $data = json_decode($json_data, true);
-                                            $groupedData = array_reduce($data, function ($result, $item) {
+                                                   $groupedData = array_reduce($data, function ($result, $item) {
                                                 $cut_sku_part_description = $item['Cut SKU Part Description'];
                                                 $category = $item['Cut SKU Category'];
                                                 $financeKey = $item['Finance Key'];
@@ -209,7 +209,7 @@ include '../parts/header.php';
                                         </script>
                                     </div>
                                     </div>
-                                    <div class="tab-pane show active" id="settings">
+                                <div class="tab-pane show active" id="settings">
                                         <div class="table-responsive">
                                         <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
                                             <thead>
@@ -240,7 +240,6 @@ include '../parts/header.php';
                             font-size: 11px;
                         }
                     </style>
-
 
                     <div class="col-md-3 col-xl-3">
                         <div class="row">

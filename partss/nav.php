@@ -44,7 +44,7 @@
                             </div>
                             <a href="../production/cuttingInfo" class="dropdown-item">Cutting Info</a>
                             <a href="../production/qbupload" class="dropdown-item">QB Upload</a>
-                            <a href="../production/cuttingOutput" class="dropdown-item">Cutting Costs</a>
+<!--                            <a href="../production/cuttingOutput" class="dropdown-item">Cutting Costs</a>-->
                             <a href="../production/blockFlow" class="dropdown-item">Blocks Flow</a>
                         </div>
                     </li>
