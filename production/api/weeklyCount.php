@@ -22,7 +22,7 @@ FROM
     LEFT JOIN units ON units.id = skus.unit_id
 WHERE
     stocktake_references.cycle_id = 2
-    AND stocktake_references.date >= CURDATE() - INTERVAL 90 DAY
+    AND stocktake_references.date >= CURDATE() - INTERVAL 60 DAY
     AND stocktakes.deleted_by = 0
 ORDER BY
     stocktakes.date DESC ";
