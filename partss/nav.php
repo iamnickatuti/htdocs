@@ -38,7 +38,8 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-tables">
                                     <a href="../production/materialFlow" class="dropdown-item">Monthly</a>
-                                    <a href="../production/dailyWIP" class="dropdown-item">Daily </a>
+                                    <a href="../production/weeklyCount" class="dropdown-item">Weekly</a>
+                                    <a href="../production/dailyCount" class="dropdown-item">Daily </a>
                                 </div>
                             </div>
                             <a href="../production/cuttingInfo" class="dropdown-item">Cutting Info</a>
