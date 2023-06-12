@@ -36,6 +36,9 @@ $result = $conn->query($sql);
 // Initialize an empty associative array to store the results
 $data = array();
 
+// Initialize an empty array to store unique months
+$months = array();
+
 if ($result->num_rows > 0) {
     // Fetch each row and add it to the data array
     while ($row = $result->fetch_assoc()) {
@@ -57,6 +60,11 @@ if ($result->num_rows > 0) {
         // Check if the month exists in the subcategory array
         if (!isset($data[$category][$subcategory][$month])) {
             $data[$category][$subcategory][$month] = 0;
+
+            // Add the month to the unique months array
+            if (!in_array($month, $months)) {
+                $months[] = $month;
+            }
         }
 
         // Add the units to the corresponding category, subcategory, and month
@@ -73,8 +81,7 @@ echo '<thead><tr>';
 echo '<th>Main Category</th>';
 echo '<th>Sub Category</th>';
 
-// Generate the table header row with months as column heads
-$months = array('July/2022', 'August/2022', 'September/2022', 'October/2022', 'November/2022', 'December/2022', 'January/2023', 'February/2023', 'March/2023', 'April/2023', 'May/2023', 'June/2023');
+// Generate the table header row with unique months as column heads
 foreach ($months as $month) {
     echo '<th>' . $month . '</th>';
 }
@@ -87,7 +94,7 @@ foreach ($data as $category => $subcategories) {
         echo '<td>' . $category . '</td>'; // Category as the row header
         echo '<td>' . $subcategory . '</td>'; // Subcategory as the row header
 
-        // Loop through each month and output the units data
+        // Loop through each unique month and output the units data
         foreach ($months as $month) {
             $units = isset($monthsData[$month]) ? $monthsData[$month] : 0;
             echo '<td>' . $units . '</td>';
