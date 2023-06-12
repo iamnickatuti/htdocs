@@ -36,9 +36,6 @@ $result = $conn->query($sql);
 // Initialize an empty associative array to store the results
 $data = array();
 
-// Initialize an empty array to store unique months
-$months = array();
-
 if ($result->num_rows > 0) {
     // Fetch each row and add it to the data array
     while ($row = $result->fetch_assoc()) {
@@ -47,40 +44,31 @@ if ($result->num_rows > 0) {
         $month = $row['month'];
         $units = $row['units'];
 
-        // Check if the category exists in the data array
-        if (!isset($data[$category])) {
-            $data[$category] = array();
+        // Check if the month exists in the data array
+        if (!isset($data[$month])) {
+            $data[$month] = array();
+        }
+
+        // Check if the category exists in the month array
+        if (!isset($data[$month][$category])) {
+            $data[$month][$category] = array();
         }
 
         // Check if the subcategory exists in the category array
-        if (!isset($data[$category][$subcategory])) {
-            $data[$category][$subcategory] = array();
+        if (!isset($data[$month][$category][$subcategory])) {
+            $data[$month][$category][$subcategory] = $units;
         }
-
-        // Check if the month exists in the subcategory array
-        if (!isset($data[$category][$subcategory][$month])) {
-            $data[$category][$subcategory][$month] = 0;
-
-            // Add the month to the unique months array
-            if (!in_array($month, $months)) {
-                $months[] = $month;
-            }
-        }
-
-        // Add the units to the corresponding category, subcategory, and month
-        $data[$category][$subcategory][$month] += $units;
     }
 }
 
 // Close the database connection
 $conn->close();
 
-// Output the data as JSON
+// Output the data as an associative array
 $output = array(
-    'months' => $months,
     'data' => $data
 );
-header('Content-Type: application/json');
+
 echo json_encode($output);
 
 ?>
