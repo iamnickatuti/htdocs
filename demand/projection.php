@@ -75,35 +75,12 @@ if ($result->num_rows > 0) {
 // Close the database connection
 $conn->close();
 
-// HTML table generation
-echo '<table>';
-echo '<thead><tr>';
-echo '<th>Main Category</th>';
-echo '<th>Sub Category</th>';
-
-// Generate the table header row with unique months as column heads
-foreach ($months as $month) {
-    echo '<th>' . $month . '</th>';
-}
-echo '</tr></thead><tbody>';
-
-// Generate the table rows with categories, subcategories, and units data
-foreach ($data as $category => $subcategories) {
-    foreach ($subcategories as $subcategory => $monthsData) {
-        echo '<tr>';
-        echo '<td>' . $category . '</td>'; // Category as the row header
-        echo '<td>' . $subcategory . '</td>'; // Subcategory as the row header
-
-        // Loop through each unique month and output the units data
-        foreach ($months as $month) {
-            $units = isset($monthsData[$month]) ? $monthsData[$month] : 0;
-            echo '<td>' . $units . '</td>';
-        }
-
-        echo '</tr>';
-    }
-}
-
-echo '</tbody></table>';
+// Output the data as JSON
+$output = array(
+    'months' => $months,
+    'data' => $data
+);
+header('Content-Type: application/json');
+echo json_encode($output);
 
 ?>
