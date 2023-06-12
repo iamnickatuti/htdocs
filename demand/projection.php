@@ -40,6 +40,7 @@ if ($result->num_rows > 0) {
     // Fetch each row and add it to the data array
     while ($row = $result->fetch_assoc()) {
         $category = $row['parent_category'];
+        $subCategory = $row['sub_category'];
         $month = $row['month'];
         $units = $row['units'];
 
@@ -48,13 +49,18 @@ if ($result->num_rows > 0) {
             $data[$category] = array();
         }
 
-        // Check if the month exists in the category array
-        if (!isset($data[$category][$month])) {
-            $data[$category][$month] = 0;
+        // Check if the subCategory exists in the category array
+        if (!isset($data[$category][$subCategory])) {
+            $data[$category][$subCategory] = array();
         }
 
-        // Add the units to the corresponding category and month
-        $data[$category][$month] += $units;
+        // Check if the month exists in the subCategory array
+        if (!isset($data[$category][$subCategory][$month])) {
+            $data[$category][$subCategory][$month] = 0;
+        }
+
+        // Add the units to the corresponding category, subCategory, and month
+        $data[$category][$subCategory][$month] += $units;
     }
 }
 
@@ -66,27 +72,29 @@ echo '<table>';
 echo '<thead><tr><th></th>'; // Empty cell for the top-left corner
 
 // Generate the table header row with months as column heads
-$months = $month;
+$months = $row['month'];
 foreach ($months as $month) {
     echo '<th>' . $month . '</th>';
 }
 echo '</tr></thead><tbody>';
 
-// Generate the table rows with categories and units data
-foreach ($data as $category => $monthsData) {
-    echo '<tr>';
-    echo '<th>' . $category . '</th>'; // Category as the row header
+// Generate the table rows with categories, subCategories, and units data
+foreach ($data as $category => $subCategories) {
+    foreach ($subCategories as $subCategory => $monthsData) {
+        echo '<tr>';
+        echo '<th>' . $category . '</th>'; // Category as the row header
+        echo '<th>' . $subCategory . '</th>'; // Sub-category as the row header
 
-    // Loop through each month and output the units data
-    foreach ($months as $month) {
-        $units = isset($monthsData[$month]) ? $monthsData[$month] : 0;
-        echo '<td>' . $units . '</td>';
+        // Loop through each month and output the units data
+        foreach ($months as $month) {
+            $units = isset($monthsData[$month]) ? $monthsData[$month] : 0;
+            echo '<td>' . $units . '</td>';
+        }
+
+        echo '</tr>';
     }
-
-    echo '</tr>';
 }
 
 echo '</tbody></table>';
 
 ?>
-
