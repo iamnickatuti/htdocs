@@ -69,10 +69,10 @@ $conn->close();
 
 // HTML table generation
 echo '<table>';
-echo '<thead><tr><th></th>'; // Empty cell for the top-left corner
+echo '<thead><tr><th>Main Category</th><th>Sub Category</th>'; // Main Category and Sub Category columns
 
 // Generate the table header row with months as column heads
-$months = $row['month'];
+$months = $month;
 foreach ($months as $month) {
     echo '<th>' . $month . '</th>';
 }
@@ -82,8 +82,8 @@ echo '</tr></thead><tbody>';
 foreach ($data as $category => $subCategories) {
     foreach ($subCategories as $subCategory => $monthsData) {
         echo '<tr>';
-        echo '<th>' . $category . '</th>'; // Category as the row header
-        echo '<th>' . $subCategory . '</th>'; // Sub-category as the row header
+        echo '<td>' . $category . '</td>'; // Main Category
+        echo '<td>' . $subCategory . '</td>'; // Sub Category
 
         // Loop through each month and output the units data
         foreach ($months as $month) {
