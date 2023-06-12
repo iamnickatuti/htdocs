@@ -8,14 +8,13 @@ $sql = "SELECT
   projection_entries.month,
   projection_entries.year,
   financial_years.name AS 'Financial_year',
-  parent_categories.name AS 'parent_category',  
+  parent_categories.name AS 'parent_category',
   projection_entries.sub_category,
   projection_entries.units,
   projection_entries.unit_of_measure,
   projection_entries.price,
   categories.parent_id,
   projection_entries.amount
-
 FROM
   ((((projection_entries
   LEFT JOIN projections ON projections.id = projection_entries.projection_id)
@@ -34,92 +33,60 @@ HAVING
 
 $result = $conn->query($sql);
 
-// Initialize an empty array to store the results
+// Initialize an empty associative array to store the results
 $data = array();
 
 if ($result->num_rows > 0) {
     // Fetch each row and add it to the data array
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $category = $row['parent_category'];
+        $month = $row['month'];
+        $units = $row['units'];
+
+        // Check if the category exists in the data array
+        if (!isset($data[$category])) {
+            $data[$category] = array();
+        }
+
+        // Check if the month exists in the category array
+        if (!isset($data[$category][$month])) {
+            $data[$category][$month] = 0;
+        }
+
+        // Add the units to the corresponding category and month
+        $data[$category][$month] += $units;
     }
 }
-
-// Convert the data array to JSON
-$jsonData = json_encode($data);
 
 // Close the database connection
 $conn->close();
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projection Entries</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-    </style>
-</head>
-<body>
-<h2>Projection Entries</h2>
+// HTML table generation
+echo '<table>';
+echo '<thead><tr><th></th>'; // Empty cell for the top-left corner
 
-<?php
-// Check if any data is available
-if (!empty($data)) {
-    // Get unique months from the data
-    $months = array_unique(array_column($data, 'month'));
-
-    // Get unique sub-categories from the data
-    $subCategories = array_unique(array_column($data, 'sub-category'));
-    $categories = array_unique(array_column($data, 'parent_category'));
-
-    // Create the HTML table
-    echo '<table>';
-
-    // Create the table header row with months
-    echo '<tr>';
-    echo '<th>Category</th>';
-    echo '<th>Sub-Category</th>';
-    foreach ($months as $month) {
-        echo '<th>' . $month . '</th>';
-    }
-    echo '</tr>';
-
-    // Loop through each category and sub-category and populate the table rows
-    foreach ($categories as $category) {
-        foreach ($subCategories as $subCategory) {
-            echo '<tr>';
-            echo '<td>' . $category . '</td>';
-            echo '<td>' . $subCategory . '</td>';
-
-            // Loop through each month and find the corresponding units for the sub-category
-            foreach ($months as $month) {
-                $units = '';
-                foreach ($data as $row) {
-                    if ($row['month'] == $month && $row['sub-category'] == $subCategory && $row['parent_category'] == $category) {
-                        $units = $row['units'];
-                        break;
-                    }
-                }
-                echo '<td>' . $units . '</td>';
-            }
-
-            echo '</tr>';
-        }
-    }
-
-    echo '</table>';
-} else {
-    echo 'No data available.';
+// Generate the table header row with months as column heads
+$months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+foreach ($months as $month) {
+    echo '<th>' . $month . '</th>';
 }
+echo '</tr></thead><tbody>';
+
+// Generate the table rows with categories and units data
+foreach ($data as $category => $monthsData) {
+    echo '<tr>';
+    echo '<th>' . $category . '</th>'; // Category as the row header
+
+    // Loop through each month and output the units data
+    foreach ($months as $month) {
+        $units = isset($monthsData[$month]) ? $monthsData[$month] : 0;
+        echo '<td>' . $units . '</td>';
+    }
+
+    echo '</tr>';
+}
+
+echo '</tbody></table>';
+
 ?>
 
-<h2>JSON Output</h2>
-<pre><?php echo $jsonData; ?></pre>
-</body>
-</html>
