@@ -39,7 +39,7 @@ $data = array();
 if ($result->num_rows > 0) {
     // Fetch each row and add it to the data array
     while ($row = $result->fetch_assoc()) {
-        $category = $row['parent_category'];
+        $category = $row['sub_category'];
         $month = $row['month'];
         $units = $row['units'];
 
