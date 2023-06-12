@@ -66,13 +66,13 @@ include '../parts/header.php';
                             <div class="card-body">
                                 <ul class="nav nav-tabs mb-3">
                                     <li class="nav-item">
-                                        <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                        <a href="#cutskusummary" data-toggle="tab" aria-expanded="false" class="nav-link active">
                                             <i class="mdi mdi-settings-outline d-lg-none d-block"></i>
                                             <span class="d-none d-lg-block">Cut SKU Summary</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                        <a href="#cutskusdensity" data-toggle="tab" aria-expanded="false" class="nav-link">
                                             <i class="mdi mdi-home-variant d-lg-none d-block"></i>
                                             <span class="d-none d-lg-block">Cut SKU Densities Summary</span>
                                         </a>
@@ -81,7 +81,7 @@ include '../parts/header.php';
 
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane" id="home">
+                                    <div class="tab-pane" id="cutskusummary">
                                         <div class="table-responsive">
                                             <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">                                            <thead>
                                             <tr>
@@ -176,9 +176,8 @@ include '../parts/header.php';
                                         </table>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="profile">
+                                    <div class="tab-pane" id="cutskusdesnity">
                                         <button class="btn btn-warning" onclick="exportToExcel()">Export to Excel</button>
-
                                         <script>
                                             function exportToExcel() {
                                                 // Get the HTML table element
@@ -208,28 +207,26 @@ include '../parts/header.php';
                                             }
                                         </script>
                                     </div>
-                                    </div>
-                                <div class="tab-pane show active" id="settings">
-                                        <div class="table-responsive">
-                                        <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Block ID</th>
-                                                <th>Block Type</th>
-                                                <th>Dry Block Weight</th>
-                                                <th>T.Cut SKU Weight</th>
-                                                <th>Act. Recycle Weight</th>
-                                                <th>Block SKU</th>
-                                                <th>Exp.Recycle Weight</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php include 'functions/funcCut.php'; ?>
-                                            </tbody>
-                                        </table>
-                                        </div>
-                                    </div>
-
+<!--                                    <div class="tab-pane show active" id="settings">-->
+<!--                                        <div class="table-responsive">-->
+<!--                                        <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">-->
+<!--                                            <thead>-->
+<!--                                            <tr>-->
+<!--                                                <th>Block ID</th>-->
+<!--                                                <th>Block Type</th>-->
+<!--                                                <th>Dry Block Weight</th>-->
+<!--                                                <th>T.Cut SKU Weight</th>-->
+<!--                                                <th>Act. Recycle Weight</th>-->
+<!--                                                <th>Block SKU</th>-->
+<!--                                                <th>Exp.Recycle Weight</th>-->
+<!--                                            </tr>-->
+<!--                                            </thead>-->
+<!--                                            </tbody-->
+<!--                                            --><?php //include 'functions/funcCut.php'; ?>
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->

@@ -19,7 +19,6 @@ if (!isset($_SESSION['id']))
                     <a href="#" class="logo">
                         <img class="align-middle" src="../assets/logo.svg" height="50px">
                     </a>
-
                     <button type="button" class="btn btn-sm mr-2 font-size-16 d-lg-none header-item waves-effect waves-light" data-toggle="collapse" data-target="#topnav-menu-content">
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
@@ -89,11 +88,6 @@ if (!isset($_SESSION['id']))
                                         </span>
                                     </div>
                                 </div>
-
-<!--                                <div class="progress shadow-sm" style="height: 5px;">-->
-<!--                                    <div class="progress-bar bg-success" role="progressbar" style="width: 57%;">-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </div>
                             <!--end card body-->
                         </div><!-- end card-->
@@ -129,15 +123,13 @@ if (!isset($_SESSION['id']))
                                     <tr>
                                     <?php
                                         global $orderStatus;
-
-                               foreach ($orderStatus as $status => $intervals) {
-    echo '<tr>';
-    echo '<td>' . $status . '</td>';
-    foreach ($intervals as $index => $count) {
-        echo '<td>' . $count . '</td>';
-    }
-    echo '</tr>';
-
+                                        foreach ($orderStatus as $status => $intervals) {
+                                        echo '<tr>';
+                                        echo '<td>' . $status . '</td>';
+                                        foreach ($intervals as $index => $count) {
+                                        echo '<td>' . $count . '</td>';
+                                        }
+                                       echo '</tr>';
                                     }
                                     ?>
 
@@ -195,9 +187,5 @@ if (!isset($_SESSION['id']))
             </div>
         </div>
 </body>
-
-
-
-
 <?php include '../parts/footer.php';?>
 
