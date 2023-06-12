@@ -66,7 +66,7 @@ echo '<table>';
 echo '<thead><tr><th></th>'; // Empty cell for the top-left corner
 
 // Generate the table header row with months as column heads
-$months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+$months = $month;
 foreach ($months as $month) {
     echo '<th>' . $month . '</th>';
 }
