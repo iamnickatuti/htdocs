@@ -77,18 +77,11 @@ include '../parts/header.php';
                                         <span class="d-none d-lg-block">Cut SKU Densities Summary</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link">
-                                        <i class="mdi mdi-account-circle d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Proposed BOM</span>
-                                    </a>
-                                </li>
-
-                            </ul>
+                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane" id="home">
                                     <div class="table-responsive">
-                                        <table class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                             <thead>
                                             <tr>
                                                 <th>Cut SKU Category</th>
@@ -186,7 +179,7 @@ include '../parts/header.php';
                                 </div>
                                 <div class="tab-pane" id="profile">
                                     <div class="table-responsive">
-                                        <table  class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                             <thead>
                                             <tr>
                                                 <th>Block SKU </th>
