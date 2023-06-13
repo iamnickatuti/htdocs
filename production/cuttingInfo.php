@@ -167,10 +167,10 @@ include '../parts/header.php';
                                                             $width = isset($matches[2]) ? $matches[2] : ''; // extract the second captured dimension as width
                                                             $height = isset($matches[3]) ? $matches[3] : ''; // extract the third captured dimension as height
                                                             echo "<td>".$length."x".$width."x".$height."</td>";
-                                                            echo "<td>".(($length*$width*$height)/61020)."</td>";
-                                                            echo "<td>".(($length*$width*$height*$cut_sku_qty)/61020)."</td>";
-                                                            echo "<td>".$cut_sku_weight_avg/(($length*$width*$height)/61020)."</td>";
-                                                            echo "<td>".($cut_sku_weight_avg * $cut_sku_qty)/(($length*$width*$height*$cut_sku_qty)/61020)."</td>";
+                                                            echo "<td>".(($length*$width*$height)/61023.7)."</td>";
+                                                            echo "<td>".(($length*$width*$height*$cut_sku_qty)/61023.7)."</td>";
+                                                            echo "<td>".$cut_sku_weight_avg/(($length*$width*$height)/61023.7)."</td>";
+                                                            echo "<td>".($cut_sku_weight_avg * $cut_sku_qty)/(($length*$width*$height*$cut_sku_qty)/61023.7)."</td>";
                                                             echo "</tr>";
                                                         }
                                                     }
@@ -179,6 +179,11 @@ include '../parts/header.php';
 
                                             ?>
                                             </tbody>
+                                            <?php
+                                            $volumee += (($length * $width * $height * $cut_sku_qty) / 61023.7);
+                                            echo $volumee;
+                                            ?>
+
                                         </table>
                                     </div>
                                 </div>
