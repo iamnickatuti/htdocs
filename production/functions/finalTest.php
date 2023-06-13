@@ -43,7 +43,7 @@ global $conn;
     
     SELECT *
     FROM Cutting_output
-    WHERE Cutting_output.Cutting_Date BETWEEN '2023-05-01' AND curdate()
+    WHERE Cutting_output.Cutting_Date BETWEEN '2023-06-01' AND '2023-06-11'
     ORDER BY Key_ DESC, Cut_SKU_Weights ASC";
 $result = mysqli_query($conn, $query);
 $row_countt = 0;
