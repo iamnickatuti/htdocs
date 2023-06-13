@@ -509,7 +509,7 @@ else{
     foreach ($data as $record) {
         $partNumber = isset($record["Part Number"]) ? $record["Part Number"] : "";
         $cutSKUQuantity = isset($record["Cut SKU Quantity"]) ? $record["Cut SKU Quantity"] : "";
-        $TotalVolume = isset($record["Volume"]) ? $record["Volume"] : 0;
+        $TotalVolumes = isset($record["Volume"]) ? $record["Volume"] : 0;
         $Category = isset($record["BOM Category"]) ? $record["BOM Category"] : 0;
 
         for ($i = $startIndex; $i < count($keys); $i++) {
@@ -522,7 +522,7 @@ else{
                                                             <td>' . $key . '</td>
                                                             <td>' . $value/$cutSKUQuantity . '</td>
                                                             <td>' . $cutSKUQuantity . '</td>
-                                                            <td>' . number_format($TotalVolume,4). '</td>
+                                                            <td>' . number_format($TotalVolumes,4). '</td>
                                                             <td>' . $value. '</td>
                                                        </tr>';
         }
@@ -562,7 +562,7 @@ else{
         // Create a download link and trigger the download
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "<?php echo $start.' to '.$finish; ?>.xlsx";
+        link.download = "<?php echo $start.' to '.$end; ?>.xlsx";
         link.click();
     }
 </script>
