@@ -1,12 +1,11 @@
 <?php
 include '../../cradle_config.php';
-
 $query = "SELECT 
     block_components.id AS block_components,
     block_components.date AS date_block,
     block_components.block_id AS block_id,
     block_types.name AS 'block_type',
-    blocks.dimension AS 'block_dimension',
+    blocks.dimension AS 'block_dimension',      
     blocks.name AS 'block_name',
     blocks.is_cut AS 'cut',  
     block_components.sku_id AS 'block_sku_id',
@@ -18,8 +17,7 @@ FROM
     LEFT JOIN blocks ON blocks.id = block_components.block_id)
     LEFT JOIN block_types ON block_types.id = blocks.block_type_id)
     LEFT JOIN skus ON skus.id = block_components.sku_id)
-    
-WHERE block_components.date BETWEEN '2023-05-22%' AND '2023-05-31%' AND blocks.is_cut = 1";
+WHERE block_components.date BETWEEN '2023-06-01%' AND '2023-06-11%' AND blocks.is_cut = 1";
 
 function conversion()
 {
@@ -159,25 +157,6 @@ function conversion()
 
         $blockTypeWeights[$blockType] += $weight;
     }
-
-// Output the table
-//    foreach ($conversion as $conversionRow) {
-//        $blockType = $conversionRow['Block Type'];
-//        $count = $conversionRow['Count'];
-//        $blockTypeSum = isset($blockTypeSums[$blockType]) ? $blockTypeSums[$blockType] : 0;
-//        $blockTypeWeight = isset($blockTypeWeights[$blockType]) ? $blockTypeWeights[$blockType] : 0;
-//
-//        echo '<tr>';
-//        echo '<td>' . $conversionRow['Block Type'] . '</td>';
-//        echo '<td>' . $conversionRow['Count'] . '</td>';
-//        echo '<td>' . $conversionRow['Parent SKU'] . '</td>';
-//        echo '<td>' . $weight_array[$blockType . ' - ' . $conversionRow['Parent SKU']] . '</td>';
-//        echo '<td>' . $blockTypeWeight . '</td>'; // Display total weight
-//        echo '<td>|</td>';
-//        echo '<td>|</td>';
-//        echo '<td>' .number_format($weight_array[$blockType . ' - ' . $conversionRow['Parent SKU']]/$blockTypeWeight,8) . '</td>';
-//        echo '</tr>';
-//    }
 
     $rows = array(); // Initialize an array to store the rows
 

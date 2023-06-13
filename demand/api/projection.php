@@ -1,7 +1,6 @@
 <?php
 
 include '../cradle_config.php';
-
 // SQL query to retrieve data
 $sql = "SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
@@ -44,32 +43,39 @@ if ($result->num_rows > 0) {
         $month = $row['month'];
         $units = $row['units'];
 
-        // Check if the month exists in the data array
-        if (!isset($data[$month])) {
-            $data[$month] = array();
+        // Create the subcategory if it doesn't exist
+        if (!isset($data[$category][$subcategory])) {
+            $data[$category][$subcategory] = array();
         }
 
-        // Check if the category exists in the month array
-        if (!isset($data[$month][$category])) {
-            $data[$month][$category] = array();
-        }
-
-        // Check if the subcategory exists in the category array
-        if (!isset($data[$month][$category][$subcategory])) {
-            $data[$month][$category][$subcategory] = $units;
-        }
+        // Add the units to the corresponding category, subcategory, and month
+        $data[$category][$subcategory][$month] = $units;
     }
 }
 
 // Close the database connection
 $conn->close();
 
-// Output the data as an associative array
-$output = array(
-    'data' => $data
-);
+// Generate the JSON result
+$jsonResult = array();
+
+foreach ($data as $category => $subcategories) {
+    foreach ($subcategories as $subcategory => $monthsData) {
+        $result = array(
+            "Parent Category" => $category,
+            "Sub Category" => $subcategory
+        );
+
+        foreach ($monthsData as $month => $units) {
+            $result[$month] = $units;
+        }
+
+        $jsonResult[] = $result;
+    }
+}
 header('Content-Type: application/json');
 
-echo json_encode($output);
+// Output the JSON result
+echo json_encode($jsonResult, JSON_PRETTY_PRINT);
 
 ?>
