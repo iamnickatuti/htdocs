@@ -6,7 +6,7 @@ $query = "SELECT
     block_components.date AS date_block,
     block_components.block_id AS block_id,
     block_types.name AS 'block_type',
-    blocks.dimension AS 'block_dimension',      
+    blocks.dimension AS 'block_dimension',
     blocks.name AS 'block_name',
     blocks.is_cut AS 'cut',  
     block_components.sku_id AS 'block_sku_id',
@@ -18,7 +18,8 @@ FROM
     LEFT JOIN blocks ON blocks.id = block_components.block_id)
     LEFT JOIN block_types ON block_types.id = blocks.block_type_id)
     LEFT JOIN skus ON skus.id = block_components.sku_id)
-WHERE blocks.is_cut = 1";
+    
+WHERE block_components.date BETWEEN '2023-06-01%' AND '2023-06-11%' AND blocks.is_cut = 1";
 
 function conversion()
 {
@@ -80,6 +81,7 @@ function conversion()
             $results = 'Raw Material:Local Loose Foam';
         }
 
+
         $new_row = array(
             'Block Comp' => $row['block_type'],
             'Date Block' =>  $row['date_block'],
@@ -92,6 +94,7 @@ function conversion()
             'Weight' => $row['weight'],
             'Psku' => $results
         );
+
 
         $data[] = $new_row;
     }
@@ -137,8 +140,7 @@ function conversion()
                 'Block Type' => $blockType,
                 'Parent SKU' => $psku,
                 'Count' => $block_count,
-                'Distribution' => $percentageWeight,
-                'Date Block' => $row['Date Block']
+                'Distribution' => $percentageWeight
             );
             $conversion[] = $new_roww;
         }
@@ -146,7 +148,7 @@ function conversion()
 
     $blockTypeWeights = array();
 
-    // Calculate total weight for each block type
+// Calculate total weight for each block type
     foreach ($array as $row) {
         $blockType = $row['Block Type'];
         $weight = $row['Weight'];
@@ -157,6 +159,25 @@ function conversion()
 
         $blockTypeWeights[$blockType] += $weight;
     }
+
+// Output the table
+//    foreach ($conversion as $conversionRow) {
+//        $blockType = $conversionRow['Block Type'];
+//        $count = $conversionRow['Count'];
+//        $blockTypeSum = isset($blockTypeSums[$blockType]) ? $blockTypeSums[$blockType] : 0;
+//        $blockTypeWeight = isset($blockTypeWeights[$blockType]) ? $blockTypeWeights[$blockType] : 0;
+//
+//        echo '<tr>';
+//        echo '<td>' . $conversionRow['Block Type'] . '</td>';
+//        echo '<td>' . $conversionRow['Count'] . '</td>';
+//        echo '<td>' . $conversionRow['Parent SKU'] . '</td>';
+//        echo '<td>' . $weight_array[$blockType . ' - ' . $conversionRow['Parent SKU']] . '</td>';
+//        echo '<td>' . $blockTypeWeight . '</td>'; // Display total weight
+//        echo '<td>|</td>';
+//        echo '<td>|</td>';
+//        echo '<td>' .number_format($weight_array[$blockType . ' - ' . $conversionRow['Parent SKU']]/$blockTypeWeight,8) . '</td>';
+//        echo '</tr>';
+//    }
 
     $rows = array(); // Initialize an array to store the rows
 
@@ -179,8 +200,7 @@ function conversion()
             'Parent SKU' => $parentSKU,
             'SKU Weight' => $weight_array[$blockType . ' - ' . $parentSKU],
             'Block Type Weight' => $blockTypeWeight,
-            'Distribution' => number_format($weight_array[$blockType . ' - ' . $parentSKU] / $blockTypeWeight, 8),
-            'Date Block' => $conversionRow['Date Block'] // Add the 'Date Block' key
+            'Distribution' => number_format($weight_array[$blockType . ' - ' . $parentSKU] / $blockTypeWeight, 8)
         );
 
         $rows[] = $row; // Add the row to the array
@@ -192,6 +212,13 @@ function conversion()
 // Output the JSON array
     header('Content-Type: application/json');
     echo $jsonArray;
+
+
+
+
+//    echo json_encode($conversion);
 }
 
+
 conversion();
+
