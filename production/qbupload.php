@@ -413,7 +413,7 @@ else{
     $resultqb = json_encode($jsonArray);
 
 
-    $url2 = "https://reports.moko.co.ke/production/api/conversion.php?start=".$start."&end=".$end;
+    $url2 = "https://reports.moko.co.ke/production/api/conversion.php";
 
 // Fetch the JSON content from the URLs
     $json2 = file_get_contents($url2);
