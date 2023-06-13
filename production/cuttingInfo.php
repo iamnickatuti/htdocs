@@ -88,7 +88,7 @@ include '../parts/header.php';
                             <div class="tab-content">
                                 <div class="tab-pane" id="home">
                                     <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                        <table class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                             <thead>
                                             <tr>
                                                 <th>Cut SKU Category</th>
@@ -179,17 +179,14 @@ include '../parts/header.php';
 
                                             ?>
                                             </tbody>
-                                            <?php
-                                            $volumee += (($length * $width * $height * $cut_sku_qty) / 61023.7);
-                                            echo $volumee;
-                                            ?>
+
 
                                         </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="profile">
                                     <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                        <table  class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                             <thead>
                                             <tr>
                                                 <th>Block SKU </th>
