@@ -1,5 +1,6 @@
 <?php
 include '../../cradle_config.php';
+
 $query = "SELECT 
     block_components.id AS block_components,
     block_components.date AS date_block,
@@ -17,7 +18,7 @@ FROM
     LEFT JOIN blocks ON blocks.id = block_components.block_id)
     LEFT JOIN block_types ON block_types.id = blocks.block_type_id)
     LEFT JOIN skus ON skus.id = block_components.sku_id)
-WHERE block_components.date BETWEEN '2023-06-01%' AND '2023-06-11%' AND blocks.is_cut = 1";
+WHERE blocks.is_cut = 1";
 
 function conversion()
 {
@@ -79,7 +80,6 @@ function conversion()
             $results = 'Raw Material:Local Loose Foam';
         }
 
-
         $new_row = array(
             'Block Comp' => $row['block_type'],
             'Date Block' =>  $row['date_block'],
@@ -92,7 +92,6 @@ function conversion()
             'Weight' => $row['weight'],
             'Psku' => $results
         );
-
 
         $data[] = $new_row;
     }
@@ -138,7 +137,8 @@ function conversion()
                 'Block Type' => $blockType,
                 'Parent SKU' => $psku,
                 'Count' => $block_count,
-                'Distribution' => $percentageWeight
+                'Distribution' => $percentageWeight,
+                'Date Block' => $row['Date Block']
             );
             $conversion[] = $new_roww;
         }
@@ -146,7 +146,7 @@ function conversion()
 
     $blockTypeWeights = array();
 
-// Calculate total weight for each block type
+    // Calculate total weight for each block type
     foreach ($array as $row) {
         $blockType = $row['Block Type'];
         $weight = $row['Weight'];
@@ -179,7 +179,8 @@ function conversion()
             'Parent SKU' => $parentSKU,
             'SKU Weight' => $weight_array[$blockType . ' - ' . $parentSKU],
             'Block Type Weight' => $blockTypeWeight,
-            'Distribution' => number_format($weight_array[$blockType . ' - ' . $parentSKU] / $blockTypeWeight, 8)
+            'Distribution' => number_format($weight_array[$blockType . ' - ' . $parentSKU] / $blockTypeWeight, 8),
+            'Date Block' => $conversionRow['Date Block'] // Add the 'Date Block' key
         );
 
         $rows[] = $row; // Add the row to the array
@@ -191,13 +192,6 @@ function conversion()
 // Output the JSON array
     header('Content-Type: application/json');
     echo $jsonArray;
-
-
-
-
-//    echo json_encode($conversion);
 }
 
-
 conversion();
-
