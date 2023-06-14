@@ -27,6 +27,10 @@ foreach ($array2 as $item2) {
             foreach ($item2 as $key => $value) {
                 if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
                     $multipliedItem[$key] = floatval($value) * floatval($item1['proportion']);
+                    // Assign "N/A" to null fields
+                    if ($multipliedItem[$key] === null) {
+                        $multipliedItem[$key] = "N/A";
+                    }
                 }
             }
             // Append the multiplied item to the result array
@@ -34,16 +38,14 @@ foreach ($array2 as $item2) {
             $matchFound = true;
         }
     }
-    // If no match is found, assign "N/A" to the empty fields
+    // If no match is found, append the item2 array as is
     if (!$matchFound) {
-        $item2["Parent Category"] = "N/A";
-        $item2["Sub Category"] = "N/A";
-        $item2["Part Number"] = "N/A";
-        $item2["Part Description"] = "N/A";
-        $item2["UOM"] = "N/A";
+        // Assign "N/A" to null fields
         foreach ($item2 as $key => $value) {
             if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
-                $item2[$key] = "N/A";
+                if ($value === null) {
+                    $item2[$key] = "N/A";
+                }
             }
         }
         $result[] = $item2;
