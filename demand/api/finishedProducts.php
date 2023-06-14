@@ -16,7 +16,8 @@ foreach ($array2 as $item2) {
                 "Parent Category" => $item2["Parent Category"],
                 "Sub Category" => $item2["Sub Category"],
                 "Part Number" => $item1["Part Number"],
-                "Part Description" => $item1["Part Description"]
+                "Part Description" => $item1["Part Description"],
+                "UOM" => $item2['UOM']
             ];
             // Multiply the month values by the proportion
             foreach ($item2 as $key => $value) {

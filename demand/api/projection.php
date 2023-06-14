@@ -64,9 +64,13 @@ foreach ($data as $category => $subcategories) {
     foreach ($subcategories as $subcategory => $monthsData) {
         $result = array(
             "Parent Category" => $category,
-            "Sub Category" => $subcategory,
-            "UOM" => $uom
+            "Sub Category" => $subcategory
         );
+
+        // Get the UOM from the first month's data
+        $firstMonth = reset($monthsData);
+        $uom = isset($firstMonth['UOM']) ? $firstMonth['UOM'] : '';
+        $result['UOM'] = $uom;
 
         foreach ($monthsData as $month => $units) {
             $result[$month] = $units;
@@ -75,6 +79,7 @@ foreach ($data as $category => $subcategories) {
         $jsonResult[] = $result;
     }
 }
+
 
 header('Content-Type: application/json');
 
