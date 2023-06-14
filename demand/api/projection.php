@@ -1,7 +1,6 @@
 <?php
 
 include '../../cradle_config.php';
-
 // SQL query to retrieve data
 $sql = "SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
@@ -28,31 +27,34 @@ GROUP BY
   projection_entries.sub_category,
   projection_entries.units
 HAVING
-  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)";
+  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)
+";
 
 $result = $conn->query($sql);
 
 // Initialize an empty associative array to store the results
 $data = array();
 
-if ($result->num_rows > 0) {
-    // Fetch each row and add it to the data array
-    while ($row = $result->fetch_assoc()) {
-        $category = $row['parent_category'];
-        $subcategory = $row['sub_category'];
-        $uom = $row['unit_of_measure'];
-        $month = $row['month'];
-        $units = $row['units'];
+foreach ($data as $category => $subcategories) {
+    foreach ($subcategories as $subcategory => $monthsData) {
+        $result = array(
+            "Parent Category" => $category,
+            "Sub Category" => $subcategory
+        );
 
-        // Create the subcategory if it doesn't exist
-        if (!isset($data[$category][$subcategory])) {
-            $data[$category][$subcategory] = array();
+        // Get the UOM from the first month's data
+        $firstMonth = reset($monthsData);
+        $uom = isset($firstMonth['unit_of_measure']) ? $firstMonth['unit_of_measure'] : '';
+        $result['UOM'] = $uom;
+
+        foreach ($monthsData as $month => $units) {
+            $result[$month] = $units;
         }
 
-        // Add the units to the corresponding category, subcategory, and month
-        $data[$category][$subcategory][$month] = $units;
+        $jsonResult[] = $result;
     }
 }
+
 
 // Close the database connection
 $conn->close();
@@ -67,11 +69,6 @@ foreach ($data as $category => $subcategories) {
             "Sub Category" => $subcategory
         );
 
-        // Get the UOM from the first month's data
-        $firstMonth = reset($monthsData);
-        $uom = isset($firstMonth['UOM']) ? $firstMonth['UOM'] : '';
-        $result['UOM'] = $uom;
-
         foreach ($monthsData as $month => $units) {
             $result[$month] = $units;
         }
@@ -79,8 +76,6 @@ foreach ($data as $category => $subcategories) {
         $jsonResult[] = $result;
     }
 }
-
-
 header('Content-Type: application/json');
 
 // Output the JSON result
