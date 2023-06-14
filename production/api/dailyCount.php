@@ -10,8 +10,8 @@ $query = "SELECT
     issuance_teams.name AS 'issuance_team_id',
     stocktake_references.tag AS 'Tag',
     locations.name AS 'Location',
-    skus.description AS 'SKU Description',
     skus.name AS 'Part Number',
+    skus.description AS 'SKU Description',
     stocktakes.quantity AS 'Qty'
 FROM
     cradle.stocktakes
