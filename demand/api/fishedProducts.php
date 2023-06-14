@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/mix.php');
 $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/projection.php');
 // Decode JSON strings into arrays
