@@ -1,5 +1,10 @@
 <?php
 include '../../cradle_config.php';
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 $query = "SELECT
     stocktake_references.tag AS 'Tag',
     stocktake_references.date AS 'Duration',
@@ -37,7 +42,6 @@ if ($result) {
     mysqli_free_result($result);
 }
 
-header('Content-Type: application/json');
 echo json_encode($data);
 
 ?>
