@@ -61,7 +61,7 @@ $data = json_decode($jsonData, true);
         <div class="row">
         <div class="card">
             <div class="card-body">
-<table class="table table-striped activate-select dt-responsive nowrap" style="font-size: 11px;">
+<table class="table table-striped table-danger activate-select dt-responsive nowrap" style="font-size: 11px;">
     <thead>
     <tr>
         <?php foreach (array_keys($data[0]) as $header) { ?>
