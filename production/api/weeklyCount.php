@@ -1,13 +1,18 @@
 <?php
 include '../../cradle_config.php';
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 $query = "SELECT
-    stocktake_references.tag AS 'Tag',
     stocktake_references.date AS 'Duration',
-    locations.name AS 'Location',
     issuance_teams.name AS 'issuance_team_id',
+    stocktake_references.tag AS 'Tag',
+    locations.name AS 'Location',
     skus.name AS 'Part Number',
-    stocktakes.quantity AS 'Qty',
-    skus.description AS 'SKU Description'
+    skus.description AS 'SKU Description',
+    stocktakes.quantity AS 'Qty'
 FROM
     cradle.stocktakes
     LEFT JOIN stocktake_references ON stocktake_references.id = stocktakes.stocktake_reference_id
@@ -22,7 +27,7 @@ FROM
     LEFT JOIN units ON units.id = skus.unit_id
 WHERE
     stocktake_references.cycle_id = 2
-    AND stocktake_references.date >= CURDATE() - INTERVAL 60 DAY
+    AND stocktake_references.date >= CURDATE() - INTERVAL 20 DAY
     AND stocktakes.deleted_by = 0
 ORDER BY
     stocktakes.date DESC ";
@@ -37,7 +42,6 @@ if ($result) {
     mysqli_free_result($result);
 }
 
-header('Content-Type: application/json');
 echo json_encode($data);
 
 ?>
