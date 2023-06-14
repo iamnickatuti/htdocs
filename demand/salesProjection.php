@@ -80,7 +80,7 @@ $data = json_decode($jsonData, true);
                 ?>
                 <td><?php echo $value; ?></td>
             <?php } ?>
-            <td><?php echo $total; ?></td>
+            <td><?php echo ceil($total);  ?></td>
         </tr>
     <?php } ?>
     </tbody>
