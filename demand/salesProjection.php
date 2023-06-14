@@ -52,7 +52,7 @@ $data = json_decode($jsonData, true);
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">
-                        Cutting Information
+                        Sales Projection
                     </h4>
                     <div class="page-title-right">
                         <form method="post" action="">
@@ -71,7 +71,7 @@ $data = json_decode($jsonData, true);
         <div class="row">
         <div class="card">
             <div class="card-body">
-<table class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+<table class="table table-striped activate-select dt-responsive nowrap" style="font-size: 11px;">
     <thead>
     <tr>
         <?php foreach (array_keys($data[0]) as $header) { ?>
