@@ -50,11 +50,10 @@ if ($result->num_rows > 0) {
             $data[$category][$subcategory] = array();
         }
 
-        // Add the units, UOM, and year to the corresponding category, subcategory, and month
-        $data[$category][$subcategory][$month] = array(
+        // Add the units, UOM, and year to the corresponding category, subcategory, and month/year
+        $data[$category][$subcategory][$month.'/'.$year] = array(
             "Units" => $units,
             "UOM" => $uom,
-            "Year" => $year
         );
     }
 }
@@ -72,12 +71,11 @@ foreach ($data as $category => $subcategories) {
             "Sub Category" => $subcategory
         );
 
-        foreach ($monthsData as $month => $data) {
-            $result[$month] = $data["Units"];
+        foreach ($monthsData as $monthYear => $data) {
+            $result[$monthYear] = $data["Units"];
         }
 
-        $result["UOM"] = $monthsData[$month]["UOM"];
-        $result["Year"] = $monthsData[$month]["Year"];
+        $result["UOM"] = $monthsData[$monthYear]["UOM"];
 
         $jsonResult[] = $result;
     }
