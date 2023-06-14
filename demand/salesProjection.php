@@ -56,14 +56,20 @@ $data = json_decode($jsonData, true);
         <?php foreach (array_keys($data[0]) as $header) { ?>
             <th><?php echo $header; ?></th>
         <?php } ?>
+        <th>Total</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach ($data as $item) { ?>
         <tr>
-            <?php foreach ($item as $value) { ?>
+            <?php
+            $total = 0;
+            foreach ($item as $value) {
+                $total += floatval($value);
+                ?>
                 <td><?php echo $value; ?></td>
             <?php } ?>
+            <td><?php echo $total; ?></td>
         </tr>
     <?php } ?>
     </tbody>
@@ -74,3 +80,30 @@ $data = json_decode($jsonData, true);
 </div>
 </body>
 <?php include '../parts/footer.php'; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
