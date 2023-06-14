@@ -86,9 +86,9 @@ $data = json_decode($jsonData, true);
             <?php
             $total = 0;
             foreach ($item as $value) {
-                $total += floatval($value);
+                $total += ceil($value);
                 ?>
-                <td><?php echo ceil($value); ?></td>
+                <td><?php echo $value; ?></td>
             <?php } ?>
             <td><?php echo ceil($total); ?></td>
         </tr>
