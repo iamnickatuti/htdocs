@@ -54,17 +54,7 @@ $data = json_decode($jsonData, true);
                     <h4 class="mb-0 font-size-18">
                         Sales Projection
                     </h4>
-                    <div class="page-title-right">
-                        <form method="post" action="">
-                            <label for="start_date" style="font-size: 11px">Start Date:</label>
-                            <input type="date" id="start_date" name="start_date" required>
 
-                            <label for="end_date"  style="font-size: 11px">End Date:</label>
-                            <input type="date" id="end_date" name="end_date" required>
-
-                            <input class="btn btn-warning" type="submit" value="Filter">
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -86,11 +76,11 @@ $data = json_decode($jsonData, true);
             <?php
             $total = 0;
             foreach ($item as $value) {
-                $total += ceil($value);
+                $total += floatval($value);
                 ?>
                 <td><?php echo $value; ?></td>
             <?php } ?>
-            <td><?php echo ceil($total); ?></td>
+            <td><?php echo $total; ?></td>
         </tr>
     <?php } ?>
     </tbody>
