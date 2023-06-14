@@ -78,7 +78,10 @@ $data = json_decode($jsonData, true);
             foreach ($item as $value) {
                 $total += floatval($value);
                 ?>
-                <td><?php echo $value; ?></td>
+                <td><?php $projections= floatval($value);
+                echo ceil($projections);
+
+                ?></td>
             <?php } ?>
             <td><?php echo ceil($total);  ?></td>
         </tr>
