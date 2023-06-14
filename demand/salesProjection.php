@@ -80,7 +80,7 @@ $data = json_decode($jsonData, true);
                 ?>
                 <td><?php echo is_numeric($value) ? ceil($value) : $value; ?></td>
             <?php } ?>
-            <td><?php echo ceil($total);  ?></td>
+            <td><b><?php echo ceil($total);  ?></b></td>
         </tr>
     <?php } ?>
     </tbody>
