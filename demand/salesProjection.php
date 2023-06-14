@@ -75,7 +75,7 @@ $data = json_decode($jsonData, true);
                         </thead>
                         <tbody>
                         <?php foreach ($data as $item) { ?>
-                            <tr>
+                            <tr<?php echo containsNA($item) ? ' style="color: #b55b00;"' : ''; ?>>
                                 <?php
                                 $total = 0;
                                 foreach ($item as $value) {
@@ -92,7 +92,18 @@ $data = json_decode($jsonData, true);
                 } else {
                     echo "No data available.";
                 }
+
+                function containsNA($item)
+                {
+                    foreach ($item as $value) {
+                        if ($value === "N/A") {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
                 ?>
+
 
 
             </div>
