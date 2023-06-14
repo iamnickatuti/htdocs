@@ -1,6 +1,7 @@
 <?php
 
 include '../../cradle_config.php';
+
 // SQL query to retrieve data
 $sql = "SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
@@ -27,8 +28,7 @@ GROUP BY
   projection_entries.sub_category,
   projection_entries.units
 HAVING
-  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)
-";
+  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)";
 
 $result = $conn->query($sql);
 
@@ -65,7 +65,7 @@ foreach ($data as $category => $subcategories) {
         $result = array(
             "Parent Category" => $category,
             "Sub Category" => $subcategory,
-            "Unit" => $uom
+            "UOM" => $uom
         );
 
         foreach ($monthsData as $month => $units) {
@@ -75,6 +75,7 @@ foreach ($data as $category => $subcategories) {
         $jsonResult[] = $result;
     }
 }
+
 header('Content-Type: application/json');
 
 // Output the JSON result
