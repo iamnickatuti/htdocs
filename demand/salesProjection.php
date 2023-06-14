@@ -81,7 +81,7 @@ $data = json_decode($jsonData, true);
                                 foreach ($item as $value) {
                                     $total += floatval($value);
                                     ?>
-                                    <td><?php echo is_numeric($value) ? ceil($value) : $value; ?></td>
+                                    <td><?php echo is_numeric($value) ? ceil($value) : ($value !== null ? $value : "N/A"); ?></td>
                                 <?php } ?>
                                 <td><b><?php echo ceil($total); ?></b></td>
                             </tr>
@@ -93,6 +93,7 @@ $data = json_decode($jsonData, true);
                     echo "No data available.";
                 }
                 ?>
+
 
             </div>
         </div>

@@ -38,17 +38,25 @@ foreach ($array2 as $item2) {
             $matchFound = true;
         }
     }
-    // If no match is found, append the item2 array as is
+    // If no match is found, append the item2 array with additional fields as is
     if (!$matchFound) {
-        // Assign "N/A" to null fields
+        $item2WithNA = [
+            "Parent Category" => $item2["Parent Category"],
+            "Sub Category" => $item2["Sub Category"],
+            "Part Number" => "N/A",
+            "Part Description" => "N/A",
+            "UOM" => $item2["UOM"],
+        ];
         foreach ($item2 as $key => $value) {
             if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
                 if ($value === null) {
-                    $item2[$key] = "N/A";
+                    $item2WithNA[$key] = "N/A";
+                } else {
+                    $item2WithNA[$key] = $value;
                 }
             }
         }
-        $result[] = $item2;
+        $result[] = $item2WithNA;
     }
 }
 // Convert the result array to JSON
@@ -56,3 +64,4 @@ $jsonResult = json_encode($result, JSON_PRETTY_PRINT);
 
 // Output the JSON result
 echo $jsonResult;
+?>
