@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/mix.php');
 $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/projection.php');
@@ -11,7 +15,7 @@ $result = [];
 foreach ($array2 as $item2) {
     // Check if the "Sub Category" exists in $array1
     foreach ($array1 as $item1) {
-        if ($item1['Sub Category'] === $item2['Sub Category']) {
+        if ($item1['Sub-category'] === $item2['Sub Category']) {
             $multipliedItem = [
                 "Parent Category" => $item2["Parent Category"],
                 "Sub Category" => $item2["Sub Category"],

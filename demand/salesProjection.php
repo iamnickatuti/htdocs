@@ -61,30 +61,39 @@ $data = json_decode($jsonData, true);
         <div class="row">
         <div class="card">
             <div class="card-body">
-<table class="table table-striped dt-responsive nowrap" style="font-size: 11px;">
-    <thead>
-    <tr>
-        <?php foreach (array_keys($data[0]) as $header) { ?>
-            <th><?php echo $header; ?></th>
-        <?php } ?>
-        <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($data as $item) { ?>
-        <tr>
-            <?php
-            $total = 0;
-            foreach ($item as $value) {
-                $total += floatval($value);
+                <?php
+                if (!empty($data)) {
+                    ?>
+                    <table class="table table-striped dt-responsive nowrap" style="font-size: 11px;">
+                        <thead>
+                        <tr>
+                            <?php foreach (array_keys($data[0]) as $header) { ?>
+                                <th><?php echo $header; ?></th>
+                            <?php } ?>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($data as $item) { ?>
+                            <tr>
+                                <?php
+                                $total = 0;
+                                foreach ($item as $value) {
+                                    $total += floatval($value);
+                                    ?>
+                                    <td><?php echo is_numeric($value) ? ceil($value) : $value; ?></td>
+                                <?php } ?>
+                                <td><b><?php echo ceil($total); ?></b></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                    <?php
+                } else {
+                    echo "No data available.";
+                }
                 ?>
-                <td><?php echo is_numeric($value) ? ceil($value) : $value; ?></td>
-            <?php } ?>
-            <td><b><?php echo ceil($total);  ?></b></td>
-        </tr>
-    <?php } ?>
-    </tbody>
-</table>
+
             </div>
         </div>
     </div>
