@@ -1,6 +1,7 @@
 <?php
 
 include '../../cradle_config.php';
+
 // SQL query to retrieve data
 $sql = "SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
@@ -27,34 +28,34 @@ GROUP BY
   projection_entries.sub_category,
   projection_entries.units
 HAVING
-  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)
-";
+  projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)";
 
 $result = $conn->query($sql);
 
 // Initialize an empty associative array to store the results
 $data = array();
 
-foreach ($data as $category => $subcategories) {
-    foreach ($subcategories as $subcategory => $monthsData) {
-        $result = array(
-            "Parent Category" => $category,
-            "Sub Category" => $subcategory
-        );
+if ($result->num_rows > 0) {
+    // Fetch each row and add it to the data array
+    while ($row = $result->fetch_assoc()) {
+        $category = $row['parent_category'];
+        $subcategory = $row['sub_category'];
+        $month = $row['month'];
+        $units = $row['units'];
+        $uom = $row['unit_of_measure'];
 
-        // Get the UOM from the first month's data
-        $firstMonth = reset($monthsData);
-        $uom = isset($firstMonth['unit_of_measure']) ? $firstMonth['unit_of_measure'] : '';
-        $result['UOM'] = $uom;
-
-        foreach ($monthsData as $month => $units) {
-            $result[$month] = $units;
+        // Create the subcategory if it doesn't exist
+        if (!isset($data[$category][$subcategory])) {
+            $data[$category][$subcategory] = array();
         }
 
-        $jsonResult[] = $result;
+        // Add the units and UOM to the corresponding category, subcategory, and month
+        $data[$category][$subcategory][$month] = array(
+            "Units" => $units,
+            "UOM" => $uom
+        );
     }
 }
-
 
 // Close the database connection
 $conn->close();
@@ -69,13 +70,17 @@ foreach ($data as $category => $subcategories) {
             "Sub Category" => $subcategory
         );
 
-        foreach ($monthsData as $month => $units) {
-            $result[$month] = $units;
+        foreach ($monthsData as $month => $data) {
+            $result[$month] = $data["Units"];
         }
+
+        $result["UOM"] = $monthsData[$month]["UOM"];
 
         $jsonResult[] = $result;
     }
 }
+
+// Set the response header to JSON
 header('Content-Type: application/json');
 
 // Output the JSON result
