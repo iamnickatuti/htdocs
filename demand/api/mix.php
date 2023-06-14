@@ -25,14 +25,7 @@ GROUP BY
   category_mix_entries.category_id,
   category_mix_entries.sku_id,
   category_mix_entries.proportion
-HAVING
-  category_mix_id = (
-    SELECT
-      MAX(category_mix_entries.category_mix_id)
-    FROM
-      category_mix_entries
-  )
-";
+HAVING category_mix_id = ( SELECT MAX(category_mix_entries.category_mix_id) FROM category_mix_entries )";
 
 $result = $conn->query($sql);
 

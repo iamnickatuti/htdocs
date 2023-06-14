@@ -40,6 +40,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $category = $row['parent_category'];
         $subcategory = $row['sub_category'];
+        $uom = $row['unit_of_measure'];
         $month = $row['month'];
         $units = $row['units'];
 
@@ -63,7 +64,8 @@ foreach ($data as $category => $subcategories) {
     foreach ($subcategories as $subcategory => $monthsData) {
         $result = array(
             "Parent Category" => $category,
-            "Sub Category" => $subcategory
+            "Sub Category" => $subcategory,
+            "Unit" => $uom
         );
 
         foreach ($monthsData as $month => $units) {
