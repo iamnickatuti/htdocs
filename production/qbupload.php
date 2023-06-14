@@ -339,13 +339,11 @@ else{
                     $resultItem['TotalVolume'] = ($length*$width*$height*$cut_sku_qty)/61020;
                     $resultItem['WeightToVolumeRatio'] = $cut_sku_weight_avg/(($length*$width*$height)/61020);
                     $resultItem['WeightToTotalVolumeRatio'] = ($cut_sku_weight_avg * $cut_sku_qty)/(($length*$width*$height*$cut_sku_qty)/61020);
-
                     $resultArray[] = $resultItem;
                 }
             }
         }
     }
-
 // Convert the result array to JSON
     $json_data = json_encode($resultArray);
     $data = json_decode($json_data, true);
@@ -536,6 +534,7 @@ else{
 ?>
 
             </div>
+
         </div>
 
 <script>
