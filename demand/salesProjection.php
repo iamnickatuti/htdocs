@@ -46,6 +46,10 @@ $data = json_decode($jsonData, true);
             </div>
         </header>
         <?php include '../parts/nav.php';?>
+
+
+        <div class="card">
+            <div class="card-body">
 <table class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
     <thead>
     <tr>
@@ -64,6 +68,8 @@ $data = json_decode($jsonData, true);
     <?php } ?>
     </tbody>
 </table>
+            </div>
+        </div>
     </div>
 </div>
 </body>
