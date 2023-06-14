@@ -6,13 +6,13 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 $query = "SELECT
-    stocktake_references.tag AS 'Tag',
     stocktake_references.date AS 'Duration',
-    locations.name AS 'Location',
     issuance_teams.name AS 'issuance_team_id',
+    stocktake_references.tag AS 'Tag',
+    locations.name AS 'Location',
+    skus.description AS 'SKU Description',
     skus.name AS 'Part Number',
-    stocktakes.quantity AS 'Qty',
-    skus.description AS 'SKU Description'
+    stocktakes.quantity AS 'Qty'
 FROM
     cradle.stocktakes
     LEFT JOIN stocktake_references ON stocktake_references.id = stocktakes.stocktake_reference_id
