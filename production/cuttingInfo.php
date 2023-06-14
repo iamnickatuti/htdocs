@@ -64,6 +64,7 @@ include '../parts/header.php';
                 <div class="col-xl-9">
                     <div class="card">
                         <div class="card-body">
+
                             <ul class="nav nav-tabs mb-3">
                                 <li class="nav-item">
                                     <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link active">
@@ -80,7 +81,7 @@ include '../parts/header.php';
                              </ul>
                             <div class="tab-content">
                                 <div class="tab-pane" id="home">
-                                    <div class="table-responsive">
+
                                         <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
                                             <thead>
                                             <tr>

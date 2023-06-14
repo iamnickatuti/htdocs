@@ -75,6 +75,7 @@ include '../parts/header.php';
                                     && ($selectedTeam === null || $row['issuance_team_id'] === $selectedTeam);
                             });
                             $filteredDataJSON = json_encode($filteredData);
+
                             ?>
 
                             <div class="card-body">
