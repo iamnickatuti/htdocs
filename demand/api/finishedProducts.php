@@ -11,17 +11,17 @@ $result = [];
 foreach ($array2 as $item2) {
     // Check if the "Sub Category" exists in $array1
     foreach ($array1 as $item1) {
-        if ($item1['Sub-category'] === $item2['Sub Category']) {
+        if ($item1['Sub Category'] === $item2['Sub Category']) {
             $multipliedItem = [
                 "Parent Category" => $item2["Parent Category"],
                 "Sub Category" => $item2["Sub Category"],
                 "Part Number" => $item1["Part Number"],
                 "Part Description" => $item1["Part Description"],
-                "UOM" => $item2['UOM']
+                "UOM" => $item2["UOM"], // Add the unit of measure from json2
             ];
             // Multiply the month values by the proportion
             foreach ($item2 as $key => $value) {
-                if ($key !== "Parent Category" && $key !== "Sub Category") {
+                if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
                     $multipliedItem[$key] = floatval($value) * floatval($item1['proportion']);
                 }
             }
@@ -35,5 +35,4 @@ $jsonResult = json_encode($result, JSON_PRETTY_PRINT);
 
 // Output the JSON result
 echo $jsonResult;
-
 ?>
