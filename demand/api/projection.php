@@ -1,6 +1,6 @@
 <?php
 
-include '../cradle_config.php';
+include '../../cradle_config.php';
 // SQL query to retrieve data
 $sql = "SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
