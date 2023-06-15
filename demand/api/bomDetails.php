@@ -100,9 +100,54 @@ while ($row = mysqli_fetch_assoc($result)) {
 // Convert the results array to JSON
 $jsonResult = json_encode($results);
 
-// Output the JSON result
-echo $jsonResult;
+$data = json_decode($jsonResult, true);
 
-// Close the database connection
-mysqli_close($conn);
-?>
+$products = [];
+
+foreach ($data as $item) {
+    $productKey = $item['Target_sku_Part_Number'];
+
+    // Check if the product exists in the products array
+    $existingProduct = array_filter($products, function ($product) use ($productKey) {
+        return $product['Product'] === $productKey;
+    });
+
+    // If the product exists, add the component to its Components array
+    if (!empty($existingProduct)) {
+        $existingProductKey = array_keys($existingProduct)[0];
+        $products[$existingProductKey]['Components'][] = [
+            'Component_Part_Number' => $item['Component_part_number'],
+            'Component_Part_Description' => $item['Component_part_description'],
+            'Component_Quantity' => $item['component_quantity'],
+            'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+            'Status' => $item['status'],
+            'BOM_Distribution_ID' => $item['bom_distribution_id'],
+            '%_BOM_Share' => $item['%_bom_share']
+        ];
+    } else {
+        // If the product doesn't exist, create a new product object and add it to the products array
+        $products[] = [
+            'Product' => $item['Target_sku_Part_Number'],
+            'Product_Description' => $item['Target_sku_Part_Description'],
+            'Components' => [
+                [
+                    'Component_Part_Number' => $item['Component_part_number'],
+                    'Component_Part_Description' => $item['Component_part_description'],
+                    'Component_Quantity' => $item['component_quantity'],
+                    'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+                    'Status' => $item['status'],
+                    'BOM_Distribution_ID' => $item['bom_distribution_id'],
+                    '%_BOM_Share' => $item['%_bom_share']
+                ]
+            ]
+        ];
+    }
+}
+
+$result = [
+    'products' => $products
+];
+
+$output = json_encode($result, JSON_PRETTY_PRINT);
+
+echo $output;
