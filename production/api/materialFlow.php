@@ -308,7 +308,7 @@ $mergedJson = json_encode($mergedArray);
             } elseif (in_array($row['Part Name'], $partJapan)) {
                 $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
             } elseif (in_array($row['Part Name'], $partRecycle)) {
-                $psku = 'Raw Material:Foam Scrap:Recycle Foam';
+                $psku = 'Recycle';
             } elseif (in_array($row['Part Name'], $partChina)) {
                 $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
             } elseif (in_array($row['Part Name'], $partTrial)) {
