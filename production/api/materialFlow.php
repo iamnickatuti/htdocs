@@ -154,18 +154,13 @@ if ($result) {
 }
 
 //cage receipts
-
-
-
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
 while ($row = mysqli_fetch_assoc($resultCage)) {
-    $partRecycle = array('RM-FM-FR001','RM-FM-FR002','RM-FM-FR003', 'RM-FM-FR004', 'RM-FM-FR005','RM-FM-FR006');
-
+    $partRecycle = array('RM-FM-FR001');
     if (in_array($row['Part Name'], $partRecycle)) {
         $psku = 'Recycle';
     }
-
     $date = date('Y-m', strtotime($row['Masaa']));
     $row['Masaa'] = $date;
     $row['Part Name'] = $psku; // Update the "Part Name" column value
@@ -272,8 +267,6 @@ $mergedJson = json_encode($mergedArray);
                 $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
             } elseif (in_array($row['Part Name'], $partJapan)) {
                 $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
-            } elseif (in_array($row['Part Name'], $partRecycle)) {
-                $psku = 'Recycle';
             } elseif (in_array($row['Part Name'], $partChina)) {
                 $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
             } elseif (in_array($row['Part Name'], $partTrial)) {
