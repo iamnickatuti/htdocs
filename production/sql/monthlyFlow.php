@@ -22,7 +22,6 @@ $sqlStocktake = "
       cradle.skus.sku_type_id = '1'
       AND locations.id IN ('16', '24')
       AND stocktake_references.cycle_id = 3
-    AND skus.id IN(79, 80, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 2843, 1818,1819, 1820, 1821, 1823, 1824, 1980, 78, 1804, 1805, 1806 ,1807, 1808, 1809, 218, 219, 220, 221, 222, 848, 2144, 81, 2451, 75, 970 , 88, 89, 90)
     ORDER BY stocktakes.date DESC";
 
 $cageQuery = "SELECT 
