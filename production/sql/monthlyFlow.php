@@ -24,11 +24,15 @@ $sqlStocktake = "
       AND stocktake_references.cycle_id = 3
     ORDER BY stocktakes.date DESC";
 
-$cageQuery = "SELECT 
+$cageQuery = "SELECT
 skus.name as 'Part Name',
 cage_receipts.value AS 'Cages',
-cage_receipts.created_at AS 'Masaa'
-FROM (cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
+cage_receipts.date AS 'Masaa'
+FROM
+(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)
+WHERE skus.name IN ('RM-FM-FR001','RM-FM-FR002','RM-FM-FR003', 'RM-FM-FR004', 'RM-FM-FR005','RM-FM-FR006')";
+
+
 
 $queryYard = "SELECT
     manufacturing_receipts.created_at AS 'Timed',

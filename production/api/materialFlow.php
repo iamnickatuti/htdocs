@@ -157,7 +157,7 @@ if ($result) {
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
 while ($row = mysqli_fetch_assoc($resultCage)) {
-    $partRecycle = array('RM-FM-FR001');
+    $partRecycle = array('RM-FM-FR001','RM-FM-FR002','RM-FM-FR003', 'RM-FM-FR004', 'RM-FM-FR005','RM-FM-FR006');
     if (in_array($row['Part Name'], $partRecycle)) {
         $psku = 'Recycle';
     }
