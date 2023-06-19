@@ -110,9 +110,6 @@ $resultJson = json_encode($result, JSON_PRETTY_PRINT);
                 <td><?php echo $component['Component_Part_Description']; ?></td>
                 <td><?php echo $component['Component_Quantity']; ?></td>
                 <td><?php echo $component['Component_Unit_of_Measure']; ?></td>
-                <td><?php echo $component['Status']; ?></td>
-                <td><?php echo $component['BOM_Distribution_ID']; ?></td>
-                <td><?php echo $component['%_BOM_Share']; ?></td>
             </tr>
             <?php if (isset($component['Sub_Components'])) { ?>
                 <?php foreach ($component['Sub_Components'] as $subComponent) { ?>
@@ -121,9 +118,6 @@ $resultJson = json_encode($result, JSON_PRETTY_PRINT);
                         <td><?php echo $subComponent['Component_part_description']; ?></td>
                         <td><?php echo $subComponent['component_quantity']; ?></td>
                         <td><?php echo $subComponent['Component_Unit_of_measure']; ?></td>
-                        <td><?php echo $subComponent['status']; ?></td>
-                        <td><?php echo $subComponent['bom_distribution_id']; ?></td>
-                        <td><?php echo $subComponent['%_bom_share']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>
