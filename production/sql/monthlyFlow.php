@@ -45,12 +45,10 @@ FROM
     LEFT JOIN units ON units.id = skus.unit_id)
     LEFT JOIN locations ON locations.id = manufacturing_receipts.location_id)
     LEFT JOIN issuance_teams ON issuance_teams.id = locations.issuance_team_id) 
-    WHERE skus.id IN(79, 80, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 2843, 1818,1819, 1820, 1821, 1823, 1824, 1980, 78, 1804, 1805, 1806 ,1807, 1808, 1809, 218, 219, 220, 221, 222, 848, 2144, 81, 2451, 75, 970 , 88, 89, 90)";
-
+";
 
 $sqlConsumption = "SELECT skus.name AS 'Part Name',
         block_components.weight AS 'Consumption',
         block_components.date as 'Tarehe'
         FROM block_components
-        LEFT JOIN skus ON skus.id = block_components.sku_id 
-     WHERE skus.id IN(79,  80, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 2843, 1818,1819, 1820, 1821, 1823, 1824, 1980, 78, 1804, 1805, 1806 ,1807, 1808, 1809, 218, 219, 220, 221, 222, 848, 2144, 81, 2451, 75, 970 , 88, 89, 90)";
+        LEFT JOIN skus ON skus.id = block_components.sku_id";
