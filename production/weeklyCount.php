@@ -236,3 +236,142 @@ include '../parts/header.php';
     </div>
     </body>
 <?php include '../parts/footer.php';?>
+
+
+
+
+<?php
+/** @noinspection ALL */
+include '../../cradle_config.php';
+global $conn;
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+// The SQL query
+$query = "SELECT
+  bom_details.bom_id,
+  boms.name AS 'BOM_Name',
+  production_lines.name AS 'Production_Line',
+  skus1.name AS 'Target_sku_Part_Number',
+  skus1.description AS 'Target_sku_Part_Description',
+  skus.sku_type_id,
+  skus.name AS 'Component_part_number',
+  skus.description AS 'Component_part_description',
+  bom_details.quantity AS 'component_quantity',
+  units.name AS 'Component_Unit_of_measure',
+  bom_details.status,
+  bom_distribution_entries.bom_distribution_id AS 'bom_distribution_id',
+  bom_distribution_entries.share AS '%_bom_share'
+FROM
+  bom_details
+  LEFT JOIN skus ON skus.id = bom_details.sku_id
+  LEFT JOIN boms ON boms.id = bom_details.bom_id
+  LEFT JOIN production_lines ON production_lines.id = boms.production_line_id
+  LEFT JOIN skus AS skus1 ON skus1.id = boms.sku_id
+  LEFT JOIN units ON units.id = skus.unit_id
+  LEFT JOIN sku_types ON sku_types.id = skus.sku_type_id
+  LEFT JOIN bom_distribution_entries ON bom_distribution_entries.bom_id = bom_details.bom_id
+WHERE
+  skus1.description LIKE 'FP%'
+GROUP BY
+  bom_details.bom_id,
+  boms.name,
+  production_lines.name,
+  skus1.name,
+  skus1.description,
+  skus.sku_type_id,
+  skus.name,
+  skus.description,
+  bom_details.quantity,
+  units.name,
+  bom_details.status,
+  bom_distribution_entries.bom_distribution_id,
+  bom_distribution_entries.share
+HAVING
+  bom_distribution_id = (
+    SELECT
+      MAX(bom_distribution_entries.bom_distribution_id)
+    FROM
+      bom_distribution_entries
+    WHERE
+      skus1.description LIKE 'FP%'
+  );";
+
+// Execute the query
+$result = mysqli_query($conn, $query);
+
+// Store the results in an associative array
+$products = array();
+
+// Loop through each row of the query result
+while ($row = mysqli_fetch_assoc($result)) {
+    // Create an associative array for each row
+    $resultRow = array(
+        'bom_id' => $row['bom_id'],
+        'BOM_Name' => $row['BOM_Name'],
+        'Production_Line' => $row['Production_Line'],
+        'Target_sku_Part_Number' => $row['Target_sku_Part_Number'],
+        'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
+        'sku_type_id' => $row['sku_type_id'],
+        'Component_part_number' => $row['Component_part_number'],
+        'Component_part_description' => $row['Component_part_description'],
+        'component_quantity' => $row['component_quantity'],
+        'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
+        'status' => $row['status'],
+        'bom_distribution_id' => $row['bom_distribution_id'],
+        '%_bom_share' => $row['%_bom_share']
+    );
+
+    // Add the row to the results array
+    $products[] = $resultRow;
+}
+
+foreach ($data as $item) {
+    $productKey = $item['Target_sku_Part_Number'];
+
+    // Check if the product exists in the products array
+    $existingProduct = array_filter($products, function ($product) use ($productKey) {
+        return $product['Product'] === $productKey;
+    });
+
+    // If the product exists, add the component to its Components array
+    if (!empty($existingProduct)) {
+        $existingProductKey = array_keys($existingProduct)[0];
+        $products[$existingProductKey]['Components'][] = [
+            'Component_Part_Number' => $item['Component_part_number'],
+            'Component_Part_Description' => $item['Component_part_description'],
+            'Component_Quantity' => $item['component_quantity'],
+            'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+            'Status' => $item['status'],
+            'BOM_Distribution_ID' => $item['bom_distribution_id'],
+            '%_BOM_Share' => $item['%_bom_share']
+        ];
+    } else {
+        // If the product doesn't exist, create a new product object and add it to the products array
+        $products[] = [
+            'Product' => $item['Target_sku_Part_Number'],
+            'Product_Description' => $item['Target_sku_Part_Description'],
+            'Components' => [
+                [
+                    'Component_Part_Number' => $item['Component_part_number'],
+                    'Component_Part_Description' => $item['Component_part_description'],
+                    'Component_Quantity' => $item['component_quantity'],
+                    'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+                    'Status' => $item['status'],
+                    'BOM_Distribution_ID' => $item['bom_distribution_id'],
+                    '%_BOM_Share' => $item['%_bom_share']
+                ]
+            ]
+        ];
+    }
+}
+
+$result = [
+    'products' => $products
+];
+
+$output = json_encode($result, JSON_PRETTY_PRINT);
+
+echo $output;
+
