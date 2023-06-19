@@ -29,8 +29,7 @@ skus.name as 'Part Name',
 cage_receipts.value AS 'Cages',
 cage_receipts.created_at AS 'Masaa'
 FROM
-(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)
-WHERE skus.id IN(89, 90)";
+(cage_receipts LEFT JOIN skus ON skus.id = cage_receipts.sku_id)";
 
 $queryYard = "SELECT
     manufacturing_receipts.created_at AS 'Timed',
