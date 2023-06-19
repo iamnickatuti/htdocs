@@ -161,6 +161,7 @@ while ($row = mysqli_fetch_assoc($resultCage)) {
     if (in_array($row['Part Name'], $partRecycle)) {
         $psku = 'Recycle';
     }
+
     $date = date('Y-m', strtotime($row['Masaa']));
     $row['Masaa'] = $date;
     $row['Part Name'] = $psku; // Update the "Part Name" column value
@@ -189,6 +190,7 @@ $allCombinations = array();
 foreach ($data as $row) {
     $key = $row['Masaa'] . '-' . $row['Part Name'];
     $allCombinations[$key] = true;
+
 }
 
 $missingCombinations = array_diff_key($allCombinations, $groupedData);
@@ -222,6 +224,8 @@ foreach ($materialData as $item1) {
     $matchFound = false;
 
     // Iterate over each element in $cageData array
+    $sumCages = 0;
+
     foreach ($cageData as $item2) {
         // Check if Part Description matches Part Name and Duration matches Masaa
         if ($item1['Part Description'] === $item2['Part Name'] && $item1['Duration'] === $item2['Masaa']) {
@@ -231,20 +235,29 @@ foreach ($materialData as $item1) {
             $mergedArray[] = $mergedItem;
             // Set match found flag to true
             $matchFound = true;
+            // Add the Cages value to the sum
+
         }
     }
+
+// After the loop, $sumCages will contain the sum of the 'Cages' values
+
 
     // If no match is found, add the item from $materialData with quantity 0
     if (!$matchFound) {
         $item1['Cages'] = 0;
         $mergedArray[] = $item1;
+    } else {
+        // Increment the value of Cages in $item2
+        $item2['Cages']++;
     }
+
 }
 
 // Convert the merged array to JSON
 $mergedJson = json_encode($mergedArray);
 
-
+echo $mergedJson;
 // Execute the query to retrieve the data
     $resultYard = mysqli_query($conn, $queryYard);
 
@@ -443,4 +456,4 @@ foreach ($finalData as $finalItem) {
 
 
 $combinedJsonn = json_encode($combinedArray);
-echo $combinedJsonn;
+$combinedJsonn;
