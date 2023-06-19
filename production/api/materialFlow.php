@@ -22,7 +22,7 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         // Map the SKU name to the parent SKU based on the provided criteria
         $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
-        $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005', 'RM-FS-JP007', 'RM-FS-JP008');
+        $partJapan = array('RM-FS-JM001', 'RM-FS-JP002', 'RM-FS-JP004', 'RM-FS-JP005','RM-FS-JP006' , 'RM-FS-JP007', 'RM-FS-JP008');
         $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
         $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
         $partTrial = array('RM-FS-TR001', 'MKE-SKU');
