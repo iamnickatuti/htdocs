@@ -89,9 +89,6 @@ $resultJson = json_encode($result, JSON_PRETTY_PRINT);
         <th>Component Part Description</th>
         <th>Component Quantity</th>
         <th>Component Unit of Measure</th>
-        <th>Status</th>
-        <th>BOM Distribution ID</th>
-        <th>% BOM Share</th>
     </tr>
     <?php
     $data = json_decode($resultJson, true);
