@@ -2,7 +2,7 @@
 /** @noinspection ALL */
 include '../../cradle_config.php';
 global $conn;
-//header('Content-Type: application/json');
+header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
