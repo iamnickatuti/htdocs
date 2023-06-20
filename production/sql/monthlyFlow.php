@@ -51,4 +51,5 @@ $sqlConsumption = "SELECT skus.name AS 'Part Name',
         block_components.weight AS 'Consumption',
         block_components.date as 'Tarehe'
         FROM block_components
-        LEFT JOIN skus ON skus.id = block_components.sku_id";
+        LEFT JOIN skus ON skus.id = block_components.sku_id
+WHERE skus.name IN ('RM-FM-FR001', 'RM-FM-FR002', 'RM-FM-FR003', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006')";
