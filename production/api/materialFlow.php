@@ -363,6 +363,31 @@ $data = array();
 // Fetch each row from the result set
 $groupedData = array();
 
+// ...
+
+// Iterate over each row in the $data array
+while ($row = $resultConsumption->fetch_assoc()) {
+    // ...
+
+    $consumption = floatval($row['Consumption']);
+
+    // Generate a unique key based on the combination of PSKU and datee
+    $key = $row['Part Name'] . '-' . $row['Tarehe'];
+
+    // Check if the key already exists in the groupedData array
+    if (isset($groupedData[$key])) {
+        // If the key exists, update the consumption by adding the current row's consumption
+        $groupedData[$key]['Consumption'] += $consumption;
+    } else {
+        // If the key does not exist, create a new item in the groupedData array
+        $groupedData[$key] = $row;
+        $groupedData[$key]['Consumption'] = $consumption;
+    }
+}
+
+$jsonDataa = json_encode($groupedData);
+
+
 while ($row = $resultConsumption->fetch_assoc()) {
 
     $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP007', 'RM-FS-SP008');
@@ -408,7 +433,7 @@ while ($row = $resultConsumption->fetch_assoc()) {
     $datee = date('Y-m', strtotime($row['Tarehe']));
     $row['Tarehe'] = $datee;
     $row['Part Name'] = $psku;
-    $consumption = $row['Consumption'];
+    $consumption = floatval($row['Consumption']);
 
     // Generate a unique key based on the combination of PSKU and datee
     $key = $row['Part Name'] . '-' . $row['Tarehe'];
