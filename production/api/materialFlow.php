@@ -178,7 +178,7 @@ foreach ($data as $row) {
     // Check if the key already exists in the groupedData array
     if (isset($groupedData[$key])) {
         // If the key exists, merge the row with the existing groupedData item
-        $groupedData[$key] = array_merge($groupedData[$key], $row);
+        $groupedData[$key]['Cages'] += $row['Cages'];
     } else {
         // If the key does not exist, create a new item in the groupedData array
         $groupedData[$key] = $row;
@@ -190,7 +190,6 @@ $allCombinations = array();
 foreach ($data as $row) {
     $key = $row['Masaa'] . '-' . $row['Part Name'];
     $allCombinations[$key] = true;
-
 }
 
 $missingCombinations = array_diff_key($allCombinations, $groupedData);
@@ -201,7 +200,7 @@ foreach ($missingCombinations as $key => $value) {
     $missingRow = array(
         'Masaa' => $masaa,
         'Part Name' => $partName,
-        'Quantity' => 0
+        'Cages' => 0
     );
     $groupedData[$key] = $missingRow;
 }
@@ -212,9 +211,9 @@ $groupedArray = array_values($groupedData);
 // Convert the grouped array to JSON
 $cageReceipts = json_encode($groupedArray);
 
-$cageData = json_decode($cageReceipts, true);
 $materialData = json_decode($material, true);
 
+$cageData = json_decode($cageReceipts, true);
 // Initialize the merged array
 $mergedArray = [];
 
@@ -225,7 +224,6 @@ foreach ($materialData as $item1) {
 
     // Iterate over each element in $cageData array
     $sumCages = 0;
-
     foreach ($cageData as $item2) {
         // Check if Part Description matches Part Name and Duration matches Masaa
         if ($item1['Part Description'] === $item2['Part Name'] && $item1['Duration'] === $item2['Masaa']) {
