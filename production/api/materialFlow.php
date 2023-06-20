@@ -433,7 +433,7 @@ while ($row = $resultConsumption->fetch_assoc()) {
     $datee = date('Y-m', strtotime($row['Tarehe']));
     $row['Tarehe'] = $datee;
     $row['Part Name'] = $psku;
-    $consumption = floatval($row['Consumption']);
+    $consumption = $row['Consumption'];
 
     // Generate a unique key based on the combination of PSKU and datee
     $key = $row['Part Name'] . '-' . $row['Tarehe'];
