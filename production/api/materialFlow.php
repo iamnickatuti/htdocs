@@ -157,68 +157,37 @@ if ($result) {
 $resultCage = mysqli_query($conn, $cageQuery);
 $data = array();
 while ($row = mysqli_fetch_assoc($resultCage)) {
-    $partSpain = array('RM-FS-SP001', 'RM-FS-SP002', 'RM-FS-SP003', 'RM-FS-SP004', 'RM-FS-SP005', 'RM-FS-SP006', 'RM-FS-SP007', 'RM-FS-SP008','RM-FS-SP009');
-    $partJapan = array('RM-FS-JM001', 'RM-FS-JP002','RM-FS-JP003', 'RM-FS-JP004', 'RM-FS-JP005','RM-FS-JP006' , 'RM-FS-JP007', 'RM-FS-JP008');
-    $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005', 'RM-FS-CH006', 'RM-FS-CH007');
     $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
-    $partTrial = array('RM-FS-TR001', 'MKE-SKU');
-    $partBra = array('RM-FS-BR001');
-    $partSweepings = array('RM-FS-SW001');
-    $partMD1518 = array('RM-CH-MD007');
-    $partMD1518H = array('RM-CH-MD008');
-
-    if (in_array($row['Part Name'], $partSpain)) {
-        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
-    } elseif (in_array($row['Part Name'], $partJapan)) {
-        $psku = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
-    } elseif (in_array($row['Part Name'], $partRecycle)) {
-        $psku = 'Raw Material:Foam Scrap:Recycle Foam';
-    } elseif (in_array($row['Part Name'], $partChina)) {
-        $psku = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
-    } elseif (in_array($row['Part Name'], $partTrial)) {
-        $psku = 'RM:Foam Scrap: Trial Foam';
-    } elseif (in_array($row['Part Name'], $partBra)) {
-        $psku = 'Raw Material:Foam Scrap:Bra - Code B';
-    } elseif (in_array($row['Part Name'], $partSweepings)) {
-        $psku = 'Raw Material:Foam Scrap:Sweepings';
-    } elseif (in_array($row['Part Name'], $partMD1518)) {
-        $psku = 'Raw Material:Chemicals:MDI:MDI 1518';
-    } elseif (in_array($row['Part Name'], $partMD1518H)) {
-        $psku = 'Raw Material:Chemicals:MDI:MDI 1518H';
-    } elseif ($row['Part Name'] === 'RM-FM-FR007') {
-        $psku = 'Raw Material:Foam Scrap:Recon Mixed';
-    } elseif ($row['Part Name'] === 'RM-FS-FL001') {
-        $psku = 'RM:Foam Scrap: Filter - Code F (GF)';
-    } elseif ($row['Part Name'] === 'RM-FS-FL002') {
-        $psku = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
-    } elseif ($row['Part Name'] === 'RM-CH-MD009') {
-        $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
-    } elseif ($row['Part Name'] === 'RM-FS-CM051') {
-        $psku = 'Raw Material:Local Loose Foam';
+    if (in_array($row['Part Name'], $partRecycle)) {
+        $psku = 'Recycle';
     }
-
     $date = date('Y-m', strtotime($row['Masaa']));
     $row['Masaa'] = $date;
     $row['Part Name'] = $psku; // Update the "Part Name" column value
     $data[] = $row;
 }
 
-// Initialize the groupedData array
-$groupedData = array();
+/// Initialize an empty array to store the grouped data
+$groupedData = [];
 
-// Iterate over each row in the data array
+// Iterate over each row in the $data array
 foreach ($data as $row) {
     $key = $row['Masaa'] . '-' . $row['Part Name'];
 
     // Check if the key already exists in the groupedData array
     if (isset($groupedData[$key])) {
         // If the key exists, merge the row with the existing groupedData item
-        $groupedData[$key] = array_merge($groupedData[$key], $row);
+        $groupedData[$key]['Cages'] += floatval($row['Cages']);
     } else {
         // If the key does not exist, create a new item in the groupedData array
         $groupedData[$key] = $row;
+        $groupedData[$key]['Cages'] = floatval($row['Cages']);
     }
 }
+
+// Now you can access the sum of Cages for a specific key or iterate over the groupedData array
+
+
 
 // Find the missing combinations of Masaa and Part Name
 $allCombinations = array();
