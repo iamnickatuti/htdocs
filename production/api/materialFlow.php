@@ -61,6 +61,8 @@ if ($result) {
             $psku = 'Raw Material:Local Loose Foam';
         }elseif ($row['Part Name'] === 'OT-MS-MS001') {
             $psku = 'OT:Metal Scrap:Binding Wires';
+        }elseif ($row['Part Name'] === 'RM-FS-CM051') {
+            $psku = 'RM:Foam:Local Loose Foam';
         }
 
 
@@ -301,6 +303,8 @@ while ($row = mysqli_fetch_assoc($resultYard)) {
             $psku = 'Raw Material:Local Loose Foam';
         }elseif ($row['Part Name'] === 'OT-MS-MS001	') {
             $psku = 'OT:Metal Scrap:Binding Wires';
+        }elseif ($row['Part Name'] === 'RM-FS-CM051') {
+            $psku = 'RM:Foam:Local Loose Foam';
         }
         // Format the date
         $date = date('Y-m', strtotime($row['Timed']));
@@ -408,6 +412,8 @@ while ($row = $resultConsumption->fetch_assoc()) {
         $psku = 'Raw Material:Local Loose Foam';
     }elseif ($row['Part Name'] === 'OT-MS-MS001') {
         $psku = 'OT:Metal Scrap:Binding Wires';
+    }elseif ($row['Part Name'] === 'RM-FS-CM051') {
+        $psku = 'RM:Foam:Local Loose Foam';
     }
     // Format the date
     $datee = date('Y-m', strtotime($row['Tarehe']));
