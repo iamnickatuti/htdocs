@@ -173,9 +173,6 @@ include '../parts/header.php';
                     }
 
                     echo "<tr>";
-                    for ($i = 0; $i < 12; $i++) {
-                        echo "<td>" . $totals[$i] . "</td>";
-                    }
                     echo "</tr>";
 
                     foreach ($data as $product) {
@@ -236,7 +233,7 @@ include '../parts/header.php';
         });
 
         var totalsRow = document.createElement('tr');
-        totalsRow.innerHTML = '<b><td colspan=\'6\'>Totals After Filter:</td></b>';
+        totalsRow.innerHTML = '<b><td colspan=\'6\'>Total</td></b>';
 
       filteredTotals.forEach(total => {
     var roundedTotal = total.toFixed(2);
