@@ -236,10 +236,10 @@ include '../parts/header.php';
         });
 
         var totalsRow = document.createElement('tr');
-        totalsRow.innerHTML = '';
+        totalsRow.innerHTML = '<b><td colspan=\'7\'>Totals After Filter:</td><</b>';
 
         filteredTotals.forEach(total => {
-            totalsRow.innerHTML += '<td>' + total + '</td>';
+            totalsRow.innerHTML += '<td><b>' + total + '</b></td>';
         });
 
         table.appendChild(totalsRow);
