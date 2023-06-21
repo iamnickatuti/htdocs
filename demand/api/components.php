@@ -77,7 +77,6 @@ $results = array();
 while ($row = mysqli_fetch_assoc($result)) {
     // Create an associative array for each row
     $resultRow = array(
-        'BOM_Name' => $row['BOM_Name'],
         'Target_sku_Part_Number' => $row['Target_sku_Part_Number'],
         'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
         'Component_part_number' => $row['Component_part_number'],

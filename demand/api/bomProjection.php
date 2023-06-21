@@ -28,7 +28,6 @@ foreach ($json2Array['products'] as $product) {
             foreach ($json1Array as $item) {
                 if ($item['Target_sku_Part_Number'] === $component['Component_Part_Number']) {
                     $subComponent = array(
-                        'BOM_Name' => $item['BOM_Name'],
                         'Target_sku_Part_Number' => $item['Target_sku_Part_Number'],
                         'Target_sku_Part_Description' => $item['Target_sku_Part_Description'],
                         'Component_part_number' => $item['Component_part_number'],
