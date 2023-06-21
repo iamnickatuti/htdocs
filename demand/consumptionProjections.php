@@ -238,9 +238,11 @@ include '../parts/header.php';
         var totalsRow = document.createElement('tr');
         totalsRow.innerHTML = '<b><td colspan=\'6\'>Totals After Filter:</td></b>';
 
-        filteredTotals.forEach(total => {
-            totalsRow.innerHTML += '<td><b>' + total + '</b></td>';
-        });
+      filteredTotals.forEach(total => {
+    var roundedTotal = total.toFixed(2);
+    totalsRow.innerHTML += '<td><b>' + roundedTotal + '</b></td>';
+});
+
 
         table.appendChild(totalsRow);
     }
