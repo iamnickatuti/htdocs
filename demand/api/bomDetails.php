@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
         'Component_part_number' => $row['Component_part_number'],
         'Component_part_description' => $row['Component_part_description'],
-        'component_quantity' => ceil($row['component_quantity']),
+        'component_quantity' => $row['component_quantity'],
         'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
         '%_bom_share' => $row['%_bom_share']
     );
@@ -114,7 +114,7 @@ foreach ($data as $item) {
         $products[$existingProductKey]['Components'][] = [
             'Component_Part_Number' => $item['Component_part_number'],
             'Component_Part_Description' => $item['Component_part_description'],
-            'Component_Quantity' => ceil($row['component_quantity']),
+            'Component_Quantity' => $item['component_quantity'],
             'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
             '%_BOM_Share' => $item['%_bom_share']
         ];
@@ -127,7 +127,7 @@ foreach ($data as $item) {
                 [
                     'Component_Part_Number' => $item['Component_part_number'],
                     'Component_Part_Description' => $item['Component_part_description'],
-                    'Component_Quantity' => ceil($row['component_quantity']),
+                    'Component_Quantity' => $item['component_quantity'],
                     'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
                     '%_BOM_Share' => $item['%_bom_share']
                 ]
