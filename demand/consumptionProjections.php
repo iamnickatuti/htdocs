@@ -191,45 +191,79 @@ include '../parts/header.php';
                 // PHP code here (unchanged)
                 ?>
 
+                <?php
+                // PHP code here (unchanged)
+                ?>
+
                 <script>
+                    function calculateColumnSums(table) {
+                        var columnSums = Array.from({ length: 12 }, () => 0);
+
+                        for (var i = 1; i < table.rows.length; i++) {
+                            var row = table.rows[i];
+                            var cells = row.cells;
+
+                            for (var j = 7; j <= 18; j++) {
+                                var cell = cells[j];
+                                if (!isNaN(cell.innerHTML)) {
+                                    columnSums[j - 7] += parseFloat(cell.innerHTML);
+                                }
+                            }
+                        }
+
+                        return columnSums;
+                    }
+
+                    function updateSumRow(table, columnSums) {
+                        var sumRow = table.querySelector('.sum-row');
+                        if (!sumRow) {
+                            sumRow = table.insertRow(-1);
+                            sumRow.classList.add('sum-row');
+                            sumRow.style.fontWeight = 'bold';
+                        }
+
+                        while (sumRow.cells.length < 12) {
+                            sumRow.insertCell();
+                        }
+
+                        for (var k = 0; k < columnSums.length; k++) {
+                            var sumCell = sumRow.cells[k];
+                            sumCell.innerHTML = columnSums[k];
+                        }
+                    }
+
                     function filterTable() {
                         var select = document.getElementById('partNumberSelect');
                         var selectedValue = select.value;
                         var table = document.getElementById('componentTable');
                         var rows = table.rows;
 
-                        var columnSums = Array.from({ length: table.rows[0].cells.length }, () => 0);
+                        // Calculate sums before filtering
+                        var preFilterColumnSums = calculateColumnSums(table);
 
                         for (var i = 1; i < rows.length; i++) {
                             var partNumberCell = rows[i].cells[0];
                             var display = (selectedValue === 'all' || partNumberCell.innerHTML === selectedValue) ? 'table-row' : 'none';
                             rows[i].style.display = display;
-
-                            for (var j = 0; j < rows[i].cells.length; j++) {
-                                var cell = rows[i].cells[j];
-                                if (!isNaN(cell.innerHTML)) {
-                                    columnSums[j] += parseFloat(cell.innerHTML);
-                                }
-                            }
                         }
 
-                        // Remove the previous sum row, if any
+                        // Calculate sums after filtering
+                        var postFilterColumnSums = calculateColumnSums(table);
+
+                        // Update sum row
+                        updateSumRow(table, preFilterColumnSums);
+
+                        // Show or hide the sum row based on filter selection
                         var sumRow = table.querySelector('.sum-row');
-                        if (sumRow) {
-                            sumRow.remove();
-                        }
+                        sumRow.style.display = (selectedValue === 'all') ? 'table-row' : 'none';
 
-                        // Create a new sum row
-                        sumRow = table.insertRow(-1);
-                        sumRow.classList.add('sum-row');
-                        sumRow.style.fontWeight = 'bold';
-
-                        for (var k = 0; k < columnSums.length; k++) {
-                            var sumCell = sumRow.insertCell(-1);
-                            sumCell.innerHTML = columnSums[k];
+                        // Update sum row with filtered sums if necessary
+                        if (selectedValue !== 'all') {
+                            updateSumRow(table, postFilterColumnSums);
                         }
                     }
                 </script>
+
 
 
             </div>
