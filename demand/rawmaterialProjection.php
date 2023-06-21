@@ -109,8 +109,7 @@ if (is_array($data)) {
     echo "<th>June 2023</th>";
     echo "</tr>";
 
-    // Calculate totals before filtering
-    $totals = array_fill(0, 12, 0);
+    $totals = array_fill(0, 12, 0.0);
 
     foreach ($data as $product) {
         foreach ($product['Components'] as $component) {
@@ -118,7 +117,7 @@ if (is_array($data)) {
             $monthlyValues = array_slice($multipliedValues, 6); // Get values starting from July 2022
 
             foreach ($monthlyValues as $index => $value) {
-                $totals[$index] += $value;
+                $totals[$index] += floatval($value);
             }
         }
     }
