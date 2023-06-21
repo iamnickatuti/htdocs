@@ -47,7 +47,6 @@ include '../parts/header.php';
                         </div>
                     </div>
                 </div>
-
                 <?php
                 header('Access-Control-Allow-Origin: *');
                 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
@@ -118,16 +117,20 @@ include '../parts/header.php';
                     echo "<select id='partNumberSelect' onchange='filterTable()'>";
                     echo "<option value='all'>All</option>";
 
-                    // Generate options for each unique part number
+                    // Collect unique part numbers
                     $uniquePartNumbers = array();
                     foreach ($data as $product) {
                         foreach ($product['Components'] as $component) {
                             $partNumber = $component['Component_Part_Number'];
                             if (!in_array($partNumber, $uniquePartNumbers)) {
                                 $uniquePartNumbers[] = $partNumber;
-                                echo "<option value='" . $partNumber . "'>" . $partNumber . "</option>";
                             }
                         }
+                    }
+
+                    // Generate dropdown options
+                    foreach ($uniquePartNumbers as $partNumber) {
+                        echo "<option value='" . $partNumber . "'>" . $partNumber . "</option>";
                     }
 
                     echo "</select>";
@@ -153,6 +156,27 @@ include '../parts/header.php';
                     echo "<th>April 2023</th>";
                     echo "<th>May 2023</th>";
                     echo "<th>June 2023</th>";
+                    echo "</tr>";
+
+                    // Calculate totals before filtering
+                    $totals = array_fill(0, 12, 0);
+
+                    foreach ($data as $product) {
+                        foreach ($product['Components'] as $component) {
+                            $multipliedValues = $component['Multiplied_Values'];
+                            $monthlyValues = array_slice($multipliedValues, 6); // Get values starting from July 2022
+
+                            foreach ($monthlyValues as $index => $value) {
+                                $totals[$index] += $value;
+                            }
+                        }
+                    }
+
+                    echo "<tr>";
+                    echo "<td colspan='8'>Totals Before Filter:</td>";
+                    for ($i = 0; $i < 12; $i++) {
+                        echo "<td>" . $totals[$i] . "</td>";
+                    }
                     echo "</tr>";
 
                     foreach ($data as $product) {
@@ -182,87 +206,50 @@ include '../parts/header.php';
                     }
 
                     echo "</table>";
+
+                    echo "<script>
+    function filterTable() {
+        var select = document.getElementById('partNumberSelect');
+        var table = document.getElementById('componentTable');
+        var rows = table.getElementsByTagName('tr');
+        var filterValue = select.value;
+      
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var partNumber = row.cells[0].innerHTML;
+      
+            if (filterValue === 'all' || partNumber === filterValue) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+
+        // Calculate totals after filtering
+        var filteredTotals = Array.from({ length: 12 }, () => 0);
+        var filteredRows = Array.from(table.getElementsByTagName('tr')).slice(1).filter(row => row.style.display !== 'none');
+
+        filteredRows.forEach(row => {
+            var monthlyValues = Array.from(row.cells).slice(7).map(cell => parseFloat(cell.innerHTML) || 0);
+            monthlyValues.forEach((value, index) => {
+                filteredTotals[index] += value;
+            });
+        });
+
+        var totalsRow = document.createElement('tr');
+        totalsRow.innerHTML = '<td colspan=\'8\'>Totals After Filter:</td>';
+
+        filteredTotals.forEach(total => {
+            totalsRow.innerHTML += '<td>' + total + '</td>';
+        });
+
+        table.appendChild(totalsRow);
+    }
+    </script>";
                 } else {
                     echo "Invalid JSON string.";
                 }
                 ?>
-
-                <?php
-                // PHP code here (unchanged)
-                ?>
-
-                <?php
-                // PHP code here (unchanged)
-                ?>
-
-                <script>
-                    function calculateColumnSums(table) {
-                        var columnSums = Array.from({ length: 12 }, () => 0);
-
-                        for (var i = 1; i < table.rows.length; i++) {
-                            var row = table.rows[i];
-                            var cells = row.cells;
-
-                            for (var j = 7; j <= 18; j++) {
-                                var cell = cells[j];
-                                if (!isNaN(cell.innerHTML)) {
-                                    columnSums[j - 7] += parseFloat(cell.innerHTML);
-                                }
-                            }
-                        }
-
-                        return columnSums;
-                    }
-
-                    function updateSumRow(table, columnSums) {
-                        var sumRow = table.querySelector('.sum-row');
-                        if (!sumRow) {
-                            sumRow = table.insertRow(-1);
-                            sumRow.classList.add('sum-row');
-                            sumRow.style.fontWeight = 'bold';
-                        }
-
-                        while (sumRow.cells.length < 12) {
-                            sumRow.insertCell();
-                        }
-
-                        for (var k = 0; k < columnSums.length; k++) {
-                            var sumCell = sumRow.cells[k];
-                            sumCell.innerHTML = columnSums[k];
-                        }
-                    }
-
-                    function filterTable() {
-                        var select = document.getElementById('partNumberSelect');
-                        var selectedValue = select.value;
-                        var table = document.getElementById('componentTable');
-                        var rows = table.rows;
-
-                        // Calculate sums before filtering
-                        var preFilterColumnSums = calculateColumnSums(table);
-
-                        for (var i = 1; i < rows.length; i++) {
-                            var partNumberCell = rows[i].cells[0];
-                            var display = (selectedValue === 'all' || partNumberCell.innerHTML === selectedValue) ? 'table-row' : 'none';
-                            rows[i].style.display = display;
-                        }
-
-                        // Calculate sums after filtering
-                        var postFilterColumnSums = calculateColumnSums(table);
-
-                        // Update sum row
-                        updateSumRow(table, preFilterColumnSums);
-
-                        // Show or hide the sum row based on filter selection
-                        var sumRow = table.querySelector('.sum-row');
-                        sumRow.style.display = (selectedValue === 'all') ? 'table-row' : 'none';
-
-                        // Update sum row with filtered sums if necessary
-                        if (selectedValue !== 'all') {
-                            updateSumRow(table, postFilterColumnSums);
-                        }
-                    }
-                </script>
 
 
 
