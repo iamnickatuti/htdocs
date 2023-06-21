@@ -232,15 +232,44 @@ include '../parts/header.php';
         var totalsRow = document.createElement('tr');
         totalsRow.innerHTML = '<b><td colspan=\'6\'>Total</td></b>';
 
-      filteredTotals.forEach(total => {
-    var roundedTotal = total.toFixed(2);
-    totalsRow.innerHTML += '<td><b>' + roundedTotal + '</b></td>';
-});
+        filteredTotals.forEach(total => {
+            var roundedTotal = total.toFixed(2);
+            totalsRow.innerHTML += '<td><b>' + roundedTotal + '</b></td>';
+        });
 
+        // Calculate totals for all rows
+        var allTotals = Array.from({ length: 12 }, () => 0);
+        var allRows = Array.from(table.getElementsByTagName('tr')).slice(1);
+
+        allRows.forEach(row => {
+            var monthlyValues = Array.from(row.cells).slice(7).map(cell => parseFloat(cell.innerHTML) || 0);
+            monthlyValues.forEach((value, index) => {
+                allTotals[index] += value;
+            });
+        });
+
+        var allTotalsRow = document.createElement('tr');
+        allTotalsRow.innerHTML = '<b><td colspan=\'6\'>Total (All)</td></b>';
+
+        allTotals.forEach(total => {
+            var roundedTotal = total.toFixed(2);
+            allTotalsRow.innerHTML += '<td><b>' + roundedTotal + '</b></td>';
+        });
+
+        // Remove existing totals row (if any) before appending the new ones
+        var existingTotalsRows = table.getElementsByClassName('totals-row');
+        while (existingTotalsRows.length > 0) {
+            existingTotalsRows[0].remove();
+        }
 
         table.appendChild(totalsRow);
+        table.appendChild(allTotalsRow);
+
+        totalsRow.classList.add('totals-row');
+        allTotalsRow.classList.add('totals-row');
     }
-    </script>";
+</script>";
+
                 } else {
                     echo "Invalid JSON string.";
                 }
