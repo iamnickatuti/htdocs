@@ -116,8 +116,6 @@ foreach ($data as $item) {
             'Component_Part_Description' => $item['Component_part_description'],
             'Component_Quantity' => $item['component_quantity'],
             'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
-            'Status' => $item['status'],
-            'BOM_Distribution_ID' => $item['bom_distribution_id'],
             '%_BOM_Share' => $item['%_bom_share']
         ];
     } else {
@@ -131,8 +129,6 @@ foreach ($data as $item) {
                     'Component_Part_Description' => $item['Component_part_description'],
                     'Component_Quantity' => $item['component_quantity'],
                     'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
-                    'Status' => $item['status'],
-                    'BOM_Distribution_ID' => $item['bom_distribution_id'],
                     '%_BOM_Share' => $item['%_bom_share']
                 ]
             ]
