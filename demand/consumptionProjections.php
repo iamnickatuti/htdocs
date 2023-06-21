@@ -172,8 +172,6 @@ include '../parts/header.php';
                         }
                     }
 
-                    echo "<tr>";
-                    echo "</tr>";
 
                     foreach ($data as $product) {
                         foreach ($product['Components'] as $component) {
