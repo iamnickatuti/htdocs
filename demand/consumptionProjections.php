@@ -135,7 +135,7 @@ include '../parts/header.php';
 
                     echo "</select>";
 
-                    echo "<table id='componentTable'>";
+                    echo "<table id='componentTable' class='table table-striped'>";
                     echo "<tr>";
                     echo "<th>Component Part Number</th>";
                     echo "<th>Component Part Description</th>";
