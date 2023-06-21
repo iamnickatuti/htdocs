@@ -1,5 +1,3 @@
-
-
 <?php
 // Assuming you have established a database connection
 include '../../cradle_config.php';
