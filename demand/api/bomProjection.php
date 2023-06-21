@@ -53,27 +53,5 @@ foreach ($json2Array['products'] as $product) {
 }
 
 $result = array('products' => $products);
-$json11 = json_encode($result, JSON_PRETTY_PRINT);
 
-$data = json_decode($json11, true);
-$flattened = [];
-flattenJSON($data, $flattened);
-
-// Function to flatten the JSON structure
-function flattenJSON($json, &$result, $prefix = '') {
-    if (is_array($json)) {
-        foreach ($json as $key => $value) {
-            $newKey = $prefix . ($prefix ? '_' : '') . $key;
-            if (is_array($value)) {
-                flattenJSON($value, $result, $newKey);
-            } else {
-                $result[$newKey] = $value;
-            }
-        }
-    } else {
-        $result[$prefix] = $json;
-    }
-}
-
-// Output the flattened JSON structure
-echo json_encode($flattened, JSON_PRETTY_PRINT);
+echo json_encode($result, JSON_PRETTY_PRINT);
