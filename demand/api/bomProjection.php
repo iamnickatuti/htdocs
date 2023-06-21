@@ -1,11 +1,11 @@
 <?php
-/** @noinspection ALL */
 include '../../cradle_config.php';
 global $conn;
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
 $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/bomDetails.php');
 $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/components.php');
 $json1Array = json_decode($json1, true);
@@ -58,6 +58,27 @@ foreach ($json2Array['products'] as $product) {
 }
 
 $result = array('products' => $products);
-$resultJson = json_encode($result, JSON_PRETTY_PRINT);
-echo $resultJson;
-?>
+$json11 = json_encode($result, JSON_PRETTY_PRINT);
+
+$data = json_decode($json11, true);
+$flattened = [];
+flattenJSON($data, $flattened);
+
+// Function to flatten the JSON structure
+function flattenJSON($json, &$result, $prefix = '') {
+    if (is_array($json)) {
+        foreach ($json as $key => $value) {
+            $newKey = $prefix . ($prefix ? '_' : '') . $key;
+            if (is_array($value)) {
+                flattenJSON($value, $result, $newKey);
+            } else {
+                $result[$newKey] = $value;
+            }
+        }
+    } else {
+        $result[$prefix] = $json;
+    }
+}
+
+// Output the flattened JSON structure
+echo json_encode($flattened, JSON_PRETTY_PRINT);
