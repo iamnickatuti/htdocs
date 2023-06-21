@@ -25,7 +25,7 @@ if ($result) {
         $partJapan = array('RM-FS-JM001', 'RM-FS-JP002','RM-FS-JP003', 'RM-FS-JP004', 'RM-FS-JP005','RM-FS-JP006' , 'RM-FS-JP007', 'RM-FS-JP008');
         $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
         $partRecycle = array('RM-FM-FR001','RM-FM-FR003','RM-FM-FR003', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
-        $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+        $partTrial = array('RM-FS-TR001');
         $partBra = array('RM-FS-BR001');
         $partSweepings = array('RM-FS-SW001');
         $partMD1518 = array('RM-CH-MD007');
@@ -63,6 +63,8 @@ if ($result) {
             $psku = 'OT:Metal Scrap:Binding Wires';
         }elseif ($row['Part Name'] === 'RM-FS-CM051') {
             $psku = 'RM:Foam:Local Loose Foam';
+        }elseif ($row['Part Name'] === 'RM-CH-MD013') {
+            $psku = 'RM:chemicals:MDI - Test';
         }
 
 
@@ -267,7 +269,7 @@ while ($row = mysqli_fetch_assoc($resultYard)) {
         $partJapan = array('RM-FS-JM001', 'RM-FS-JP002','RM-FS-JP003', 'RM-FS-JP004', 'RM-FS-JP005','RM-FS-JP006' , 'RM-FS-JP007', 'RM-FS-JP008');
         $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
         $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
-        $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+        $partTrial = array('RM-FS-TR001');
         $partBra = array('RM-FS-BR001');
         $partSweepings = array('RM-FS-SW001');
         $partMD1518 = array('RM-CH-MD007');
@@ -305,6 +307,8 @@ while ($row = mysqli_fetch_assoc($resultYard)) {
             $psku = 'OT:Metal Scrap:Binding Wires';
         }elseif ($row['Part Name'] === 'RM-FS-CM051') {
             $psku = 'RM:Foam:Local Loose Foam';
+        }elseif ($row['Part Name'] === 'RM-CH-MD013') {
+            $psku = 'RM:chemicals:MDI - Test';
         }
         // Format the date
         $date = date('Y-m', strtotime($row['Timed']));
@@ -376,7 +380,7 @@ while ($row = $resultConsumption->fetch_assoc()) {
     $partJapan = array('RM-FS-JM001', 'RM-FS-JP002','RM-FS-JP003', 'RM-FS-JP004', 'RM-FS-JP005','RM-FS-JP006' , 'RM-FS-JP007', 'RM-FS-JP008');
     $partChina = array('RM-FS-CH001', 'RM-FS-CH002', 'RM-FS-CH003', 'RM-FS-CH004', 'RM-FS-CH005');
     $partRecycle = array('RM-FM-FR001', 'RM-FM-FR004', 'RM-FM-FR005', 'RM-FM-FR006');
-    $partTrial = array('RM-FS-TR001', 'MKE-SKU');
+    $partTrial = array('RM-FS-TR001');
     $partBra = array('RM-FS-BR001');
     $partSweepings = array('RM-FS-SW001');
     $partMD1518 = array('RM-CH-MD007');
@@ -414,7 +418,10 @@ while ($row = $resultConsumption->fetch_assoc()) {
         $psku = 'OT:Metal Scrap:Binding Wires';
     }elseif ($row['Part Name'] === 'RM-FS-CM051') {
         $psku = 'RM:Foam:Local Loose Foam';
+    }elseif ($row['Part Name'] === 'RM-CH-MD013') {
+        $psku = 'RM:chemicals:MDI - Test';
     }
+
     // Format the date
     $datee = date('Y-m', strtotime($row['Tarehe']));
     $row['Tarehe'] = $datee;
