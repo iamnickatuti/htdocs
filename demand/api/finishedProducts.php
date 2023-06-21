@@ -26,7 +26,7 @@ foreach ($array2 as $item2) {
             // Multiply the month values by the proportion
             foreach ($item2 as $key => $value) {
                 if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
-                    $multipliedItem[$key] = floatval($value) * floatval($item1['proportion']);
+                    $multipliedItem[$key] = ceil($value) * ceil($item1['proportion']);
                     // Assign "N/A" to null fields
                     if ($multipliedItem[$key] === null) {
                         $multipliedItem[$key] = "N/A";
