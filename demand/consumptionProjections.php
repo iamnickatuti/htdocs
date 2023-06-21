@@ -187,6 +187,10 @@ include '../parts/header.php';
                 }
                 ?>
 
+                <?php
+                // PHP code here (unchanged)
+                ?>
+
                 <script>
                     function filterTable() {
                         var select = document.getElementById('partNumberSelect');
@@ -209,7 +213,15 @@ include '../parts/header.php';
                             }
                         }
 
-                        var sumRow = table.insertRow(-1);
+                        // Remove the previous sum row, if any
+                        var sumRow = table.querySelector('.sum-row');
+                        if (sumRow) {
+                            sumRow.remove();
+                        }
+
+                        // Create a new sum row
+                        sumRow = table.insertRow(-1);
+                        sumRow.classList.add('sum-row');
                         sumRow.style.fontWeight = 'bold';
 
                         for (var k = 0; k < columnSums.length; k++) {
@@ -218,6 +230,7 @@ include '../parts/header.php';
                         }
                     }
                 </script>
+
 
             </div>
         </div>
