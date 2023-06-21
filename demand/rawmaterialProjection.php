@@ -122,7 +122,6 @@ if (is_array($data)) {
         }
     }
 
-
     foreach ($data as $product) {
         foreach ($product['Components'] as $component) {
             echo "<tr>";
@@ -148,48 +147,31 @@ if (is_array($data)) {
             echo "</tr>";
         }
     }
+
+    // Add total row
+    echo "<tr>";
+    echo "<td colspan='6' style='text-align:right'><strong>Total</strong></td>";
+    for ($i = 0; $i < 12; $i++) {
+        echo "<td>" . number_format($totals[$i], 2) . "</td>";
+    }
+    echo "</tr>";
+
     echo "</table>";
 
-    echo "<script>
-    function filterTable() {
-        var select = document.getElementById('partNumberSelect');
-        var value = select.value.toLowerCase();
-        var table = document.getElementById('componentTable');
-        var rows = table.getElementsByTagName('tr');
-
-        for (var i = 0; i < rows.length; i++) {
-            var partNumber = rows[i].getElementsByTagName('td')[0];
-            if (partNumber) {
-                var textValue = partNumber.textContent || partNumber.innerText;
-                if (textValue.toLowerCase().indexOf(value) > -1 || value === 'all') {
-                    rows[i].style.display = '';
-                } else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var select = document.getElementById('partNumberSelect');
-        select.value = 'all';
-        filterTable();
-    });
-
-    window.onload = function() {
-        var totalsRow = document.createElement('tr');
-        totalsRow.innerHTML = '<td colspan=\'6\' style=\'text-align:right\'><strong>Totals:</strong></td>';
-
-        var totalsData = '';
-        for (var i = 0; i < 12; i++) {
-            totalsData += '<td>' + $totals[i] + '</td>';
-        }
-
-        totalsRow.innerHTML += totalsData;
-        document.getElementById('componentTable').appendChild(totalsRow);
-    };
-    </script>";
+    echo "<script>";
+    echo "function filterTable() {";
+    echo "var selectBox = document.getElementById('partNumberSelect');";
+    echo "var selectedValue = selectBox.options[selectBox.selectedIndex].value;";
+    echo "var table = document.getElementById('componentTable');";
+    echo "var rows = table.getElementsByTagName('tr');";
+    echo "for (var i = 0; i < rows.length; i++) {";
+    echo "var cells = rows[i].getElementsByTagName('td');";
+    echo "var showRow = selectedValue === 'all' || cells[0].innerHTML === selectedValue;";
+    echo "rows[i].style.display = showRow ? '' : 'none';";
+    echo "}";
+    echo "}";
+    echo "</script>";
 } else {
-    echo "No data available.";
+    echo "Data retrieval failed.";
 }
 ?>
