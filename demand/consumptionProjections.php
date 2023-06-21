@@ -173,7 +173,6 @@ include '../parts/header.php';
                     }
 
                     echo "<tr>";
-                    echo "<td colspan='8'>Totals Before Filter:</td>";
                     for ($i = 0; $i < 12; $i++) {
                         echo "<td>" . $totals[$i] . "</td>";
                     }
