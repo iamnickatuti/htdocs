@@ -42,8 +42,8 @@ foreach ($json2Array['products'] as $product) {
                 }
             }
 
-            $component['Sub_Components'] = $subComponents;
-            $newProduct['Components'][] = $component;
+            // Add sub-components directly to the components array
+            $newProduct['Components'] = array_merge($newProduct['Components'], $subComponents);
         } else {
             $newProduct['Components'][] = $component;
         }
