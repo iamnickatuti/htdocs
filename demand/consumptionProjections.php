@@ -236,7 +236,7 @@ include '../parts/header.php';
         });
 
         var totalsRow = document.createElement('tr');
-        totalsRow.innerHTML = '<b><td colspan=\'7\'>Totals After Filter:</td><</b>';
+        totalsRow.innerHTML = '<b><td colspan=\'6\'>Totals After Filter:</td></b>';
 
         filteredTotals.forEach(total => {
             totalsRow.innerHTML += '<td><b>' + total + '</b></td>';
