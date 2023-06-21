@@ -34,6 +34,30 @@ include '../parts/header.php';
                 </div>
             </div>
         </header>
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0 font-size-18">
+                                Cutting Information
+                            </h4>
+                            <div class="page-title-right">
+                                <form method="post" action="">
+                                    <label for="start_date" style="font-size: 11px">Start Date:</label>
+                                    <input type="date" id="start_date" name="start_date" required>
+
+                                    <label for="end_date"  style="font-size: 11px">End Date:</label>
+                                    <input type="date" id="end_date" name="end_date" required>
+
+                                    <input class="btn btn-warning" type="submit" value="Filter">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row-->
         <?php include '../parts/nav.php';?>
 <?php
 header('Access-Control-Allow-Origin: *');
@@ -158,8 +182,11 @@ if (is_array($data)) {
     echo "Invalid JSON string.";
 }
 ?>
-
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
-
+<?php include '../parts/footer.php'; ?>
