@@ -59,7 +59,7 @@ if ($result) {
             $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
         } elseif ($row['name'] === 'RM-FS-CM051') {
             $psku = 'Raw Material:Local Loose Foam';
-        }elseif ($row['Part Name'] === 'OT-MS-MS001	') {
+        }elseif ($row['Part Name'] === 'OT-MS-MS001') {
             $psku = 'OT:Metal Scrap:Binding Wires';
         }
 
@@ -406,7 +406,7 @@ while ($row = $resultConsumption->fetch_assoc()) {
         $psku = 'Raw Material:Chemicals:MDI:MDI-Polyol';
     } elseif ($row['Part Name'] === 'RM-FS-CM051') {
         $psku = 'Raw Material:Local Loose Foam';
-    }elseif ($row['Part Name'] === 'OT-MS-MS001	') {
+    }elseif ($row['Part Name'] === 'OT-MS-MS001') {
         $psku = 'OT:Metal Scrap:Binding Wires';
     }
     // Format the date
