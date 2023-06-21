@@ -77,18 +77,13 @@ $results = array();
 while ($row = mysqli_fetch_assoc($result)) {
     // Create an associative array for each row
     $resultRow = array(
-        'bom_id' => $row['bom_id'],
         'BOM_Name' => $row['BOM_Name'],
-        'Production_Line' => $row['Production_Line'],
         'Target_sku_Part_Number' => $row['Target_sku_Part_Number'],
         'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
-        'sku_type_id' => $row['sku_type_id'],
         'Component_part_number' => $row['Component_part_number'],
         'Component_part_description' => $row['Component_part_description'],
         'component_quantity' => $row['component_quantity'],
         'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
-        'status' => $row['status'],
-        'bom_distribution_id' => $row['bom_distribution_id'],
         '%_bom_share' => $row['%_bom_share']
     );
 
