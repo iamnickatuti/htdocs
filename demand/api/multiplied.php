@@ -18,13 +18,13 @@ foreach ($json1_decoded[0]["products"] as $product) {
                     $multiplied_values = [];
                     foreach ($json2_decoded[0]["Values"] as $key => $value) {
                         $month = str_replace("\\/", "/", $key);
-                        $multiplied_value = floatval($sub_component["component_quantity"]) * $value;
+                        $multiplied_value = floatval($sub_component["Component_Quantity"]) * $value;
                         $multiplied_values[$month] = $multiplied_value;
                     }
                     $final_entry = [
                         "Product" => $json2_decoded[0]["Part Number"],
                         "Component_Part_Number" => $sub_component["Component_Part_Number"],
-                        "Component_Part_Description" => $sub_component["Component_part_description"],
+                        "Component_Part_Description" => $sub_component["Component_Part_Description"],
                         "Parent_Category" => $json2_decoded[0]["Parent Category"],
                         "Sub_Category" => $json2_decoded[0]["Sub Category"],
                         "Part_Number" => $json2_decoded[0]["Part Number"],

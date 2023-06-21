@@ -10,7 +10,7 @@ $query = "SELECT
     blocks.name AS 'block_name',
     blocks.is_cut AS 'cut',  
     block_components.sku_id AS 'block_sku_id',
-    skus.description AS 'component_part_description',
+    skus.description AS 'Component_Part_Description',
     skus.name AS 'Component_Part_Number',
     block_components.weight
 FROM
@@ -89,8 +89,8 @@ function conversion()
             'Block Type' => $row['block_type'],
             'Block Name' => $row['block_name'],
             'Block SKU Id' => $row['block_sku_id'],
-            'Component Number' => $row['component_part_description'],
-            'Component Desc' => $row['component_part_description'],
+            'Component Number' => $row['Component_Part_Description'],
+            'Component Desc' => $row['Component_Part_Description'],
             'Weight' => $row['weight'],
             'Psku' => $results
         );

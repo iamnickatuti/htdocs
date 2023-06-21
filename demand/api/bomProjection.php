@@ -31,8 +31,8 @@ foreach ($json2Array['products'] as $product) {
                         'Target_sku_Part_Number' => $item['Target_sku_Part_Number'],
                         'Target_sku_Part_Description' => $item['Target_sku_Part_Description'],
                         'Component_Part_Number' => $item['Component_Part_Number'],
-                        'Component_part_description' => $item['Component_part_description'],
-                        'component_quantity' => $item['component_quantity'],
+                        'Component_Part_Description' => $item['Component_Part_Description'],
+                        'Component_Quantity' => $item['Component_Quantity'],
                         'Component_Unit_of_measure' => $item['Component_Unit_of_measure'],
                         '%_bom_share' => $item['%_bom_share']
                     );

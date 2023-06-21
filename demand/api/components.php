@@ -14,8 +14,8 @@ $query = "select
   skus1.description as 'Target_sku_Part_Description',
   skus.sku_type_id,
   skus.name as 'Component_Part_Number',
-  skus.description as 'Component_part_description',
-  bom_details.quantity as 'component_quantity',
+  skus.description as 'Component_Part_Description',
+  bom_details.quantity as 'Component_Quantity',
   units.name as 'Component_Unit_of_measure',
   bom_details.status,
   bom_distribution_entries.bom_distribution_id as 'bom_distribution_id',
@@ -80,8 +80,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         'Target_sku_Part_Number' => $row['Target_sku_Part_Number'],
         'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
         'Component_Part_Number' => $row['Component_Part_Number'],
-        'Component_part_description' => $row['Component_part_description'],
-        'component_quantity' => $row['component_quantity'],
+        'Component_Part_Description' => $row['Component_Part_Description'],
+        'Component_Quantity' => $row['Component_Quantity'],
         'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
         '%_bom_share' => $row['%_bom_share']
     );
