@@ -17,10 +17,10 @@ select
   skus.name as 'Component_Part_Number',
   skus.description as 'Component_Part_Description',
   bom_details.quantity as 'Component_Quantity',
-  units.name as 'Component_Unit_of_measure',
+  units.name as 'Component_Unit_of_Measure',
   bom_details.status,
   bom_distribution_entries.bom_distribution_id as 'bom_distribution_id',
-  bom_distribution_entries.share as '%_bom_share'
+  bom_distribution_entries.share as '%_BOM_Share'
 from
   (
     (
@@ -83,8 +83,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         'Component_Part_Number' => $row['Component_Part_Number'],
         'Component_Part_Description' => $row['Component_Part_Description'],
         'Component_Quantity' => $row['Component_Quantity'],
-        'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
-        '%_bom_share' => $row['%_bom_share']
+        'Component_Unit_of_Measure' => $row['Component_Unit_of_Measure'],
+        '%_BOM_Share' => $row['%_BOM_Share']
     );
 
     // Add the row to the results array
@@ -113,8 +113,8 @@ foreach ($data as $item) {
             'Component_Part_Number' => $item['Component_Part_Number'],
             'Component_Part_Description' => $item['Component_Part_Description'],
             'Component_Quantity' => $item['Component_Quantity'],
-            'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
-            '%_BOM_Share' => $item['%_bom_share']
+            'Component_Unit_of_Measure' => $item['Component_Unit_of_Measure'],
+            '%_BOM_Share' => $item['%_BOM_Share']
         ];
     } else {
         // If the product doesn't exist, create a new product object and add it to the products array
@@ -126,8 +126,8 @@ foreach ($data as $item) {
                     'Component_Part_Number' => $item['Component_Part_Number'],
                     'Component_Part_Description' => $item['Component_Part_Description'],
                     'Component_Quantity' => $item['Component_Quantity'],
-                    'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
-                    '%_BOM_Share' => $item['%_bom_share']
+                    'Component_Unit_of_Measure' => $item['Component_Unit_of_Measure'],
+                    '%_BOM_Share' => $item['%_BOM_Share']
                 ]
             ]
         ];

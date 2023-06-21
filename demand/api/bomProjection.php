@@ -33,8 +33,8 @@ foreach ($json2Array['products'] as $product) {
                         'Component_Part_Number' => $item['Component_Part_Number'],
                         'Component_Part_Description' => $item['Component_Part_Description'],
                         'Component_Quantity' => $item['Component_Quantity'],
-                        'Component_Unit_of_measure' => $item['Component_Unit_of_measure'],
-                        '%_bom_share' => $item['%_bom_share']
+                        'Component_Unit_of_Measure' => $item['Component_Unit_of_Measure'],
+                        '%_BOM_Share' => $item['%_BOM_Share']
                     );
 
                     $subComponents[] = $subComponent;

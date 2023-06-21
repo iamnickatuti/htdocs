@@ -259,10 +259,10 @@ $query = "SELECT
   skus.name AS 'Component_Part_Number',
   skus.description AS 'Component_Part_Description',
   bom_details.quantity AS 'Component_Quantity',
-  units.name AS 'Component_Unit_of_measure',
+  units.name AS 'Component_Unit_of_Measure',
   bom_details.status,
   bom_distribution_entries.bom_distribution_id AS 'bom_distribution_id',
-  bom_distribution_entries.share AS '%_bom_share'
+  bom_distribution_entries.share AS '%_BOM_Share'
 FROM
   bom_details
   LEFT JOIN skus ON skus.id = bom_details.sku_id
@@ -317,10 +317,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         'Component_Part_Number' => $row['Component_Part_Number'],
         'Component_Part_Description' => $row['Component_Part_Description'],
         'Component_Quantity' => $row['Component_Quantity'],
-        'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
+        'Component_Unit_of_Measure' => $row['Component_Unit_of_Measure'],
         'status' => $row['status'],
         'bom_distribution_id' => $row['bom_distribution_id'],
-        '%_bom_share' => $row['%_bom_share']
+        '%_BOM_Share' => $row['%_BOM_Share']
     );
 
     // Add the row to the results array
@@ -342,10 +342,10 @@ foreach ($data as $item) {
             'Component_Part_Number' => $item['Component_Part_Number'],
             'Component_Part_Description' => $item['Component_Part_Description'],
             'Component_Quantity' => $item['Component_Quantity'],
-            'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+            'Component_Unit_of_Measure' => $item['Component_Unit_of_Measure'],
             'Status' => $item['status'],
             'BOM_Distribution_ID' => $item['bom_distribution_id'],
-            '%_BOM_Share' => $item['%_bom_share']
+            '%_BOM_Share' => $item['%_BOM_Share']
         ];
     } else {
         // If the product doesn't exist, create a new product object and add it to the products array
@@ -357,10 +357,10 @@ foreach ($data as $item) {
                     'Component_Part_Number' => $item['Component_Part_Number'],
                     'Component_Part_Description' => $item['Component_Part_Description'],
                     'Component_Quantity' => $item['Component_Quantity'],
-                    'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
+                    'Component_Unit_of_Measure' => $item['Component_Unit_of_Measure'],
                     'Status' => $item['status'],
                     'BOM_Distribution_ID' => $item['bom_distribution_id'],
-                    '%_BOM_Share' => $item['%_bom_share']
+                    '%_BOM_Share' => $item['%_BOM_Share']
                 ]
             ]
         ];
