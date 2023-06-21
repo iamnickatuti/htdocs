@@ -3,66 +3,44 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-
 $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProjection.php');
 $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/finishedProducts.php');
+// Decode the JSON data
+$data1 = json_decode($json1, true);
+$data2 = json_decode($json2, true);
 
-$json1Array = json_decode($json1, true);
-$json2Array = json_decode($json2, true);
+// Extract the necessary values
+$product = $data1['products'][0]['Product'];
+$description = $data1['products'][0]['Product_Description'];
+$component = $data1['products'][0]['Components'][0];
+$quantity = $component['Component_Quantity'];
 
-$jsonOutput = [];
-
-if (is_array($json1Array) && is_array($json2Array)) {
-    foreach ($json1Array as $product) {
-        if (isset($product['Product']) && isset($product['Components'])) {
-            $productNumber = $product['Product'];
-            $components = $product['Components'];
-
-            foreach ($components as $component) {
-                if (isset($component['Component_Part_Number']) && isset($component['Component_Quantity'])) {
-                    $componentNumber = $component['Component_Part_Number'];
-                    $componentQuantity = (float) $component['Component_Quantity'];
-
-                    $componentOutput = null;
-
-                    foreach ($json2Array as $item) {
-                        if (isset($item['Part Number']) && $item['Part Number'] === $productNumber) {
-                            $multipliedValues = [];
-
-                            foreach ($item as $key => $value) {
-                                if ($key !== 'Part Number' && $key !== 'Part Description' && $key !== 'UOM') {
-                                    if (is_numeric($value)) {
-                                        $multipliedValues[$key] = round($value * $componentQuantity, 2);
-                                    } else {
-                                        $multipliedValues[$key] = $value;
-                                    }
-                                }
-                            }
-
-                            $componentOutput = [
-                                'Component_Part_Number' => $componentNumber,
-                                'Component_Quantity' => $componentQuantity,
-                                'Multiplied_Values' => $multipliedValues
-                            ];
-
-                            break;
-                        }
-                    }
-
-                    if ($componentOutput !== null) {
-                        $jsonOutput[] = [
-                            'Product' => $productNumber,
-                            'Product_Description' => $product['Product_Description'],
-                            'Components' => [$componentOutput]
-                        ];
-                    }
-                }
-            }
+// Perform the multiplication
+$result = array();
+foreach ($data2 as $item) {
+    $multipliedValues = array();
+    foreach ($item as $key => $value) {
+        if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "Part Number" && $key !== "Part Description" && $key !== "UOM") {
+            $multipliedValues[$key] = $value * $quantity;
+        } else {
+            $multipliedValues[$key] = $value;
         }
     }
+
+    $component['Multiplied_Values'] = $multipliedValues;
+    $result[] = $component;
 }
 
-$output = json_encode($jsonOutput, JSON_PRETTY_PRINT);
-echo $output;
+// Construct the final result
+$finalResult = array(
+    "Product" => $product,
+    "Product_Description" => $description,
+    "Components" => $result
+);
+
+// Encode the final result back to JSON
+$jsonResult = json_encode($finalResult, JSON_PRETTY_PRINT);
+echo $jsonResult;
 ?>
+
 
