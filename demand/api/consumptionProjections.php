@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-$json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProkection.php');
+$json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProjection.php');
 $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/finishedProducts.php');
 $json1Array = json_decode($json1, true);
 $json2Array = json_decode($json2, true);
