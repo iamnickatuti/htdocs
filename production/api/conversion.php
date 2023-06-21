@@ -11,7 +11,7 @@ $query = "SELECT
     blocks.is_cut AS 'cut',  
     block_components.sku_id AS 'block_sku_id',
     skus.description AS 'component_part_description',
-    skus.name AS 'Component_part_number',
+    skus.name AS 'Component_Part_Number',
     block_components.weight
 FROM
     (((block_components
@@ -38,46 +38,46 @@ function conversion()
         $partMD1518 = array('RM-CH-MD007');
         $partMD1518H = array('RM-CH-MD008');
 
-        if (in_array($row['Component_part_number'], $partSpain)) {
+        if (in_array($row['Component_Part_Number'], $partSpain)) {
             $results = 'Raw Material:Foam Scrap:Normal - General/ Code G - SPAIN';
         }
-        elseif (in_array($row['Component_part_number'], $partJapan)) {
+        elseif (in_array($row['Component_Part_Number'], $partJapan)) {
             $results = 'Raw Material:Foam Scrap:Normal - Japan/ Code J';
         }
-        elseif (in_array($row['Component_part_number'], $partRecycle)) {
+        elseif (in_array($row['Component_Part_Number'], $partRecycle)) {
             $results = 'Raw Material:Foam Scrap:Recycle Foam';
         }
-        elseif (in_array($row['Component_part_number'], $partChina)) {
+        elseif (in_array($row['Component_Part_Number'], $partChina)) {
             $results = 'Raw Material:Foam Scrap:Normal - General/ Code G - CHINA';
         }
-        elseif (in_array($row['Component_part_number'], $partTrial)) {
+        elseif (in_array($row['Component_Part_Number'], $partTrial)) {
             $results = 'RM:Foam Scrap: Trial Foam';
         }
-        elseif (in_array($row['Component_part_number'], $partBra)) {
+        elseif (in_array($row['Component_Part_Number'], $partBra)) {
             $results = 'Raw Material:Foam Scrap:Bra - Code B';
         }
-        elseif (in_array($row['Component_part_number'], $partSweepings)) {
+        elseif (in_array($row['Component_Part_Number'], $partSweepings)) {
             $results = 'Raw Material:Foam Scrap:Sweepings';
         }
-        elseif (in_array($row['Component_part_number'], $partMD1518)) {
+        elseif (in_array($row['Component_Part_Number'], $partMD1518)) {
             $results = 'Raw Material:Chemicals:MDI:MDI 1518';
         }
-        elseif (in_array($row['Component_part_number'], $partMD1518H)) {
+        elseif (in_array($row['Component_Part_Number'], $partMD1518H)) {
             $results = 'Raw Material:Chemicals:MDI:MDI 1518H';
         }
-        elseif ($row['Component_part_number'] === 'RM-FM-FR007') {
+        elseif ($row['Component_Part_Number'] === 'RM-FM-FR007') {
             $results = 'Raw Material:Foam Scrap:Recon Mixed';
         }
-        elseif ($row['Component_part_number'] === 'RM-FS-FL001') {
+        elseif ($row['Component_Part_Number'] === 'RM-FS-FL001') {
             $results = 'RM:Foam Scrap: Filter - Code F (GF)';
         }
-        elseif ($row['Component_part_number'] === 'RM-FS-FL002') {
+        elseif ($row['Component_Part_Number'] === 'RM-FS-FL002') {
             $results = 'Raw Material:Foam Scrap:Filter - Code F (JF)';
         }
-        elseif ($row['Component_part_number'] === 'RM-CH-MD009') {
+        elseif ($row['Component_Part_Number'] === 'RM-CH-MD009') {
             $results = 'Raw Material:Chemicals:MDI:MDI-Polyol';
         }
-        elseif ($row['Component_part_number'] === 'RM-FS-CM051') {
+        elseif ($row['Component_Part_Number'] === 'RM-FS-CM051') {
             $results = 'Raw Material:Local Loose Foam';
         }
 

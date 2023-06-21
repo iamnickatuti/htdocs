@@ -14,7 +14,7 @@ select
   skus1.name as 'Target_sku_Part_Number',
   skus1.description as 'Target_sku_Part_Description',
   skus.sku_type_id,
-  skus.name as 'Component_part_number',
+  skus.name as 'Component_Part_Number',
   skus.description as 'Component_part_description',
   bom_details.quantity as 'component_quantity',
   units.name as 'Component_Unit_of_measure',
@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $resultRow = array(
         'Target_sku_Part_Number' => $row['Target_sku_Part_Number'],
         'Target_sku_Part_Description' => $row['Target_sku_Part_Description'],
-        'Component_part_number' => $row['Component_part_number'],
+        'Component_Part_Number' => $row['Component_Part_Number'],
         'Component_part_description' => $row['Component_part_description'],
         'component_quantity' => $row['component_quantity'],
         'Component_Unit_of_measure' => $row['Component_Unit_of_measure'],
@@ -110,7 +110,7 @@ foreach ($data as $item) {
     if (!empty($existingProduct)) {
         $existingProductKey = array_keys($existingProduct)[0];
         $products[$existingProductKey]['Components'][] = [
-            'Component_Part_Number' => $item['Component_part_number'],
+            'Component_Part_Number' => $item['Component_Part_Number'],
             'Component_Part_Description' => $item['Component_part_description'],
             'Component_Quantity' => $item['component_quantity'],
             'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],
@@ -123,7 +123,7 @@ foreach ($data as $item) {
             'Product_Description' => $item['Target_sku_Part_Description'],
             'Components' => [
                 [
-                    'Component_Part_Number' => $item['Component_part_number'],
+                    'Component_Part_Number' => $item['Component_Part_Number'],
                     'Component_Part_Description' => $item['Component_part_description'],
                     'Component_Quantity' => $item['component_quantity'],
                     'Component_Unit_of_Measure' => $item['Component_Unit_of_measure'],

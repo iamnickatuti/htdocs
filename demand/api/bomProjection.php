@@ -30,7 +30,7 @@ foreach ($json2Array['products'] as $product) {
                     $subComponent = array(
                         'Target_sku_Part_Number' => $item['Target_sku_Part_Number'],
                         'Target_sku_Part_Description' => $item['Target_sku_Part_Description'],
-                        'Component_part_number' => $item['Component_part_number'],
+                        'Component_Part_Number' => $item['Component_Part_Number'],
                         'Component_part_description' => $item['Component_part_description'],
                         'component_quantity' => $item['component_quantity'],
                         'Component_Unit_of_measure' => $item['Component_Unit_of_measure'],

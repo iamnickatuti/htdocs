@@ -23,7 +23,7 @@ foreach ($json1_decoded[0]["products"] as $product) {
                     }
                     $final_entry = [
                         "Product" => $json2_decoded[0]["Part Number"],
-                        "Component_Part_Number" => $sub_component["Component_part_number"],
+                        "Component_Part_Number" => $sub_component["Component_Part_Number"],
                         "Component_Part_Description" => $sub_component["Component_part_description"],
                         "Parent_Category" => $json2_decoded[0]["Parent Category"],
                         "Sub_Category" => $json2_decoded[0]["Sub Category"],
