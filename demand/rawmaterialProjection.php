@@ -150,7 +150,7 @@ if (is_array($data)) {
 
     // Add total row
     echo "<tr>";
-    echo "<td colspan='6' style='text-align:right'><strong>Total</strong></td>";
+    echo "<td colspan='7' style='text-align:right'><strong>Total</strong></td>";
     for ($i = 0; $i < 12; $i++) {
         echo "<td>" . number_format($totals[$i], 2) . "</td>";
     }
