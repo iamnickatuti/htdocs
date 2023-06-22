@@ -277,9 +277,6 @@ function filterTable() {
                                     echo "Error: Failed to parse JSON data.";
                                 }
                                 ?>
-
-                                </tbody>
-                                </table>
 </div>
 
 <!--                                <style>-->

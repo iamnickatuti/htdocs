@@ -53,7 +53,9 @@
                             <i class="mdi mdi-toolbox"></i>Demand Planning <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                            <a href="../demand/salesProjection.php" class="dropdown-item">Sales Projection</a>
+                            <a href="../demand/salesProjection" class="dropdown-item">Sales Projection</a>
+                            <a href="../demand/rawmaterialProjection" class="dropdown-item">Raw Materials Projection</a>
+
                         </div>
                     </li>
                 </ul>
