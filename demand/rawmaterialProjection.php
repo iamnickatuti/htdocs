@@ -193,15 +193,24 @@ function filterTable() {
                 if (!isNaN(value)) {
                     var totalCell = totalCells[j];
                     var totalValue = parseFloat(totalCell.innerHTML);
-                    totalCell.innerHTML = (totalValue + value).toFixed(2);
+                    totalCell.innerHTML = isNaN(totalValue) ? value.toFixed(2) : (totalValue + value).toFixed(2);
                 }
             }
         } else {
             row.style.display = 'none';
         }
     }
+
+    // Remove 'NaN' from column totals
+    for (var i = 6; i < totalCells.length; i++) {
+        var totalValue = parseFloat(totalCells[i].innerHTML);
+        if (isNaN(totalValue)) {
+            totalCells[i].innerHTML = '';
+        }
+    }
 }
 </script>";
+
 
 } else {
     echo "Error: Failed to parse JSON data.";
