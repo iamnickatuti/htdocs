@@ -94,18 +94,18 @@ if (is_array($data)) {
     echo "<th>Component Unit of Measure</th>";
     echo "<th>Parent Category</th>";
     echo "<th>Sub Category</th>";
-    echo "<th>July 2022</th>";
-    echo "<th>August 2022</th>";
-    echo "<th>September 2022</th>";
-    echo "<th>October 2022</th>";
-    echo "<th>November 2022</th>";
-    echo "<th>December 2022</th>";
-    echo "<th>January 2023</th>";
-    echo "<th>February 2023</th>";
-    echo "<th>March 2023</th>";
-    echo "<th>April 2023</th>";
-    echo "<th>May 2023</th>";
-    echo "<th>June 2023</th>";
+    echo "<th>July/2022</th>";
+    echo "<th>August/2022</th>";
+    echo "<th>September/2022</th>";
+    echo "<th>October/2022</th>";
+    echo "<th>November/2022</th>";
+    echo "<th>December/2022</th>";
+    echo "<th>January/2023</th>";
+    echo "<th>February/2023</th>";
+    echo "<th>March/2023</th>";
+    echo "<th>April/2023</th>";
+    echo "<th>May/2023</th>";
+    echo "<th>June/2023</th>";
     echo "</tr>";
 
     // Display the original table
@@ -134,12 +134,32 @@ if (is_array($data)) {
         }
     }
 
-    // Add the totals row
+    // Display the totals row
     echo "<tr id='totalsRow'>";
-    echo "<td colspan='6'>Totals</td>";
-    for ($i = 6; $i <= 17; $i++) {
-        echo "<td id='totalCell$i'></td>";
+    echo "<td><strong>Totals</strong></td>";
+    echo "<td></td>";
+    echo "<td></td>";
+    echo "<td></td>";
+    echo "<td></td>";
+    echo "<td></td>";
+
+    $months = ['July/2022', 'August/2022', 'September/2022', 'October/2022', 'November/2022', 'December/2022', 'January/2023', 'February/2023', 'March/2023', 'April/2023', 'May/2023', 'June/2023'];
+
+    foreach ($months as $month) {
+        $total = 0;
+        foreach ($data as $product) {
+            foreach ($product['Components'] as $component) {
+                if (isset($component['Multiplied_Values'][$month])) {
+                    $value = (float) $component['Multiplied_Values'][$month];
+                    if (!isNaN($value)) {
+                        $total += $value;
+                    }
+                }
+            }
+        }
+        echo "<td>" . number_format($total, 2) . "</td>";
     }
+
     echo "</tr>";
 
     echo "</table>";
@@ -151,7 +171,7 @@ if (is_array($data)) {
         var rows = table.getElementsByTagName('tr');
         var filterValue = select.value;
 
-        for (var i = 1; i < rows.length - 1; i++) {
+        for (var i = 1; i < rows.length; i++) {
             var row = rows[i];
             var partNumber = row.cells[0].innerHTML;
 
@@ -163,39 +183,32 @@ if (is_array($data)) {
         }
     }
 
-    function calculateTotals() {
+    window.onload = function() {
         var table = document.getElementById('componentTable');
         var rows = table.getElementsByTagName('tr');
-        var totalsRow = rows[rows.length - 1];
-        var cells = totalsRow.getElementsByTagName('td');
+        var columnTotalsRow = document.createElement('tr');
 
-        // Reset totals
-        for (var j = 0; j < cells.length; j++) {
-            if (j >= 6 && j <= 17) {
-                cells[j].innerHTML = '0.00';
-            }
-        }
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            var cell = document.createElement('td');
+            var total = 0;
 
-        // Calculate totals
-        for (var i = 1; i < rows.length - 1; i++) {
-            var row = rows[i];
-            var isVisible = row.style.display !== 'none';
-            if (isVisible) {
-                var rowCells = row.getElementsByTagName('td');
-                for (var k = 6; k <= 17; k++) {
-                    var cell = rowCells[k];
-                    var cellValue = parseFloat(cell.innerHTML) || 0;
-                    var totalCell = cells[k];
-                    var totalCellValue = parseFloat(totalCell.innerHTML) || 0;
-                    totalCell.innerHTML = (totalCellValue + cellValue).toFixed(2);
+            if (i >= 6 && i <= 17) { // Columns 7-18
+                for (var j = 1; j < rows.length - 1; j++) {
+                    var row = rows[j];
+                    var value = parseFloat(row.cells[i].innerHTML);
+
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
                 }
             }
+
+            cell.innerHTML = total.toFixed(2);
+            columnTotalsRow.appendChild(cell);
         }
-    }
 
-    // Initial calculation
-    calculateTotals();
-
+        table.appendChild(columnTotalsRow);
+    };
     </script>";
 } else {
     echo "Error: Failed to parse JSON data.";
