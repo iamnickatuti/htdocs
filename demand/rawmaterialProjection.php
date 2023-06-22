@@ -166,24 +166,43 @@ if (is_array($data)) {
     echo "</table>";
 
     echo "<script>
-    function filterTable() {
-        var select = document.getElementById('partNumberSelect');
-        var table = document.getElementById('componentTable');
-        var rows = table.getElementsByTagName('tr');
-        var filterValue = select.value;
-      
-        for (var i = 1; i < rows.length - 1; i++) {
-            var row = rows[i];
-            var partNumber = row.cells[0].innerHTML;
-      
-            if (filterValue === 'all' || partNumber === filterValue) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
+function filterTable() {
+    var select = document.getElementById('partNumberSelect');
+    var table = document.getElementById('componentTable');
+    var rows = table.getElementsByTagName('tr');
+    var filterValue = select.value;
+  
+    // Reset column totals
+    var totalCells = rows[rows.length - 1].getElementsByTagName('td');
+    for (var i = 6; i < totalCells.length; i++) {
+        totalCells[i].innerHTML = '';
+    }
+
+    // Filter rows and calculate column totals
+    for (var i = 1; i < rows.length - 1; i++) {
+        var row = rows[i];
+        var partNumber = row.cells[0].innerHTML;
+  
+        if (filterValue === 'all' || partNumber === filterValue) {
+            row.style.display = '';
+
+            // Update column totals
+            var cells = row.getElementsByTagName('td');
+            for (var j = 6; j < cells.length; j++) {
+                var value = parseFloat(cells[j].innerHTML);
+                if (!isNaN(value)) {
+                    var totalCell = totalCells[j];
+                    var totalValue = parseFloat(totalCell.innerHTML);
+                    totalCell.innerHTML = (totalValue + value).toFixed(2);
+                }
             }
+        } else {
+            row.style.display = 'none';
         }
     }
-    </script>";
+}
+</script>";
+
 } else {
     echo "Error: Failed to parse JSON data.";
 }
