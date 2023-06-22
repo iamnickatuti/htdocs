@@ -136,12 +136,12 @@ if (is_array($data)) {
 
     // Calculate column totals
     echo "<tr>";
-    echo "<td>Total:</td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
+    echo "<td><b>Total:</b>></td>";
 
     $months = [
         'July/2022', 'August/2022', 'September/2022', 'October/2022',
@@ -158,7 +158,7 @@ if (is_array($data)) {
                 }
             }
         }
-        echo "<td>" . $total . "</td>";
+        echo "<td><b>" . $total . "</b>></td>";
     }
 
     echo "</tr>";
