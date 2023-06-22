@@ -124,18 +124,18 @@ include '../parts/header.php';
             echo "<td>" . $component['Component_Part_Description'] . "</td>";
             echo "<td>" . $component['Component_Quantity'] . "</td>";
             echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['July/2022']) ? $component['Multiplied_Values']['July/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['August/2022']) ? $component['Multiplied_Values']['August/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['September/2022']) ? $component['Multiplied_Values']['September/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['October/2022']) ? $component['Multiplied_Values']['October/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['November/2022']) ? $component['Multiplied_Values']['November/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['December/2022']) ? $component['Multiplied_Values']['December/2022'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['January/2023']) ? $component['Multiplied_Values']['January/2023'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['February/2023']) ? $component['Multiplied_Values']['February/2023'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['March/2023']) ? $component['Multiplied_Values']['March/2023'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['April/2023']) ? $component['Multiplied_Values']['April/2023'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['May/2023']) ? $component['Multiplied_Values']['May/2023'] : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['June/2023']) ? $component['Multiplied_Values']['June/2023'] : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['July/2022']) ? number_format($component['Multiplied_Values']['July/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['August/2022']) ? number_format($component['Multiplied_Values']['August/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['September/2022']) ? number_format($component['Multiplied_Values']['September/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['October/2022']) ? number_format($component['Multiplied_Values']['October/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['November/2022']) ? number_format($component['Multiplied_Values']['November/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['December/2022']) ? number_format($component['Multiplied_Values']['December/2022']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['January/2023']) ? number_format($component['Multiplied_Values']['January/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['February/2023']) ? number_format($component['Multiplied_Values']['February/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['March/2023']) ? number_format($component['Multiplied_Values']['March/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['April/2023']) ? number_format($component['Multiplied_Values']['April/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['May/2023']) ? number_format($component['Multiplied_Values']['May/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['June/2023']) ? number_format($component['Multiplied_Values']['June/2023']) : '') . "</td>";
             echo "</tr>";
         }
 
@@ -145,45 +145,8 @@ include '../parts/header.php';
     }
     ?>
 
-
-
-
 </div>
 
-<!--                                <style>-->
-<!--                                    tr th:nth-child(3) {-->
-<!--                                        background-color:#bdffbf;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr td:nth-child(3) {-->
-<!--                                        background-color: #bdffbf;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr th:nth-child(4) {-->
-<!--                                        background-color:#e3e3e3;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr td:nth-child(4) {-->
-<!--                                        background-color: #e3e3e3;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr th:nth-child(7) {-->
-<!--                                        background-color:#ffbdbd;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr td:nth-child(7) {-->
-<!--                                        background-color: #ffbdbd;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr th:nth-child(8) {-->
-<!--                                        background-color:#ffedbd;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                    tr td:nth-child(8) {-->
-<!--                                        background-color: #ffedbd;-->
-<!--                                        color: #000;-->
-<!--                                    }-->
-<!--                                </style>-->
                             </div> <!-- end card body-->
                         </div> <!-- end card -->
                     </div><!-- end col-->
