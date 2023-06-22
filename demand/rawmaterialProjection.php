@@ -171,29 +171,29 @@ include '../parts/header.php';
                                     echo "<th>June 2023</th>";
                                     echo "</tr>";
 
-                                    // Display the original table
-                                    foreach ($data as $product) {
-                                        foreach ($product['Components'] as $component) {
-                                            echo "<tr>";
-                                            echo "<td>" . $component['Component_Part_Number'] . "</td>";
-                                            echo "<td>" . $component['Component_Part_Description'] . "</td>";
-                                            echo "<td>" . $component['Component_Quantity'] . "</td>";
-                                            echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['August/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['September/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['October/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['November/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['December/2022'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['January/2023'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['February/2023'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['March/2023'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['April/2023'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['May/2023'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['June/2023'] . "</td>";
-                                            echo "</tr>";
-                                        }
-                                    }
+//                                    // Display the original table
+//                                    foreach ($data as $product) {
+//                                        foreach ($product['Components'] as $component) {
+//                                            echo "<tr>";
+//                                            echo "<td>" . $component['Component_Part_Number'] . "</td>";
+//                                            echo "<td>" . $component['Component_Part_Description'] . "</td>";
+//                                            echo "<td>" . $component['Component_Quantity'] . "</td>";
+//                                            echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['August/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['September/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['October/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['November/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['December/2022'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['January/2023'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['February/2023'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['March/2023'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['April/2023'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['May/2023'] . "</td>";
+//                                            echo "<td>" . $component['Multiplied_Values']['June/2023'] . "</td>";
+//                                            echo "</tr>";
+//                                        }
+//                                    }
 
                                     // Calculate column totals
                                     echo "<tr>";
@@ -235,7 +235,7 @@ function filterTable() {
   
     // Reset column totals
     var totalCells = rows[rows.length - 1].getElementsByTagName('td');
-    for (var i = 6; i < totalCells.length; i++) {
+    for (var i = 5; i < totalCells.length; i++) {
         totalCells[i].innerHTML = '';
     }
 
