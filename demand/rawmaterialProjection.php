@@ -141,11 +141,11 @@ if (is_array($data)) {
         var table = document.getElementById('componentTable');
         var rows = table.getElementsByTagName('tr');
         var filterValue = select.value;
-      
+
         for (var i = 1; i < rows.length; i++) {
             var row = rows[i];
             var partNumber = row.cells[0].innerHTML;
-      
+
             if (filterValue === 'all' || partNumber === filterValue) {
                 row.style.display = '';
             } else {
@@ -153,6 +153,33 @@ if (is_array($data)) {
             }
         }
     }
+
+    window.onload = function() {
+        var table = document.getElementById('componentTable');
+        var rows = table.getElementsByTagName('tr');
+        var columnTotalsRow = document.createElement('tr');
+
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            var cell = document.createElement('td');
+            var total = 0;
+
+            if (i >= 6 && i <= 17) { // Columns 7-18
+                for (var j = 1; j < rows.length; j++) {
+                    var row = rows[j];
+                    var value = parseFloat(row.cells[i].innerHTML);
+
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
+                }
+            }
+
+            cell.innerHTML = total.toFixed(2);
+            columnTotalsRow.appendChild(cell);
+        }
+
+        table.appendChild(columnTotalsRow);
+    };
     </script>";
 } else {
     echo "Error: Failed to parse JSON data.";
