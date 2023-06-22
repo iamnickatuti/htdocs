@@ -133,6 +133,15 @@ if (is_array($data)) {
             echo "</tr>";
         }
     }
+
+    // Add the totals row
+    echo "<tr id='totalsRow'>";
+    echo "<td colspan='6'>Totals</td>";
+    for ($i = 6; $i <= 17; $i++) {
+        echo "<td id='totalCell$i'></td>";
+    }
+    echo "</tr>";
+
     echo "</table>";
 
     echo "<script>
@@ -142,7 +151,7 @@ if (is_array($data)) {
         var rows = table.getElementsByTagName('tr');
         var filterValue = select.value;
 
-        for (var i = 1; i < rows.length; i++) {
+        for (var i = 1; i < rows.length - 1; i++) {
             var row = rows[i];
             var partNumber = row.cells[0].innerHTML;
 
@@ -154,32 +163,39 @@ if (is_array($data)) {
         }
     }
 
-    window.onload = function() {
+    function calculateTotals() {
         var table = document.getElementById('componentTable');
         var rows = table.getElementsByTagName('tr');
-        var columnTotalsRow = document.createElement('tr');
+        var totalsRow = rows[rows.length - 1];
+        var cells = totalsRow.getElementsByTagName('td');
 
-        for (var i = 0; i < rows[0].cells.length; i++) {
-            var cell = document.createElement('td');
-            var total = 0;
-
-            if (i >= 6 && i <= 17) { // Columns 7-18
-                for (var j = 1; j < rows.length; j++) {
-                    var row = rows[j];
-                    var value = parseFloat(row.cells[i].innerHTML);
-
-                    if (!isNaN(value)) {
-                        total += value;
-                    }
-                }
+        // Reset totals
+        for (var j = 0; j < cells.length; j++) {
+            if (j >= 6 && j <= 17) {
+                cells[j].innerHTML = '0.00';
             }
-
-            cell.innerHTML = total.toFixed(2);
-            columnTotalsRow.appendChild(cell);
         }
 
-        table.appendChild(columnTotalsRow);
-    };
+        // Calculate totals
+        for (var i = 1; i < rows.length - 1; i++) {
+            var row = rows[i];
+            var isVisible = row.style.display !== 'none';
+            if (isVisible) {
+                var rowCells = row.getElementsByTagName('td');
+                for (var k = 6; k <= 17; k++) {
+                    var cell = rowCells[k];
+                    var cellValue = parseFloat(cell.innerHTML) || 0;
+                    var totalCell = cells[k];
+                    var totalCellValue = parseFloat(totalCell.innerHTML) || 0;
+                    totalCell.innerHTML = (totalCellValue + cellValue).toFixed(2);
+                }
+            }
+        }
+    }
+
+    // Initial calculation
+    calculateTotals();
+
     </script>";
 } else {
     echo "Error: Failed to parse JSON data.";
