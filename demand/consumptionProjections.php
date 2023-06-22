@@ -49,15 +49,15 @@ if (isset($json1Array['products']) && isset($json2Array)) {
                         }
                     }
                     $componentOutput['Multiplied_Values'] = $multipliedValues;
-                } else {
-                    $componentOutput['Multiplied_Values'] = [];
-                }
 
-                $productOutput['Components'][] = $componentOutput;
+                    $productOutput['Components'][] = $componentOutput;
+                }
             }
         }
 
-        $jsonOutput[] = $productOutput;
+        if (!empty($productOutput['Components'])) {
+            $jsonOutput[] = $productOutput;
+        }
     }
 }
 
