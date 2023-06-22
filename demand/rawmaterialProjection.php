@@ -94,18 +94,18 @@ if (is_array($data)) {
     echo "<th>Component Unit of Measure</th>";
     echo "<th>Parent Category</th>";
     echo "<th>Sub Category</th>";
-    echo "<th>July/2022</th>";
-    echo "<th>August/2022</th>";
-    echo "<th>September/2022</th>";
-    echo "<th>October/2022</th>";
-    echo "<th>November/2022</th>";
-    echo "<th>December/2022</th>";
-    echo "<th>January/2023</th>";
-    echo "<th>February/2023</th>";
-    echo "<th>March/2023</th>";
-    echo "<th>April/2023</th>";
-    echo "<th>May/2023</th>";
-    echo "<th>June/2023</th>";
+    echo "<th>July 2022</th>";
+    echo "<th>August 2022</th>";
+    echo "<th>September 2022</th>";
+    echo "<th>October 2022</th>";
+    echo "<th>November 2022</th>";
+    echo "<th>December 2022</th>";
+    echo "<th>January 2023</th>";
+    echo "<th>February 2023</th>";
+    echo "<th>March 2023</th>";
+    echo "<th>April 2023</th>";
+    echo "<th>May 2023</th>";
+    echo "<th>June 2023</th>";
     echo "</tr>";
 
     // Display the original table
@@ -134,30 +134,31 @@ if (is_array($data)) {
         }
     }
 
-    // Display the totals row
-    echo "<tr id='totalsRow'>";
-    echo "<td><strong>Totals</strong></td>";
+    // Calculate column totals
+    echo "<tr>";
+    echo "<td>Total:</td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
     echo "<td></td>";
 
-    $months = ['July/2022', 'August/2022', 'September/2022', 'October/2022', 'November/2022', 'December/2022', 'January/2023', 'February/2023', 'March/2023', 'April/2023', 'May/2023', 'June/2023'];
+    $months = [
+        'July/2022', 'August/2022', 'September/2022', 'October/2022',
+        'November/2022', 'December/2022', 'January/2023', 'February/2023',
+        'March/2023', 'April/2023', 'May/2023', 'June/2023'
+    ];
 
     foreach ($months as $month) {
         $total = 0;
         foreach ($data as $product) {
             foreach ($product['Components'] as $component) {
                 if (isset($component['Multiplied_Values'][$month])) {
-                    $value = (float) $component['Multiplied_Values'][$month];
-                    if (!isNaN($value)) {
-                        $total += $value;
-                    }
+                    $total += $component['Multiplied_Values'][$month];
                 }
             }
         }
-        echo "<td>" . number_format($total, 2) . "</td>";
+        echo "<td>" . $total . "</td>";
     }
 
     echo "</tr>";
@@ -170,11 +171,11 @@ if (is_array($data)) {
         var table = document.getElementById('componentTable');
         var rows = table.getElementsByTagName('tr');
         var filterValue = select.value;
-
-        for (var i = 1; i < rows.length; i++) {
+      
+        for (var i = 1; i < rows.length - 1; i++) {
             var row = rows[i];
             var partNumber = row.cells[0].innerHTML;
-
+      
             if (filterValue === 'all' || partNumber === filterValue) {
                 row.style.display = '';
             } else {
@@ -182,33 +183,6 @@ if (is_array($data)) {
             }
         }
     }
-
-    window.onload = function() {
-        var table = document.getElementById('componentTable');
-        var rows = table.getElementsByTagName('tr');
-        var columnTotalsRow = document.createElement('tr');
-
-        for (var i = 0; i < rows[0].cells.length; i++) {
-            var cell = document.createElement('td');
-            var total = 0;
-
-            if (i >= 6 && i <= 17) { // Columns 7-18
-                for (var j = 1; j < rows.length - 1; j++) {
-                    var row = rows[j];
-                    var value = parseFloat(row.cells[i].innerHTML);
-
-                    if (!isNaN(value)) {
-                        total += value;
-                    }
-                }
-            }
-
-            cell.innerHTML = total.toFixed(2);
-            columnTotalsRow.appendChild(cell);
-        }
-
-        table.appendChild(columnTotalsRow);
-    };
     </script>";
 } else {
     echo "Error: Failed to parse JSON data.";
