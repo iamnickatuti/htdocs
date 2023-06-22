@@ -25,7 +25,7 @@ if (isset($json1Array['products']) && isset($json2Array)) {
         foreach ($components as $component) {
             if (isset($component['Component_Part_Number']) && isset($component['Component_Quantity'])) {
                 $componentNumber = $component['Component_Part_Number'];
-                $componentQuantity = (float) $component['Component_Quantity'];
+                $componentQuantity = (float)$component['Component_Quantity'];
                 $componentOutput = $component;
 
                 $matchingItem = null;
@@ -109,7 +109,8 @@ if (is_array($data)) {
     echo "<th>June 2023</th>";
     echo "</tr>";
 
-    $totals = array_fill(0, 12, 0.0);
+    // Calculate totals before filtering
+    $totals = array_fill(0, 12, 0);
 
     foreach ($data as $product) {
         foreach ($product['Components'] as $component) {
@@ -117,7 +118,7 @@ if (is_array($data)) {
             $monthlyValues = array_slice($multipliedValues, 6); // Get values starting from July 2022
 
             foreach ($monthlyValues as $index => $value) {
-                $totals[$index] += floatval($value);
+                $totals[$index] += $value;
             }
         }
     }
@@ -148,30 +149,18 @@ if (is_array($data)) {
         }
     }
 
-    // Add total row
+    // Calculate totals for columns 8 to 19
+    $columnTotals = array_slice($totals, 2); // Exclude the first 2 columns (Part Number and Part Description)
+
     echo "<tr>";
-    echo "<td colspan='7' style='text-align:right'><strong>Total</strong></td>";
-    for ($i = 0; $i < 12; $i++) {
-        echo "<td>" . number_format($totals[$i], 2) . "</td>";
+    echo "<td colspan='7'>Total</td>";
+    foreach ($columnTotals as $total) {
+        echo "<td>" . $total . "</td>";
     }
     echo "</tr>";
 
     echo "</table>";
-
-    echo "<script>";
-    echo "function filterTable() {";
-    echo "var selectBox = document.getElementById('partNumberSelect');";
-    echo "var selectedValue = selectBox.options[selectBox.selectedIndex].value;";
-    echo "var table = document.getElementById('componentTable');";
-    echo "var rows = table.getElementsByTagName('tr');";
-    echo "for (var i = 0; i < rows.length; i++) {";
-    echo "var cells = rows[i].getElementsByTagName('td');";
-    echo "var showRow = selectedValue === 'all' || cells[0].innerHTML === selectedValue;";
-    echo "rows[i].style.display = showRow ? '' : 'none';";
-    echo "}";
-    echo "}";
-    echo "</script>";
 } else {
-    echo "Data retrieval failed.";
+    echo "No data available.";
 }
 ?>
