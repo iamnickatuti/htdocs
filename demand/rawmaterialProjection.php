@@ -63,187 +63,179 @@ include '../parts/header.php';
                                     <p class="card-subtitle mb-4">Choose from the drop-down to display data</p>
                                 </div>
 <div class="table-responsive">
-    <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+                                <?php
+                                header('Access-Control-Allow-Origin: *');
+                                header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+                                header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
-$json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProjection.php');
-$json2 = file_get_contents('https://reports.moko.co.ke/demand/api/finishedProducts.php');
+                                $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProjection.php');
+                                $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/finishedProducts.php');
 
-$json1Array = json_decode($json1, true);
-$json2Array = json_decode($json2, true);
+                                $json1Array = json_decode($json1, true);
+                                $json2Array = json_decode($json2, true);
 
-$jsonOutput = [];
+                                $jsonOutput = [];
 
-if (isset($json1Array['products']) && isset($json2Array)) {
-    foreach ($json1Array['products'] as $product) {
-        $productNumber = $product['Product'];
-        $components = $product['Components'];
+                                if (isset($json1Array['products']) && isset($json2Array)) {
+                                    foreach ($json1Array['products'] as $product) {
+                                        $productNumber = $product['Product'];
+                                        $components = $product['Components'];
 
-        $productOutput = [
-            'Product' => $productNumber,
-            'Product_Description' => $product['Product_Description'],
-            'Components' => [],
-        ];
+                                        $productOutput = [
+                                            'Product' => $productNumber,
+                                            'Product_Description' => $product['Product_Description'],
+                                            'Components' => [],
+                                        ];
 
-        foreach ($components as $component) {
-            if (isset($component['Component_Part_Number']) && isset($component['Component_Quantity'])) {
-                $componentNumber = $component['Component_Part_Number'];
-                $componentQuantity = (float) $component['Component_Quantity'];
-                $componentOutput = $component;
+                                        foreach ($components as $component) {
+                                            if (isset($component['Component_Part_Number']) && isset($component['Component_Quantity'])) {
+                                                $componentNumber = $component['Component_Part_Number'];
+                                                $componentQuantity = (float) $component['Component_Quantity'];
+                                                $componentOutput = $component;
 
-                $matchingItem = null;
-                foreach ($json2Array as $item) {
-                    if (isset($item['Part Number']) && $item['Part Number'] === $productNumber) {
-                        $matchingItem = $item;
-                        break;
-                    }
-                }
+                                                $matchingItem = null;
+                                                foreach ($json2Array as $item) {
+                                                    if (isset($item['Part Number']) && $item['Part Number'] === $productNumber) {
+                                                        $matchingItem = $item;
+                                                        break;
+                                                    }
+                                                }
 
-                if ($matchingItem !== null) {
-                    $multipliedValues = [];
-                    foreach ($matchingItem as $key => $value) {
-                        if ($key !== 'Part Number' && $key !== 'Part Description' && $key !== 'UOM') {
-                            if (is_numeric($value)) {
-                                $multipliedValues[$key] = round($value * $componentQuantity, 2);
-                            } else {
-                                $multipliedValues[$key] = $value;
-                            }
-                        }
-                    }
-                    $componentOutput['Multiplied_Values'] = $multipliedValues;
-                } else {
-                    $componentOutput['Multiplied_Values'] = [];
-                }
+                                                if ($matchingItem !== null) {
+                                                    $multipliedValues = [];
+                                                    foreach ($matchingItem as $key => $value) {
+                                                        if ($key !== 'Part Number' && $key !== 'Part Description' && $key !== 'UOM') {
+                                                            if (is_numeric($value)) {
+                                                                $multipliedValues[$key] = round($value * $componentQuantity, 2);
+                                                            } else {
+                                                                $multipliedValues[$key] = $value;
+                                                            }
+                                                        }
+                                                    }
+                                                    $componentOutput['Multiplied_Values'] = $multipliedValues;
+                                                } else {
+                                                    $componentOutput['Multiplied_Values'] = [];
+                                                }
 
-                $productOutput['Components'][] = $componentOutput;
-            }
-        }
+                                                $productOutput['Components'][] = $componentOutput;
+                                            }
+                                        }
 
-        $jsonOutput[] = $productOutput;
-    }
-}
+                                        $jsonOutput[] = $productOutput;
+                                    }
+                                }
 
-$output = json_encode($jsonOutput, JSON_PRETTY_PRINT);
-$data = json_decode($output, true);
+                                $output = json_encode($jsonOutput, JSON_PRETTY_PRINT);
+                                $data = json_decode($output, true);
 
-if (is_array($data)) {
-    // Create an associative array to hold the combined component rows
-    $combinedComponents = [];
+                                if (is_array($data)) {
+                                    echo "<label for='partNumberSelect'>Select Part Number:</label>";
+                                    echo "<select id='partNumberSelect' onchange='filterTable()'>";
+                                    echo "<option value='all'>All</option>";
 
-    foreach ($data as $product) {
-        foreach ($product['Components'] as $component) {
-            $partNumber = $component['Component_Part_Number'];
+                                    // Collect unique part numbers
+                                    $uniquePartNumbers = array();
+                                    foreach ($data as $product) {
+                                        foreach ($product['Components'] as $component) {
+                                            $partNumber = $component['Component_Part_Number'];
+                                            if (!in_array($partNumber, $uniquePartNumbers)) {
+                                                $uniquePartNumbers[] = $partNumber;
+                                            }
+                                        }
+                                    }
 
-            // Check if the component part number already exists in the combinedComponents array
-            if (isset($combinedComponents[$partNumber])) {
-                // Add the multiplied values for each month
-                foreach ($component['Multiplied_Values'] as $month => $value) {
-                    if (isset($combinedComponents[$partNumber]['Multiplied_Values'][$month])) {
-                        $combinedComponents[$partNumber]['Multiplied_Values'][$month] += $value;
-                    } else {
-                        $combinedComponents[$partNumber]['Multiplied_Values'][$month] = $value;
-                    }
-                }
-            } else {
-                // Add the component to the combinedComponents array
-                $combinedComponents[$partNumber] = $component;
-            }
-        }
-    }
+                                    // Generate dropdown options
+                                    foreach ($uniquePartNumbers as $partNumber) {
+                                        echo "<option value='" . $partNumber . "'>" . $partNumber . "</option>";
+                                    }
 
-    echo "<label for='partNumberSelect'>Select Part Number:</label>";
-    echo "<select id='partNumberSelect' onchange='filterTable()'>";
-    echo "<option value='all'>All</option>";
+                                    echo "</select>";
 
-    // Generate dropdown options
-    foreach ($combinedComponents as $partNumber => $component) {
-        echo "<option value='" . $partNumber . "'>" . $partNumber . "</option>";
-    }
+                                    echo "<table id='componentTable' class='table table-centered table-striped mb-0' style='font-size: 11px'>";
+                                    echo "<tr>";
+                                    echo "<th>Component Part Number</th>";
+                                    echo "<th>Component Part Description</th>";
+                                    echo "<th>Component Quantity</th>";
+                                    echo "<th>Component Unit of Measure</th>";
+                                    echo "<th>July 2022</th>";
+                                    echo "<th>August 2022</th>";
+                                    echo "<th>September 2022</th>";
+                                    echo "<th>October 2022</th>";
+                                    echo "<th>November 2022</th>";
+                                    echo "<th>December 2022</th>";
+                                    echo "<th>January 2023</th>";
+                                    echo "<th>February 2023</th>";
+                                    echo "<th>March 2023</th>";
+                                    echo "<th>April 2023</th>";
+                                    echo "<th>May 2023</th>";
+                                    echo "<th>June 2023</th>";
+                                    echo "</tr>";
 
-    echo "</select>";
+                                    // Display the original table
+                                    foreach ($data as $product) {
+                                        foreach ($product['Components'] as $component) {
+                                            echo "<tr>";
+                                            echo "<td>" . $component['Component_Part_Number'] . "</td>";
+                                            echo "<td>" . $component['Component_Part_Description'] . "</td>";
+                                            echo "<td>" . $component['Component_Quantity'] . "</td>";
+                                            echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['August/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['September/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['October/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['November/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['December/2022'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['January/2023'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['February/2023'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['March/2023'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['April/2023'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['May/2023'] . "</td>";
+                                            echo "<td>" . $component['Multiplied_Values']['June/2023'] . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    }
 
-    echo "<table id='componentTable' class='table table-centered table-striped mb-0' style='font-size: 11px'>";
-    echo "<tr>";
-    echo "<th>Component Part Number</th>";
-    echo "<th>Component Part Description</th>";
-    echo "<th>Component Quantity</th>";
-    echo "<th>Component Unit of Measure</th>";
-    echo "<th>July 2022</th>";
-    echo "<th>August 2022</th>";
-    echo "<th>September 2022</th>";
-    echo "<th>October 2022</th>";
-    echo "<th>November 2022</th>";
-    echo "<th>December 2022</th>";
-    echo "<th>January 2023</th>";
-    echo "<th>February 2023</th>";
-    echo "<th>March 2023</th>";
-    echo "<th>April 2023</th>";
-    echo "<th>May 2023</th>";
-    echo "<th>June 2023</th>";
-    echo "</tr>";
+                                    // Calculate column totals
+                                    echo "<tr>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td><b>Total:</b>></td>";
 
-    // Display the combined component rows
-    foreach ($combinedComponents as $partNumber => $component) {
-        echo "<tr>";
-        echo "<td>" . $partNumber . "</td>";
-        echo "<td>" . $component['Component_Part_Description'] . "</td>";
-        echo "<td>" . $component['Component_Quantity'] . "</td>";
-        echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['August/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['September/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['October/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['November/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['December/2022'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['January/2023'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['February/2023'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['March/2023'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['April/2023'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['May/2023'] . "</td>";
-        echo "<td>" . $component['Multiplied_Values']['June/2023'] . "</td>";
-        echo "</tr>";
-    }
+                                    $months = [
+                                        'July/2022', 'August/2022', 'September/2022', 'October/2022',
+                                        'November/2022', 'December/2022', 'January/2023', 'February/2023',
+                                        'March/2023', 'April/2023', 'May/2023', 'June/2023'
+                                    ];
 
-    // Calculate column totals
-    echo "<tr>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td><b>Total:</b></td>";
+                                    foreach ($months as $month) {
+                                        $total = 0;
+                                        foreach ($data as $product) {
+                                            foreach ($product['Components'] as $component) {
+                                                if (isset($component['Multiplied_Values'][$month])) {
+                                                    $total += $component['Multiplied_Values'][$month];
+                                                }
+                                            }
+                                        }
+                                        echo "<td><b>" . $total . "</b>></td>";
+                                    }
 
-    $months = [
-        'July/2022', 'August/2022', 'September/2022', 'October/2022',
-        'November/2022', 'December/2022', 'January/2023', 'February/2023',
-        'March/2023', 'April/2023', 'May/2023', 'June/2023'
-    ];
+                                    echo "</tr>";
 
-    foreach ($months as $month) {
-        $total = 0;
-        foreach ($combinedComponents as $partNumber => $component) {
-            if (isset($component['Multiplied_Values'][$month])) {
-                $total += $component['Multiplied_Values'][$month];
-            }
-        }
-        echo "<td><b>" . $total . "</b></td>";
-    }
+                                    echo "</table>";
 
-    echo "</tr>";
-
-    echo "</table>";
-
-    echo "<script>
+                                    echo "<script>
 function filterTable() {
     var select = document.getElementById('partNumberSelect');
     var table = document.getElementById('componentTable');
     var rows = table.getElementsByTagName('tr');
     var filterValue = select.value;
-
+  
     // Reset column totals
     var totalCells = rows[rows.length - 1].getElementsByTagName('td');
-    for (var i = 5; i < totalCells.length; i++) {
+    for (var i = 6; i < totalCells.length; i++) {
         totalCells[i].innerHTML = '';
     }
 
@@ -251,13 +243,13 @@ function filterTable() {
     for (var i = 1; i < rows.length - 1; i++) {
         var row = rows[i];
         var partNumber = row.cells[0].innerHTML;
-
+  
         if (filterValue === 'all' || partNumber === filterValue) {
             row.style.display = '';
 
             // Update column totals
             var cells = row.getElementsByTagName('td');
-            for (var j = 5; j < cells.length; j++) {
+            for (var j = 6; j < cells.length; j++) {
                 var value = parseFloat(cells[j].innerHTML);
                 if (!isNaN(value)) {
                     var totalCell = totalCells[j];
@@ -271,7 +263,7 @@ function filterTable() {
     }
 
     // Remove 'NaN' from column totals
-    for (var i = 5; i < totalCells.length; i++) {
+    for (var i = 6; i < totalCells.length; i++) {
         var totalValue = parseFloat(totalCells[i].innerHTML);
         if (isNaN(totalValue)) {
             totalCells[i].innerHTML = '';
@@ -279,7 +271,15 @@ function filterTable() {
     }
 }
 </script>";
-?>
+
+
+                                } else {
+                                    echo "Error: Failed to parse JSON data.";
+                                }
+                                ?>
+
+                                </tbody>
+                                </table>
 </div>
 
 <!--                                <style>-->
