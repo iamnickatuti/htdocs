@@ -92,7 +92,6 @@ if (is_array($data)) {
     echo "<th>Component Part Description</th>";
     echo "<th>Component Quantity</th>";
     echo "<th>Component Unit of Measure</th>";
-    echo "<th>% BOM Share</th>";
     echo "<th>Parent Category</th>";
     echo "<th>Sub Category</th>";
     echo "<th>July 2022</th>";
@@ -117,7 +116,6 @@ if (is_array($data)) {
             echo "<td>" . $component['Component_Part_Description'] . "</td>";
             echo "<td>" . $component['Component_Quantity'] . "</td>";
             echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-            echo "<td>" . $component['%_BOM_Share'] . "</td>";
             echo "<td>" . $component['Multiplied_Values']['Parent Category'] . "</td>";
             echo "<td>" . $component['Multiplied_Values']['Sub Category'] . "</td>";
             echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
