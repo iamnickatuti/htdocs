@@ -62,7 +62,7 @@ include '../parts/header.php';
                                     <br>
                                     <p class="card-subtitle mb-4">Choose from the drop-down to display data</p>
                                 </div>
-
+<div class="table-responsive">
                                 <?php
                                 header('Access-Control-Allow-Origin: *');
                                 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
@@ -151,14 +151,12 @@ include '../parts/header.php';
 
                                     echo "</select>";
 
-                                    echo "<table id='componentTable' class='table table-striped'>";
+                                    echo "<table id='componentTable' class='table table-centered table-striped mb-0' style='font-size: 11px'>";
                                     echo "<tr>";
                                     echo "<th>Component Part Number</th>";
                                     echo "<th>Component Part Description</th>";
                                     echo "<th>Component Quantity</th>";
                                     echo "<th>Component Unit of Measure</th>";
-                                    echo "<th>Parent Category</th>";
-                                    echo "<th>Sub Category</th>";
                                     echo "<th>July 2022</th>";
                                     echo "<th>August 2022</th>";
                                     echo "<th>September 2022</th>";
@@ -181,8 +179,6 @@ include '../parts/header.php';
                                             echo "<td>" . $component['Component_Part_Description'] . "</td>";
                                             echo "<td>" . $component['Component_Quantity'] . "</td>";
                                             echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['Parent Category'] . "</td>";
-                                            echo "<td>" . $component['Multiplied_Values']['Sub Category'] . "</td>";
                                             echo "<td>" . $component['Multiplied_Values']['July/2022'] . "</td>";
                                             echo "<td>" . $component['Multiplied_Values']['August/2022'] . "</td>";
                                             echo "<td>" . $component['Multiplied_Values']['September/2022'] . "</td>";
@@ -284,42 +280,42 @@ function filterTable() {
 
                                 </tbody>
                                 </table>
+</div>
 
-
-                                <style>
-                                    tr th:nth-child(3) {
-                                        background-color:#bdffbf;
-                                        color: #000;
-                                    }
-                                    tr td:nth-child(3) {
-                                        background-color: #bdffbf;
-                                        color: #000;
-                                    }
-                                    tr th:nth-child(4) {
-                                        background-color:#e3e3e3;
-                                        color: #000;
-                                    }
-                                    tr td:nth-child(4) {
-                                        background-color: #e3e3e3;
-                                        color: #000;
-                                    }
-                                    tr th:nth-child(7) {
-                                        background-color:#ffbdbd;
-                                        color: #000;
-                                    }
-                                    tr td:nth-child(7) {
-                                        background-color: #ffbdbd;
-                                        color: #000;
-                                    }
-                                    tr th:nth-child(8) {
-                                        background-color:#ffedbd;
-                                        color: #000;
-                                    }
-                                    tr td:nth-child(8) {
-                                        background-color: #ffedbd;
-                                        color: #000;
-                                    }
-                                </style>
+<!--                                <style>-->
+<!--                                    tr th:nth-child(3) {-->
+<!--                                        background-color:#bdffbf;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr td:nth-child(3) {-->
+<!--                                        background-color: #bdffbf;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr th:nth-child(4) {-->
+<!--                                        background-color:#e3e3e3;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr td:nth-child(4) {-->
+<!--                                        background-color: #e3e3e3;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr th:nth-child(7) {-->
+<!--                                        background-color:#ffbdbd;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr td:nth-child(7) {-->
+<!--                                        background-color: #ffbdbd;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr th:nth-child(8) {-->
+<!--                                        background-color:#ffedbd;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                    tr td:nth-child(8) {-->
+<!--                                        background-color: #ffedbd;-->
+<!--                                        color: #000;-->
+<!--                                    }-->
+<!--                                </style>-->
                             </div> <!-- end card body-->
                         </div> <!-- end card -->
                     </div><!-- end col-->
