@@ -64,10 +64,6 @@ include '../parts/header.php';
                                 </div>
 <div class="table-responsive">
     <?php
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-
     $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/bomProjection.php');
     $json2 = file_get_contents('https://reports.moko.co.ke/demand/api/finishedProducts.php');
 
@@ -95,7 +91,7 @@ include '../parts/header.php';
 
                     $matchingItem = null;
                     foreach ($json2Array as $item) {
-                        if (isset($item['Part Number']) && $item['Part Number'] === $componentNumber) {
+                        if (isset($item['Part Number']) && $item['Part Number'] === $productNumber) {
                             $matchingItem = $item;
                             break;
                         }
@@ -117,23 +113,7 @@ include '../parts/header.php';
                         $componentOutput['Multiplied_Values'] = [];
                     }
 
-                    $existingComponent = null;
-                    foreach ($productOutput['Components'] as &$existing) {
-                        if ($existing['Component_Part_Number'] === $componentNumber) {
-                            $existingComponent = &$existing;
-                            break;
-                        }
-                    }
-
-                    if ($existingComponent !== null) {
-                        foreach ($componentOutput['Multiplied_Values'] as $key => $value) {
-                            if (isset($existingComponent['Multiplied_Values'][$key]) && is_numeric($value)) {
-                                $existingComponent['Multiplied_Values'][$key] += $value;
-                            }
-                        }
-                    } else {
-                        $productOutput['Components'][] = $componentOutput;
-                    }
+                    $productOutput['Components'][] = $componentOutput;
                 }
             }
 
@@ -145,33 +125,30 @@ include '../parts/header.php';
     $data = json_decode($output, true);
 
     if (is_array($data)) {
+        echo "<table>";
+        echo "<tr>";
+        echo "<th>Component Part Number</th>";
+        echo "<th>Component Part Description</th>";
+        echo "<th>Component Quantity</th>";
+        echo "<th>Component Unit of Measure</th>";
+        echo "<th>% BOM Share</th>";
+        echo "<th>Parent Category</th>";
+        echo "<th>Sub Category</th>";
+        echo "<th>July 2022</th>";
+        echo "<th>August 2022</th>";
+        echo "<th>September 2022</th>";
+        echo "<th>October 2022</th>";
+        echo "<th>November 2022</th>";
+        echo "<th>December 2022</th>";
+        echo "<th>January 2023</th>";
+        echo "<th>February 2023</th>";
+        echo "<th>March 2023</th>";
+        echo "<th>April 2023</th>";
+        echo "<th>May 2023</th>";
+        echo "<th>June 2023</th>";
+        echo "</tr>";
+
         foreach ($data as $product) {
-            echo "<h2>Product: " . $product['Product'] . "</h2>";
-            echo "<p>Product Description: " . $product['Product_Description'] . "</p>";
-
-            echo "<table>";
-            echo "<tr>";
-            echo "<th>Component Part Number</th>";
-            echo "<th>Component Part Description</th>";
-            echo "<th>Component Quantity</th>";
-            echo "<th>Component Unit of Measure</th>";
-            echo "<th>% BOM Share</th>";
-            echo "<th>Parent Category</th>";
-            echo "<th>Sub Category</th>";
-            echo "<th>July 2022</th>";
-            echo "<th>August 2022</th>";
-            echo "<th>September 2022</th>";
-            echo "<th>October 2022</th>";
-            echo "<th>November 2022</th>";
-            echo "<th>December 2022</th>";
-            echo "<th>January 2023</th>";
-            echo "<th>February 2023</th>";
-            echo "<th>March 2023</th>";
-            echo "<th>April 2023</th>";
-            echo "<th>May 2023</th>";
-            echo "<th>June 2023</th>";
-            echo "</tr>";
-
             foreach ($product['Components'] as $component) {
                 echo "<tr>";
                 echo "<td>" . $component['Component_Part_Number'] . "</td>";
@@ -195,13 +172,14 @@ include '../parts/header.php';
                 echo "<td>" . $component['Multiplied_Values']['June/2023'] . "</td>";
                 echo "</tr>";
             }
-
-            echo "</table>";
         }
+
+        echo "</table>";
     } else {
         echo "Invalid JSON string.";
     }
     ?>
+
 
 </div>
 
