@@ -115,20 +115,19 @@ echo "<div class='col-3 float-right mb-4'>";
         echo "<th>Component Part Number</th>";
         echo "<th>Component Part Description</th>";
         echo "<th>UOM</th>";
-        echo "<th>Jul 2022</th>";
-        echo "<th>Aug 2022</th>";
-        echo "<th>Sep 2022</th>";
-        echo "<th>Oct 2022</th>";
-        echo "<th>Nov 2022</th>";
-        echo "<th>Dec 2022</th>";
-        echo "<th>Jan 2023</th>";
-        echo "<th>Feb 2023</th>";
-        echo "<th>Mar 2023</th>";
-        echo "<th>Apr 2023</th>";
-        echo "<th>May 2023</th>";
-        echo "<th>Jun 2023</th>";
-        echo "<th>July 2023</th>";
-        echo "<th>August 2023</th>";
+        echo "<th>Jul 2023</th>";
+        echo "<th>Aug 2023</th>";
+        echo "<th>Sep 2023</th>";
+        echo "<th>Oct 2023</th>";
+        echo "<th>Nov 2023</th>";
+        echo "<th>Dec 2023</th>";
+        echo "<th>Jan 2024</th>";
+        echo "<th>Feb 2024</th>";
+        echo "<th>Mar 2024</th>";
+        echo "<th>Apr 2024</th>";
+        echo "<th>May 2024</th>";
+        echo "<th>Jun 2024</th>";
+
         echo "</tr>";
 
         foreach ($combinedRows as $component) {
@@ -136,20 +135,19 @@ echo "<div class='col-3 float-right mb-4'>";
             echo "<td>" . $component['Component_Part_Number'] . "</td>";
             echo "<td>" . $component['Component_Part_Description'] . "</td>";
             echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['July/2022']) ? number_format($component['Multiplied_Values']['July/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['August/2022']) ? number_format($component['Multiplied_Values']['August/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['September/2022']) ? number_format($component['Multiplied_Values']['September/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['October/2022']) ? number_format($component['Multiplied_Values']['October/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['November/2022']) ? number_format($component['Multiplied_Values']['November/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['December/2022']) ? number_format($component['Multiplied_Values']['December/2022']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['January/2023']) ? number_format($component['Multiplied_Values']['January/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['February/2023']) ? number_format($component['Multiplied_Values']['February/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['March/2023']) ? number_format($component['Multiplied_Values']['March/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['April/2023']) ? number_format($component['Multiplied_Values']['April/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['May/2023']) ? number_format($component['Multiplied_Values']['May/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['June/2023']) ? number_format($component['Multiplied_Values']['June/2023']) : '') . "</td>";
             echo "<td>" . (isset($component['Multiplied_Values']['July/2023']) ? number_format($component['Multiplied_Values']['July/2023']) : '') . "</td>";
             echo "<td>" . (isset($component['Multiplied_Values']['August/2023']) ? number_format($component['Multiplied_Values']['August/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['September/2023']) ? number_format($component['Multiplied_Values']['September/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['October/2023']) ? number_format($component['Multiplied_Values']['October/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['November/2023']) ? number_format($component['Multiplied_Values']['November/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['December/2023']) ? number_format($component['Multiplied_Values']['December/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['January/2024']) ? number_format($component['Multiplied_Values']['January/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['February/2024']) ? number_format($component['Multiplied_Values']['February/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['March/2024']) ? number_format($component['Multiplied_Values']['March/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['April/2024']) ? number_format($component['Multiplied_Values']['April/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['May/2024']) ? number_format($component['Multiplied_Values']['May/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['June/2024']) ? number_format($component['Multiplied_Values']['June/2024']) : '') . "</td>";
+
             echo "</tr>";
         }
 
