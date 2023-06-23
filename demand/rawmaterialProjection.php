@@ -58,7 +58,7 @@ include '../parts/header.php';
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="mb-4">
+                                <div class="">
                                     <h5 class="card-title mb-0">Raw Material Projection</h5>
                                     <br>
                                     <p class="card-subtitle mb-4">Choose a part number from the drop-down to show single component</p>
