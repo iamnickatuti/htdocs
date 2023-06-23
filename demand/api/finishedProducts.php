@@ -43,8 +43,8 @@ foreach ($array2 as $item2) {
         $item2WithNA = [
             "Parent Category" => $item2["Parent Category"],
             "Sub Category" => $item2["Sub Category"],
-            "Part Number" => "N/A",
-            "Part Description" => "N/A",
+            "Part Number" => $item2["Sub Category"],
+            "Part Description" => $item2["Sub Category"],
             "UOM" => $item2["UOM"],
         ];
         foreach ($item2 as $key => $value) {
