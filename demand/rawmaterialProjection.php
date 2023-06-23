@@ -98,6 +98,19 @@ include '../parts/header.php';
             }
         }
 
+        // Generate the options for the part number filter dropdown
+        $partNumbers = array_keys($combinedRows);
+
+        echo "<label for='partNumberFilter'>Filter by Part Number:</label>";
+        echo "<select id='partNumberFilter' onchange='applyFilter()'>";
+        echo "<option value='all'>All</option>";
+
+        foreach ($partNumbers as $partNumber) {
+            echo "<option value='" . $partNumber . "'>" . $partNumber . "</option>";
+        }
+
+        echo "</select>";
+
         echo "<table class='table table-centered table-striped mb-0' style='font-size: 11px'>";
         echo "<tr>";
         echo "<th>Component Part Number</th>";
@@ -139,11 +152,31 @@ include '../parts/header.php';
             echo "</tr>";
         }
 
+
         echo "</table>";
     } else {
         echo "Invalid JSON string.";
     }
     ?>
+
+    <script>
+        function applyFilter() {
+            var filter = document.getElementById("partNumberFilter").value;
+            var rows = document.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var partNumber = rows[i].getElementsByTagName("td")[0];
+                if (partNumber) {
+                    var textValue = partNumber.textContent || partNumber.innerText;
+                    if (filter === "all" || textValue === filter) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </div>
 
