@@ -103,7 +103,7 @@ include '../parts/header.php';
         echo "<th>Component Part Number</th>";
         echo "<th>Component Part Description</th>";
         echo "<th>Component Quantity</th>";
-        echo "<th>Component Unit of Measure</th>";
+        echo "<th>UOM</th>";
         echo "<th>July 2022</th>";
         echo "<th>August 2022</th>";
         echo "<th>September 2022</th>";
