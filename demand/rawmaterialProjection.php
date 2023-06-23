@@ -61,7 +61,7 @@ include '../parts/header.php';
                                 <div class="mb-4">
                                     <h5 class="card-title mb-0">Raw Material Projection</h5>
                                     <br>
-                                    <p class="card-subtitle mb-4">Filter Coming Soon</p>
+                                    <p class="card-subtitle mb-4">Choose a part number from the drop-down to show single component</p>
                                 </div>
 <div class="table-responsive">
     <?php
@@ -102,7 +102,7 @@ include '../parts/header.php';
         $partNumbers = array_keys($combinedRows);
 
         echo "<label for='partNumberFilter'>Filter by Part Number:</label>";
-        echo "<select id='partNumberFilter' onchange='applyFilter()'>";
+        echo "<select id='partNumberFilter' onchange='applyFilter()' class='form-control'>";
         echo "<option value='all'>All</option>";
 
         foreach ($partNumbers as $partNumber) {
