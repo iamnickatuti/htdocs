@@ -100,7 +100,7 @@ include '../parts/header.php';
 
         // Generate the options for the part number filter dropdown
         $partNumbers = array_keys($combinedRows);
-echo "<div class='col-3 float-right'>";
+echo "<div class='col-3 float-right mb-4'>";
         echo "<select id='partNumberFilter' onchange='applyFilter()' class='form-control'>";
         echo "<option value='all'>All</option>";
 
@@ -110,7 +110,6 @@ echo "<div class='col-3 float-right'>";
 
         echo "</select>";
         echo "</div>";
-        echo "<br/>";
         echo "<table class='table table-centered table-striped mb-0' style='font-size: 11px'>";
         echo "<tr>";
         echo "<th>Component Part Number</th>";
