@@ -127,6 +127,8 @@ echo "<div class='col-3 float-right mb-4'>";
         echo "<th>Apr 2023</th>";
         echo "<th>May 2023</th>";
         echo "<th>Jun 2023</th>";
+        echo "<th>July 2023</th>";
+        echo "<th>August 2023</th>";
         echo "</tr>";
 
         foreach ($combinedRows as $component) {
@@ -146,7 +148,8 @@ echo "<div class='col-3 float-right mb-4'>";
             echo "<td>" . (isset($component['Multiplied_Values']['April/2023']) ? number_format($component['Multiplied_Values']['April/2023']) : '') . "</td>";
             echo "<td>" . (isset($component['Multiplied_Values']['May/2023']) ? number_format($component['Multiplied_Values']['May/2023']) : '') . "</td>";
             echo "<td>" . (isset($component['Multiplied_Values']['June/2023']) ? number_format($component['Multiplied_Values']['June/2023']) : '') . "</td>";
-            echo "<td>" . (isset($component['Multiplied_Values']['July/2023']) ? number_format($component['Multiplied_Values']['June/2024']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['July/2023']) ? number_format($component['Multiplied_Values']['July/2023']) : '') . "</td>";
+            echo "<td>" . (isset($component['Multiplied_Values']['August/2023']) ? number_format($component['Multiplied_Values']['August/2023']) : '') . "</td>";
             echo "</tr>";
         }
 
