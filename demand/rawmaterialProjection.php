@@ -152,7 +152,7 @@ include '../parts/header.php';
                                                     foreach ($combinedRows as $component) {
                                                         $partDescription = $component['Component_Part_Description'];
 
-                                                        if (strpos($partDescription, 'Cores') !== false || strpos($partDescription, 'Buns') !== false) {
+                                                        if (strpos($partDescription, 'Cores') !== false || strpos($partDescription, 'Buns') !== false || strpos($partDescription, 'Sofa Foam') !== false || strpos($partDescription, 'cores') !== false) {
                                                             echo "<tr>";
                                                             echo "<td>" . $component['Component_Part_Number'] . "</td>";
                                                             echo "<td>" . $partDescription . "</td>";
@@ -270,24 +270,28 @@ include '../parts/header.php';
                                                     echo "</tr>";
 
                                                     foreach ($combinedRows as $component) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $component['Component_Part_Number'] . "</td>";
-                                                        echo "<td>" . $component['Component_Part_Description'] . "</td>";
-                                                        echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['July/2023']) ? number_format($component['Multiplied_Values']['July/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['August/2023']) ? number_format($component['Multiplied_Values']['August/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['September/2023']) ? number_format($component['Multiplied_Values']['September/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['October/2023']) ? number_format($component['Multiplied_Values']['October/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['November/2023']) ? number_format($component['Multiplied_Values']['November/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['December/2023']) ? number_format($component['Multiplied_Values']['December/2023']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['January/2024']) ? number_format($component['Multiplied_Values']['January/2024']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['February/2024']) ? number_format($component['Multiplied_Values']['February/2024']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['March/2024']) ? number_format($component['Multiplied_Values']['March/2024']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['April/2024']) ? number_format($component['Multiplied_Values']['April/2024']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['May/2024']) ? number_format($component['Multiplied_Values']['May/2024']) : '') . "</td>";
-                                                        echo "<td>" . (isset($component['Multiplied_Values']['June/2024']) ? number_format($component['Multiplied_Values']['June/2024']) : '') . "</td>";
+                                                        $partDescription = $component['Component_Part_Description'];
 
-                                                        echo "</tr>";
+                                                        if (strpos($partDescription, 'Cores') === false && strpos($partDescription, 'Buns') === false && strpos($partDescription, 'Sofa Foam') === false && strpos($partDescription, 'cores') === false)  {
+                                                            echo "<tr>";
+                                                            echo "<td>" . $component['Component_Part_Number'] . "</td>";
+                                                            echo "<td>" . $component['Component_Part_Description'] . "</td>";
+                                                            echo "<td>" . $component['Component_Unit_of_Measure'] . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['July/2023']) ? number_format($component['Multiplied_Values']['July/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['August/2023']) ? number_format($component['Multiplied_Values']['August/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['September/2023']) ? number_format($component['Multiplied_Values']['September/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['October/2023']) ? number_format($component['Multiplied_Values']['October/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['November/2023']) ? number_format($component['Multiplied_Values']['November/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['December/2023']) ? number_format($component['Multiplied_Values']['December/2023']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['January/2024']) ? number_format($component['Multiplied_Values']['January/2024']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['February/2024']) ? number_format($component['Multiplied_Values']['February/2024']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['March/2024']) ? number_format($component['Multiplied_Values']['March/2024']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['April/2024']) ? number_format($component['Multiplied_Values']['April/2024']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['May/2024']) ? number_format($component['Multiplied_Values']['May/2024']) : '') . "</td>";
+                                                            echo "<td>" . (isset($component['Multiplied_Values']['June/2024']) ? number_format($component['Multiplied_Values']['June/2024']) : '') . "</td>";
+
+                                                            echo "</tr>";
+                                                        }
                                                     }
 
 
