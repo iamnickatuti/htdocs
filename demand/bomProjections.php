@@ -3,13 +3,8 @@ session_start ();
 include '../parts/header.php';
 ?>
 <?php
-// JSON URL
 $jsonUrl = "https://reports.moko.co.ke/demand/api/bomProjection";
-
-// Get the JSON data from the URL
 $jsonData = file_get_contents($jsonUrl);
-
-// Decode the JSON data into an associative array
 $data = json_decode($jsonData, true);
 ?>
 
@@ -62,11 +57,10 @@ $data = json_decode($jsonData, true);
                         <div class="card-body">
                             <div class="table-responsive">
                                 <?php
-                                // Check if there are any products
                                 if (isset($data['products']) && !empty($data['products'])) {
-                                    // Loop through each product
-                                    foreach ($data['products'] as $product) {
-                                        echo '<h2>Product: ' . $product['Product'] . '</h2>';
+                                     foreach ($data['products'] as $product) {
+                                        echo '<br/>';
+                                        echo '<h4>Product: ' . $product['Product'] . '</h4>';
                                         echo '<table>';
                                         echo '<tr>';
                                         echo '<th>Component Part Number</th>';
@@ -75,8 +69,6 @@ $data = json_decode($jsonData, true);
                                         echo '<th>Component Unit of Measure</th>';
                                         echo '<th>% BOM Share</th>';
                                         echo '</tr>';
-
-                                        // Loop through each component of the product
                                         foreach ($product['Components'] as $component) {
                                             echo '<tr>';
                                             echo '<td>' . $component['Component_Part_Number'] . '</td>';

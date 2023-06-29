@@ -1,9 +1,6 @@
 <?php
-
 include '../../cradle_config.php';
 header('Content-Type: application/json');
-
-// SQL query
 $sql = "
 SELECT
   category_mix_entries.id,

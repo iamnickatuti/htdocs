@@ -21,12 +21,13 @@ foreach ($json2Array['products'] as $product) {
     );
 
     foreach ($product['Components'] as $component) {
-        if (strpos($component['Component_Part_Number'], 'WP') === 0) {
+        if (strpos($component['Component_Part_Number'], 'WP-') === 0) {
             // Find subcomponents
             $subComponents = array();
 
             foreach ($json1Array as $item) {
                 if ($item['Target_sku_Part_Number'] === $component['Component_Part_Number']) {
+                    // Look up subcomponents
                     $subComponent = array(
                         'Target_sku_Part_Number' => $item['Target_sku_Part_Number'],
                         'Target_sku_Part_Description' => $item['Target_sku_Part_Description'],
@@ -41,8 +42,14 @@ foreach ($json2Array['products'] as $product) {
                 }
             }
 
-            // Add sub-components directly to the components array
-            $newProduct['Components'] = array_merge($newProduct['Components'], $subComponents);
+            if (empty($subComponents)) {
+                // If no subcomponents found, add the component itself
+                $newProduct['Components'][] = $component;
+            } else {
+                // If subcomponents exist, add both the component and its subcomponents
+                $newProduct['Components'][] = $component;
+                $newProduct['Components'] = array_merge($newProduct['Components'], $subComponents);
+            }
         } else {
             $newProduct['Components'][] = $component;
         }
