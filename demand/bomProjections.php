@@ -3,17 +3,16 @@ session_start ();
 include '../parts/header.php';
 ?>
 <?php
-
 // JSON URL
-$jsonUrl = "https://reports.moko.co.ke/demand/api/components.php";
+$jsonUrl = "https://reports.moko.co.ke/demand/api/bomProjection";
 
 // Get the JSON data from the URL
 $jsonData = file_get_contents($jsonUrl);
 
 // Decode the JSON data into an associative array
 $data = json_decode($jsonData, true);
-
 ?>
+
 <body>
 <div id="layout-wrapper">
     <div class="main-content">
@@ -52,7 +51,7 @@ $data = json_decode($jsonData, true);
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h4 class="mb-0 font-size-18">
-                                Sales Projection
+                                Bom Projection
                             </h4>
 
                         </div>
@@ -61,50 +60,41 @@ $data = json_decode($jsonData, true);
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <?php
-                            if (!empty($data)) {
-                                ?>
-                                <table class="table table-striped dt-responsive nowrap" style="font-size: 11px;">
-                                    <thead>
-                                    <tr>
-                                        <?php foreach (array_keys($data[0]) as $header) { ?>
-                                            <th><?php echo $header; ?></th>
-                                        <?php } ?>
-                                        <th>Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php foreach ($data as $item) { ?>
-                                        <tr<?php echo containsNA($item) ? ' style="color: #b55b00;"' : ''; ?>>
-                                            <?php
-                                            $total = 0;
-                                            foreach ($item as $value) {
-                                                $total += floatval($value);
-                                                ?>
-                                                <td><?php echo is_numeric($value) ? ceil($value) : ($value !== null ? $value : "N/A"); ?></td>
-                                            <?php } ?>
-                                            <td><b><?php echo ceil($total); ?></b></td>
-                                        </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
+                            <div class="table-responsive">
                                 <?php
-                            } else {
-                                echo "No data available.";
-                            }
+                                // Check if there are any products
+                                if (isset($data['products']) && !empty($data['products'])) {
+                                    // Loop through each product
+                                    foreach ($data['products'] as $product) {
+                                        echo '<h2>Product: ' . $product['Product'] . '</h2>';
+                                        echo '<table>';
+                                        echo '<tr>';
+                                        echo '<th>Component Part Number</th>';
+                                        echo '<th>Component Part Description</th>';
+                                        echo '<th>Component Quantity</th>';
+                                        echo '<th>Component Unit of Measure</th>';
+                                        echo '<th>% BOM Share</th>';
+                                        echo '</tr>';
 
-                            function containsNA($item)
-                            {
-                                foreach ($item as $value) {
-                                    if ($value === "N/A") {
-                                        return true;
+                                        // Loop through each component of the product
+                                        foreach ($product['Components'] as $component) {
+                                            echo '<tr>';
+                                            echo '<td>' . $component['Component_Part_Number'] . '</td>';
+                                            echo '<td>' . $component['Component_Part_Description'] . '</td>';
+                                            echo '<td>' . $component['Component_Quantity'] . '</td>';
+                                            echo '<td>' . $component['Component_Unit_of_Measure'] . '</td>';
+                                            echo '<td>' . $component['%_BOM_Share'] . '</td>';
+                                            echo '</tr>';
+                                        }
+
+                                        echo '</table>';
                                     }
+                                } else {
+                                    echo 'No products found.';
                                 }
-                                return false;
-                            }
-                            ?>
+                                ?>
 
-
+                            </div>
 
                         </div>
                     </div>
@@ -117,20 +107,3 @@ $data = json_decode($jsonData, true);
 </div>
 </body>
 <?php include '../parts/footer.php'; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

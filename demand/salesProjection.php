@@ -61,6 +61,7 @@ $data = json_decode($jsonData, true);
         <div class="row">
         <div class="card">
             <div class="card-body">
+                <div class="table-responsive">
                 <?php
                 if (!empty($data)) {
                     ?>
@@ -104,7 +105,7 @@ $data = json_decode($jsonData, true);
                 }
                 ?>
 
-
+                </div>
 
             </div>
         </div>
