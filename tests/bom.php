@@ -1,12 +1,12 @@
 <?php
 
-$jsonDataProducts = file_get_contents('https://reports.co.ke/tests/products');
+$jsonDataProducts = file_get_contents('https://reports.moko.co.ke/tests/products');
 $dataProducts = json_decode($jsonDataProducts, true);
 
-$jsonDataComponents = file_get_contents('https://reports.co.ke/tests/components');
+$jsonDataComponents = file_get_contents('https://reports.moko.co.ke/tests/components');
 $dataComponents = json_decode($jsonDataComponents, true);
 
-$jsonSubComponents = file_get_contents('https://reports.co.ke/tests/subcomponents');
+$jsonSubComponents = file_get_contents('https://reports.moko.co.ke/tests/subcomponents');
 $dataSubComponents = json_decode($jsonSubComponents, true);
 
 $subComponents = [];
