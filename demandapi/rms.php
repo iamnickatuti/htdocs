@@ -57,7 +57,7 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
             $subRawMaterial = $row;
 
             // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 7) {
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 8) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
@@ -160,6 +160,14 @@ $conn->close();
         th {
             background-color: #f2f2f2;
         }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul ul {
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -199,6 +207,14 @@ $conn->close();
                                     <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
                                         <li><?php echo $subSubRawMaterial['Sub Raw Material']; ?></li>
                                         <!-- Continue nesting for more sub-sub raw materials if needed -->
+                                        <?php if (isset($subSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
+                                            <ul>
+                                                <?php foreach ($subSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
+                                                    <li><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                    <!-- Continue nesting for more sub-sub-sub raw materials if needed -->
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
