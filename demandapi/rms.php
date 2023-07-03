@@ -3,7 +3,7 @@
 include '../cradle_config.php';
 
 // Recursive function to substitute raw materials starting with WP
-function substituteRawMaterial($conn, $rawMaterial)
+function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
 {
     // Execute the SQL query (Statement 2) for Sub Raw Materials
     $sqlStatement2 = "SELECT
@@ -57,7 +57,7 @@ function substituteRawMaterial($conn, $rawMaterial)
             // Check if Sub Raw Material starts with WP
             if (strpos($subRow['Sub Raw Material'], 'WP') === 0) {
                 // Call the function recursively to substitute the Sub Raw Material
-                $subSubRawMaterials = substituteRawMaterial($conn, $subRow['Sub Raw Material']);
+                $subSubRawMaterials = substituteRawMaterial($conn, $subRow['Sub Raw Material'], $depth + 1);
 
                 // Add the sub-sub raw materials to the sub raw material
                 $subRawMaterial['Sub-Sub Raw Materials'] = $subSubRawMaterials;
@@ -194,7 +194,9 @@ $conn->close();
                             <th>Component Quantity</th>
                             <th>Unit of Measure</th>
                             <th>% BOM Share</th>
-                            <th>Sub-Sub Raw Materials</th>
+                            <?php for ($i = 2; $i <= $depth; $i++): ?>
+                                <th>Sub-Sub Raw Materials (Depth <?php echo $i; ?>)</th>
+                            <?php endfor; ?>
                         </tr>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial): ?>
                             <tr>
@@ -203,28 +205,30 @@ $conn->close();
                                 <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
                                 <td><?php echo $subRawMaterial['uom']; ?></td>
                                 <td><?php echo $subRawMaterial['%_BOM_Share']; ?></td>
-                                <td>
-                                    <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])): ?>
-                                        <table>
-                                            <tr>
-                                                <th>Sub-Sub Raw Material</th>
-                                                <th>SSRM Description</th>
-                                                <th>Component Quantity</th>
-                                                <th>Unit of Measure</th>
-                                                <th>% BOM Share</th>
-                                            </tr>
-                                            <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial): ?>
+                                <?php for ($i = 2; $i <= $depth; $i++): ?>
+                                    <td>
+                                        <?php if (isset($subRawMaterial['Sub-Sub Raw Materials']) && $i === $depth): ?>
+                                            <table>
                                                 <tr>
-                                                    <td><?php echo $subSubRawMaterial['Sub Raw Material']; ?></td>
-                                                    <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
-                                                    <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
-                                                    <td><?php echo $subSubRawMaterial['uom']; ?></td>
-                                                    <td><?php echo $subSubRawMaterial['%_BOM_Share']; ?></td>
+                                                    <th>Sub-Sub Raw Material</th>
+                                                    <th>SSRM Description</th>
+                                                    <th>Component Quantity</th>
+                                                    <th>Unit of Measure</th>
+                                                    <th>% BOM Share</th>
                                                 </tr>
-                                            <?php endforeach; ?>
-                                        </table>
-                                    <?php endif; ?>
-                                </td>
+                                                <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial): ?>
+                                                    <tr>
+                                                        <td><?php echo $subSubRawMaterial['Sub Raw Material']; ?></td>
+                                                        <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
+                                                        <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
+                                                        <td><?php echo $subSubRawMaterial['uom']; ?></td>
+                                                        <td><?php echo $subSubRawMaterial['%_BOM_Share']; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </table>
+                                        <?php endif; ?>
+                                    </td>
+                                <?php endfor; ?>
                             </tr>
                         <?php endforeach; ?>
                     </table>
