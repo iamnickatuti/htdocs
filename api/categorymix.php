@@ -1,4 +1,6 @@
 <?php
+
+global $conn;
 include '../cradle_config.php';
 header('Content-Type: application/json');
 $sql = "

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 $json1 = file_get_contents('https://reports.moko.co.ke/demand/api/mix.php');
@@ -63,7 +63,6 @@ foreach ($array2 as $item2) {
 }
 // Convert the result array to JSON
 $jsonResult = json_encode($result, JSON_PRETTY_PRINT);
-
 // Output the JSON result
 echo $jsonResult;
 ?>

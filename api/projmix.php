@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
-$json1 = file_get_contents('https://reports.moko.co.ke/api/categoryMix.php');
+$json1 = file_get_contents('https://reports.moko.co.ke/api/categorymix.php');
 $json2 = file_get_contents('https://reports.moko.co.ke/api/projection.php');
 
 // Decode JSON strings into arrays
@@ -28,7 +28,7 @@ foreach ($array2 as $item2) {
             // Multiply the month values by the proportion
             foreach ($item2 as $key => $value) {
                 if ($key !== "Parent Category" && $key !== "Sub Category" && $key !== "UOM") {
-                    $multipliedItem[$key] = ceil($value) * ceil($item1['proportion']);
+                    $multipliedItem[$key] = ceil($value * $item1['proportion']);
                     // Assign "N/A" to null fields
                     if ($multipliedItem[$key] === null) {
                         $multipliedItem[$key] = "N/A";

@@ -1,8 +1,11 @@
 <?php
+// Set the response header to JSON
+header('Content-Type: application/json');
 include '../cradle_config.php';
 global $conn;
 // SQL query to retrieve data
-$sql = "SELECT
+$sql = "
+SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
   projection_entries.month,
   projection_entries.year,
@@ -30,7 +33,6 @@ HAVING
   projection_id = (SELECT MAX(projection_entries.projection_id) FROM projection_entries)";
 
 $result = $conn->query($sql);
-
 // Initialize an empty associative array to store the results
 $data = array();
 
@@ -56,31 +58,21 @@ if ($result->num_rows > 0) {
 }
 // Close the database connection
 $conn->close();
-
 // Generate the JSON result
 $jsonResult = array();
-
 foreach ($data as $category => $subcategories) {
     foreach ($subcategories as $subcategory => $monthsData) {
         $result = array(
             "Parent Category" => $category,
             "Sub Category" => $subcategory
         );
-
         foreach ($monthsData as $monthYear => $data) {
             $result[$monthYear] = $data["Units"];
         }
-
         $result["UOM"] = $monthsData[$monthYear]["UOM"];
-
         $jsonResult[] = $result;
     }
 }
-
-// Set the response header to JSON
-header('Content-Type: application/json');
-
 // Output the JSON result
 echo json_encode($jsonResult, JSON_PRETTY_PRINT);
-
 ?>
