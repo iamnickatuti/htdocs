@@ -1,4 +1,6 @@
 <?php
+
+
 // Set the response header to JSON
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

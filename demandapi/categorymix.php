@@ -3,8 +3,7 @@
 global $conn;
 include '../cradle_config.php';
 header('Content-Type: application/json');
-$sql = "
-SELECT
+$sql = "SELECT
   category_mix_entries.id,
   MAX(category_mix_entries.category_mix_id) AS 'category_mix_id',
   financial_years.name AS 'Financial_year',
