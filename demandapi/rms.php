@@ -28,7 +28,6 @@ function substituteRawMaterial($conn, $rawMaterial)
             bom_distribution_entries.bom_distribution_id = (
                 SELECT MAX(bom_distribution_entries.bom_distribution_id)
                 FROM bom_distribution_entries
-                WHERE skus1.description LIKE 'WP%'
             )
             AND skus1.name = '" . $rawMaterial . "'
         GROUP BY
