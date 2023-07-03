@@ -1,5 +1,7 @@
 <?php
 include '../cradle_config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Recursive function to substitute raw materials starting with WP
 function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
