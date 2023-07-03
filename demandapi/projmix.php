@@ -4,8 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
-$json1 = file_get_contents('https://reports.moko.co.ke/api/categorymix.php');
-$json2 = file_get_contents('https://reports.moko.co.ke/api/projection.php');
+$json1 = file_get_contents('https://reports.moko.co.ke/demandapi/categorymix.php');
+$json2 = file_get_contents('https://reports.moko.co.ke/demandapi/projection.php');
 
 // Decode JSON strings into arrays
 $array1 = json_decode($json1, true);
