@@ -52,7 +52,18 @@ function substituteRawMaterial($conn, $rawMaterial)
         // Fetch the results
         $subRawMaterials = array();
         while ($subRow = $resultStatement2->fetch_assoc()) {
-            $subRawMaterials[] = $subRow;
+            $subRawMaterial = $subRow;
+
+            // Check if Sub Raw Material starts with WP
+            if (strpos($subRow['Sub Raw Material'], 'WP') === 0) {
+                // Call the function recursively to substitute the Sub Raw Material
+                $subSubRawMaterials = substituteRawMaterial($conn, $subRow['Sub Raw Material']);
+
+                // Add the sub-sub raw materials to the sub raw material
+                $subRawMaterial['Sub-Sub Raw Materials'] = $subSubRawMaterials;
+            }
+
+            $subRawMaterials[] = $subRawMaterial;
         }
 
         // Return the sub raw materials array
@@ -183,6 +194,7 @@ $conn->close();
                             <th>Component Quantity</th>
                             <th>Unit of Measure</th>
                             <th>% BOM Share</th>
+                            <th>Sub-Sub Raw Materials</th>
                         </tr>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial): ?>
                             <tr>
@@ -191,6 +203,28 @@ $conn->close();
                                 <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
                                 <td><?php echo $subRawMaterial['uom']; ?></td>
                                 <td><?php echo $subRawMaterial['%_BOM_Share']; ?></td>
+                                <td>
+                                    <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])): ?>
+                                        <table>
+                                            <tr>
+                                                <th>Sub-Sub Raw Material</th>
+                                                <th>SSRM Description</th>
+                                                <th>Component Quantity</th>
+                                                <th>Unit of Measure</th>
+                                                <th>% BOM Share</th>
+                                            </tr>
+                                            <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial): ?>
+                                                <tr>
+                                                    <td><?php echo $subSubRawMaterial['Sub Raw Material']; ?></td>
+                                                    <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
+                                                    <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
+                                                    <td><?php echo $subSubRawMaterial['uom']; ?></td>
+                                                    <td><?php echo $subSubRawMaterial['%_BOM_Share']; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </table>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
