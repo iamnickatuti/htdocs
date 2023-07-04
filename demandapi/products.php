@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 include '../cradle_config.php';
+
 // Execute the SQL query to retrieve the product and raw material details
 $sqlStatement = "SELECT
     skus1.name AS 'Product',
@@ -44,14 +45,33 @@ $result = $conn->query($sqlStatement);
 
 // Check if the query was successful
 if ($result) {
-    // Fetch the results and store them in an array
-    $rawMaterials = array();
+    // Fetch the results and store them in a nested array structure
+    $products = array();
     while ($row = $result->fetch_assoc()) {
-        $rawMaterials[] = $row;
+        $productName = $row['Product'];
+        $productDescription = $row['Product Description'];
+
+        // Create the product entry if it doesn't exist
+        if (!isset($products[$productName])) {
+            $products[$productName] = array(
+                'Product Description' => $productDescription,
+                'Raw Materials' => array()
+            );
+        }
+
+        // Add the raw material entry to the product
+        $rawMaterial = array(
+            'Raw Material' => $row['Raw Material'],
+            'RM Description' => $row['RM Description'],
+            'Component Quantity' => $row['Component Quantity'],
+            'uom' => $row['uom'],
+            '%_BOM_Share' => $row['%_BOM_Share']
+        );
+        $products[$productName]['Raw Materials'][] = $rawMaterial;
     }
 
-    // Convert the array to JSON
-    $outputData = json_encode($rawMaterials);
+    // Convert the nested array to JSON
+    $outputData = json_encode($products);
 
     // Set headers for JSON response
 
