@@ -23,7 +23,6 @@ WHERE
     bom_distribution_entries.bom_distribution_id = (
         SELECT MAX(bom_distribution_entries.bom_distribution_id)
         FROM bom_distribution_entries
-        WHERE skus1.name LIKE 'FP%'
     )
 GROUP BY
     bom_details.bom_id,
