@@ -1,7 +1,6 @@
 <?php
-// Create a database connection object (replace with your own code)
+header('Content-Type: application/json');
 include '../cradle_config.php';
-
 // Execute the SQL query to retrieve the product and raw material details
 $sqlStatement = "SELECT
     production_lines.name AS 'Production_Line',
@@ -56,7 +55,6 @@ if ($result) {
     $outputData = json_encode($rawMaterials);
 
     // Set headers for JSON response
-    header('Content-Type: application/json');
 
     // Output the JSON data
     echo $outputData;
