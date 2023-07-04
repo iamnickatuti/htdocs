@@ -184,95 +184,35 @@ $conn->close();
         <th>Sub Raw Materials</th>
     </tr>
     </thead>
+    <?php
+    function generateTable($data, $indent = 0) {
+        foreach ($data as $item) {
+            echo '<tr>';
+            echo '<td colspan="' . ($indent * 3) . '"></td>'; // Create an indentation effect
+
+            // Display the actual data for this level
+            echo '<td>' . $item['Production_Line'] . '</td>';
+            echo '<td>' . $item['Product'] . '</td>';
+            echo '<td>' . $item['Product Description'] . '</td>';
+            echo '<td>' . $item['Raw Material'] . '</td>';
+            echo '<td>' . $item['RM Description'] . '</td>';
+            echo '<td>' . $item['Component Quantity'] . '</td>';
+            echo '<td>' . $item['uom'] . '</td>';
+            echo '</tr>';
+
+            // Check if there are sub-elements and call the function recursively
+            if (isset($item['Sub Raw Materials'])) {
+                generateTable($item['Sub Raw Materials'], $indent + 1);
+            }
+        }
+    }
+    ?>
+
+    <!-- Then in your HTML, use the function like this: -->
     <tbody>
-    <?php foreach ($products as $product) : ?>
-        <tr>
-        <td><?php echo $product['Production_Line']; ?></td>
-        <td><?php echo $product['Product']; ?></td>
-        <td><?php echo $product['Product Description']; ?></td>
-        <td><?php echo $product['Raw Material']; ?></td>
-        <td><?php echo $product['RM Description']; ?></td>
-        <td><?php echo $product['Component Quantity']; ?></td>
-        <td><?php echo $product['uom']; ?></td>
-        <?php if (isset($product['Sub Raw Materials'])) : ?>
-            <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
-                <td><?php echo $subRawMaterial['SRM Description']; ?></td>
-                <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
-                <td><?php echo $subRawMaterial['uom']; ?></td>
-                <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
-                    <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
-                        <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><?php echo $subSubRawMaterial['Sub Raw Material']; ?></td>
-                        <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
-                        <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
-                        <td><?php echo $subSubRawMaterial['uom']; ?></td>
-                        <?php if (isset($subSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
-                            <?php foreach ($subSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
-                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
-                                <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
-                                <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
-                                <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                    <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
-                                        <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                        <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
-                                        <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                        <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
-                                        <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                            <?php foreach ($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubRawMaterial) : ?>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                                    <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                    <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                    <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
-                                                    <!-- Add more levels as needed -->
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        </tr>
-    <?php endforeach; ?>
+    <?php generateTable($products); ?>
     </tbody>
+
 
 
 
