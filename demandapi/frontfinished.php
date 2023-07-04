@@ -53,10 +53,7 @@ foreach ($data1 as $productKey => $product) {
 // Convert the processed data to JSON
 $outputData = json_encode($processedData);
 
-// Output the JSON data
-$tableData = json_decode($outputData, true);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,130 +70,55 @@ $tableData = json_decode($outputData, true);
     </style>
 </head>
 <body>
-<table>
+<table id="data-table">
     <thead>
     <tr>
-        <th>Raw Materials</th>
+        <th>Raw Material</th>
+        <th>Raw Material Description</th>
         <th>Component Quantity</th>
         <th>UOM</th>
-
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($tableData as $product): ?>
-                <?php foreach ($product['Raw Materials'] as $rawMaterial): ?>
-                  <tr>
-                    <td><?php echo $rawMaterial['Raw Material']; ?></td>
-                    <td><?php echo $rawMaterial['Raw Material Description']; ?></td>
-                    <td><?php echo $rawMaterial['Component Quantity']; ?></td>
-                    <td><?php echo $rawMaterial['uom']; ?></td>
-                  </tr>
-                    <?php if (isset($rawMaterial['Sub Raw Materials'])): ?>
-                        <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
-                    <tr>
-                        <td><?php echo $subRawMaterial['Raw Material']; ?></td>
-                        <td><?php echo $subRawMaterial['SRM Description']; ?></td>
-                        <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
-                        <td><?php echo $subRawMaterial['uom']; ?></td>
-                    </tr>
-                            <?php if (isset($subRawMaterial['Sub Raw Materials'])): ?>
-                                <?php foreach ($subRawMaterial['Sub Raw Materials'] as $subSubRawMaterial): ?>
-                            <tr>
-                                <td><?php echo $subSubRawMaterial['Raw Material']; ?></td>
-                                <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
-                                <td><?php echo $subSubRawMaterial['uom']; ?></td>
-                            </tr>
-                                    <?php if (isset($subSubRawMaterial['Sub Raw Materials'])): ?>
-                                        <?php foreach ($subSubRawMaterial['Sub Raw Materials'] as $subSubSubRawMaterial): ?>
-                                    <tr>
-                                        <td><?php echo $subSubSubRawMaterial['Raw Material']; ?></td>
-                                        <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
-                                        <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
-                                        <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
-                                    </tr>
-                                    <?php if (isset($subSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                <?php foreach ($subSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubRawMaterial): ?>
-                                            <tr>
-                                                <td><?php echo $subSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
-                                            </tr>
-                                            <?php if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                        <?php foreach ($subSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubRawMaterial): ?>
-                                                    <tr>
-                                                        <td><?php echo $subSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                        <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                        <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                        <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
-                                                    </tr>
-                                                    <?php if (isset($subSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                                <?php foreach ($subSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial): ?>
-                                                            <tr>
-                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                            </tr>
-                                                            <?php if (isset($subSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                                        <?php foreach ($subSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial): ?>
-                                                                    <tr>
-                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                                    </tr>
-                                                                    <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                                                <?php foreach ($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                            <tr>
-                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                                            </tr>
-                                                                            <?php if (isset($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                                                        <?php foreach ($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                                    <tr>
-                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                                                    </tr>
-                                                                                    <?php if (isset($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
-                                                                                                <?php foreach ($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                                            <tr>
-                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                                                            </tr>
-                                                                                                <?php endforeach; ?>
-                                                                                            <?php endif; ?>
-                                                                                        <?php endforeach; ?>
-                                                                                    <?php endif; ?>
-                                                                                <?php endforeach; ?>
-                                                                            <?php endif; ?>
-                                                                        <?php endforeach; ?>
-                                                                    <?php endif; ?>
-                                                                <?php endforeach; ?>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </td>
-        </tr>
-    <?php endforeach; ?>
     </tbody>
-
 </table>
+
+<script>
+    // Retrieve the JSON data
+    var jsonData = <?php echo $outputData; ?>;
+
+    // Function to recursively create table rows for each level of data
+    function createTableRows(data, level, parentElement) {
+        for (var i = 0; i < data.length; i++) {
+            var row = document.createElement('tr');
+
+            var rawMaterialCell = document.createElement('td');
+            rawMaterialCell.textContent = data[i]['Raw Material'];
+            row.appendChild(rawMaterialCell);
+
+            var descriptionCell = document.createElement('td');
+            descriptionCell.textContent = data[i]['RM Description'];
+            row.appendChild(descriptionCell);
+
+            var quantityCell = document.createElement('td');
+            quantityCell.textContent = data[i]['Component Quantity'];
+            row.appendChild(quantityCell);
+
+            var uomCell = document.createElement('td');
+            uomCell.textContent = data[i]['uom'];
+            row.appendChild(uomCell);
+
+            parentElement.appendChild(row);
+
+            if (level < 10 && data[i]['Sub Raw Materials']) {
+                createTableRows(data[i]['Sub Raw Materials'], level + 1, parentElement);
+            }
+        }
+    }
+
+    // Call the function to create table rows using the JSON data
+    var tableBody = document.querySelector('#data-table tbody');
+    createTableRows(jsonData, 1, tableBody);
+</script>
 </body>
 </html>
