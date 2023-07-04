@@ -84,6 +84,16 @@ $data = json_decode($json_data, true);
                                                                             <td><?php echo $sub6_raw_material['Component Quantity']; ?></td>
                                                                             <td><?php echo $sub6_raw_material['uom']; ?></td>
                                                                         </tr>
+                                                                        <?php if (isset($sub6_raw_material['Sub Raw Materials'])): ?>
+                                                                            <?php foreach ($sub6_raw_material['Sub Raw Materials'] as $sub7_raw_material): ?>
+                                                                                <tr>
+                                                                                    <td><?php echo $sub7_raw_material['Raw Material']; ?></td>
+                                                                                    <td><?php echo $sub7_raw_material['RM Description']; ?></td>
+                                                                                    <td><?php echo $sub7_raw_material['Component Quantity']; ?></td>
+                                                                                    <td><?php echo $sub7_raw_material['uom']; ?></td>
+                                                                                </tr>
+                                                                            <?php endforeach; ?>
+                                                                        <?php endif; ?>
                                                                     <?php endforeach; ?>
                                                                 <?php endif; ?>
                                                             <?php endforeach; ?>
