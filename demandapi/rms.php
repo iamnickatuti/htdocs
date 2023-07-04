@@ -55,8 +55,8 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
         while ($row = $result->fetch_assoc()) {
             $subRawMaterial = $row;
 
-            // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 4) {
+            // Check if Sub Raw Material starts with WP and depth is less than or equal to 5
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 5) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
@@ -97,7 +97,6 @@ WHERE
     bom_distribution_entries.bom_distribution_id = (
         SELECT MAX(bom_distribution_entries.bom_distribution_id)
         FROM bom_distribution_entries
-        WHERE skus1.description LIKE 'FP%'
     )
 GROUP BY
     bom_details.bom_id,
@@ -123,10 +122,10 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         $product = $row;
 
-        // Check if Raw Material starts with WP
+        // Check if Raw Material starts with WP and depth is less than or equal to 5
         if (strpos($row['Raw Material'], 'WP') === 0) {
             // Call the function to substitute the Raw Material
-            $subRawMaterials = substituteRawMaterial($conn, $row['Raw Material']);
+            $subRawMaterials = substituteRawMaterial($conn, $row['Raw Material'], 1);
 
             // Add the sub raw materials to the product
             $product['Sub Raw Materials'] = $subRawMaterials;
@@ -134,6 +133,11 @@ if ($result) {
 
         $products[] = $product;
     }
+
+    // Print the products array
+    echo "<pre>";
+    print_r($products);
+    echo "</pre>";
 } else {
     echo "Error executing query: " . $conn->error;
 }
@@ -142,79 +146,3 @@ if ($result) {
 $conn->close();
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Product and Raw Material Details</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        ul ul {
-            margin-left: 20px;
-        }
-    </style>
-</head>
-<body>
-<h1>Product and Raw Material Details</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Production Line</th>
-        <th>Product</th>
-        <th>Product Description</th>
-        <th>Raw Material</th>
-        <th>RM Description</th>
-        <th>Component Quantity</th>
-        <th>Unit of Measure</th>
-        <th>Sub Raw Materials</th>
-    </tr>
-    </thead>
-    <?php
-    function generateTable($data, $indent = 0) {
-        foreach ($data as $item) {
-            echo '<tr>';
-            echo '<td colspan="' . ($indent * 3) . '"></td>'; // Create an indentation effect
-
-            // Display the actual data for this level
-            echo '<td>' . $item['Production_Line'] . '</td>';
-            echo '<td>' . $item['Product'] . '</td>';
-            echo '<td>' . $item['Product Description'] . '</td>';
-            echo '<td>' . $item['Raw Material'] . '</td>';
-            echo '<td>' . $item['RM Description'] . '</td>';
-            echo '<td>' . $item['Component Quantity'] . '</td>';
-            echo '<td>' . $item['uom'] . '</td>';
-            echo '</tr>';
-
-            // Check if there are sub-elements and call the function recursively
-            if (isset($item['Sub Raw Materials'])) {
-                generateTable($item['Sub Raw Materials'], $indent + 1);
-            }
-        }
-    }
-    ?>
-
-    <!-- Then in your HTML, use the function like this: -->
-    <tbody>
-    <?php generateTable($products); ?>
-    </tbody>
-
-
-
-
-</body>
-</html>
