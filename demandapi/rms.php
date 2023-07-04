@@ -55,8 +55,8 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
         while ($row = $result->fetch_assoc()) {
             $subRawMaterial = $row;
 
-            // Check if Sub Raw Material starts with WP and depth is less than or equal to 8
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 8) {
+            // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 7) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
@@ -72,31 +72,6 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
     } else {
         echo "Error executing query: " . $conn->error;
     }
-}
-
-// Function to retrieve the sub-sub-sub-sub-sub-sub-sub raw materials
-function getSubSubSubSubSubSubSubRawMaterials($conn, $rawMaterial)
-{
-    $subSubSubSubSubSubSubRawMaterials = array();
-
-    // Query to retrieve the sub-sub-sub-sub-sub-sub-sub raw materials
-    $sql = "SELECT * FROM your_table WHERE parent_raw_material = '$rawMaterial'";
-    $result = $conn->query($sql);
-
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            $subSubSubSubSubSubSubRawMaterial = $row;
-
-            // Call the function recursively to retrieve the sub-sub-sub-sub-sub-sub-sub raw materials
-            $subSubSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] = getSubSubSubSubSubSubSubRawMaterials($conn, $row['raw_material']);
-
-            $subSubSubSubSubSubSubRawMaterials[] = $subSubSubSubSubSubSubRawMaterial;
-        }
-    } else {
-        echo "Error executing query: " . $conn->error;
-    }
-
-    return $subSubSubSubSubSubSubRawMaterials;
 }
 
 // Execute the SQL query for Products and Raw Materials
@@ -157,25 +132,118 @@ if ($result) {
             $product['Sub Raw Materials'] = $subRawMaterials;
         }
 
-        // Check if there are sub-sub-sub-sub-sub-sub-sub raw materials
-        if (strpos($row['Raw Material'], 'WP') === 0) {
-            $subSubSubSubSubSubSubRawMaterials = getSubSubSubSubSubSubSubRawMaterials($conn, $row['Raw Material']);
-
-            // Add the sub-sub-sub-sub-sub-sub-sub raw materials to the product
-            $product['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] = $subSubSubSubSubSubSubRawMaterials;
-        }
-
         $products[] = $product;
     }
 } else {
     echo "Error executing query: " . $conn->error;
 }
 
-// Print the products array
-echo "<pre>";
-print_r($products);
-echo "</pre>";
-
 // Close the database connection
 $conn->close();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product and Raw Material Details</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul ul {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Product and Raw Material Details</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Production Line</th>
+        <th>Product</th>
+        <th>Product Description</th>
+        <th>Raw Material</th>
+        <th>RM Description</th>
+        <th>Component Quantity</th>
+        <th>Unit of Measure</th>
+        <th>% BOM Share</th>
+        <th>Sub Raw Materials</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($products as $product) : ?>
+        <tr>
+            <td><?php echo $product['Production_Line']; ?></td>
+            <td><?php echo $product['Product']; ?></td>
+            <td><?php echo $product['Product Description']; ?></td>
+            <td><?php echo $product['Raw Material']; ?></td>
+            <td><?php echo $product['RM Description']; ?></td>
+            <td><?php echo $product['Component Quantity']; ?></td>
+            <td><?php echo $product['uom']; ?></td>
+            <td><?php echo $product['%_BOM_Share']; ?></td>
+            <td>
+                <?php if (isset($product['Sub Raw Materials'])) : ?>
+                    <ul>
+                        <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
+                            <li><?php echo $subRawMaterial['Sub Raw Material']; ?></li>
+                            <li><?php echo $subRawMaterial['SRM Description']; ?></li>
+                            <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
+                                <ul>
+                                    <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
+                                        <li><?php echo $subSubRawMaterial['Sub Raw Material']; ?></li>
+                                        <?php if (isset($subSubRawMaterial['Sub-Sub Raw Materials'])) : ?>
+                                            <ul>
+                                                <?php foreach ($subSubRawMaterial['Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
+                                                    <li><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                    <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
+                                                        <ul>
+                                                            <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
+                                                                <li><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <ul>
+                                                                        <?php foreach ($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubRawMaterial) : ?>
+                                                                            <li><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                            <?php if (isset($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                                <ul>
+                                                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial) : ?>
+                                                                                        <li><?php echo $subSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                                    <?php endforeach; ?>
+                                                                                </ul>
+                                                                            <?php endif; ?>
+                                                                        <?php endforeach; ?>
+                                                                    </ul>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+</body>
+</html>
