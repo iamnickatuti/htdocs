@@ -76,8 +76,8 @@ $tableData = json_decode($outputData, true);
 <table>
     <thead>
     <tr>
-        <th>Product</th>
         <th>Raw Materials</th>
+        <th>Component Quantity</th>
     </tr>
     </thead>
     <tbody>
@@ -89,20 +89,34 @@ $tableData = json_decode($outputData, true);
                   </tr>
                     <?php if (isset($rawMaterial['Sub Raw Materials'])): ?>
                         <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subRawMaterial['Raw Material']; ?><br>
+                    <tr>
+                        <td><?php echo $subRawMaterial['Raw Material']; ?></td>
+                        <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
+                    </tr>
                             <?php if (isset($subRawMaterial['Sub Raw Materials'])): ?>
                                 <?php foreach ($subRawMaterial['Sub Raw Materials'] as $subSubRawMaterial): ?>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubRawMaterial['Raw Material']; ?><br>
+                            <tr>
+                                <td><?php echo $subSubRawMaterial['Raw Material']; ?></td>
+                                <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
+                            </tr>
                                     <?php if (isset($subSubRawMaterial['Sub Raw Materials'])): ?>
                                         <?php foreach ($subSubRawMaterial['Sub Raw Materials'] as $subSubSubRawMaterial): ?>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubRawMaterial['Raw Material']; ?><br>
-                                            <?php if (isset($subSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                    <tr>
+                                        <td><?php echo $subSubSubRawMaterial['Raw Material']; ?></td>
+                                        <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
+                                    </tr>
+                                    <?php if (isset($subSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                 <?php foreach ($subSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubRawMaterial): ?>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                    <?php if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                            <tr>
+                                                <td><?php echo $subSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                            </tr>
+                                            <?php if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                         <?php foreach ($subSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubRawMaterial): ?>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                            <?php if (isset($subSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                    <tr>
+                                                        <td><?php echo $subSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                        <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                    </tr>                                                            <?php if (isset($subSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                 <?php foreach ($subSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial): ?>
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
                                                                     <?php if (isset($subSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
