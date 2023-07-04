@@ -196,8 +196,7 @@ $conn->close();
             <td><?php echo $product['Component Quantity']; ?></td>
             <td><?php echo $product['uom']; ?></td>
             <td><?php echo $product['%_BOM_Share']; ?></td>
-            <td>
-                <?php if (isset($product['Sub Raw Materials'])) : ?>
+                        <?php if (isset($product['Sub Raw Materials'])) : ?>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
                 <tr>
                             <td></td>
@@ -244,7 +243,6 @@ $conn->close();
                         <?php endforeach; ?>
 
                 <?php endif; ?>
-            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
