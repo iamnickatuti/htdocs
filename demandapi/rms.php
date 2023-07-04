@@ -259,8 +259,8 @@ $conn->close();
                                                             <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                             <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                         </tr>
-                                                                <?php if (isset($subSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial) : ?>
+                                                                   <?php if (isset($subSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <?php foreach ($subSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial) : ?>
                                                                         <tr>
                                                                             <td></td>
                                                                             <td></td>
@@ -270,8 +270,8 @@ $conn->close();
                                                                             <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                             <td><?php echo $subSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                         </tr>
-                                                                <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                                                    <?php foreach ($subSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial) : ?>
+                                                                   <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <?php foreach ($subSubSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial) : ?>
                                                                         <tr>
                                                                             <td></td>
                                                                             <td></td>
