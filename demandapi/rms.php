@@ -56,7 +56,7 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
             $subRawMaterial = $row;
 
             // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 8) {
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 10) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
