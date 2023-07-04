@@ -5,14 +5,15 @@ $data = json_decode($json_data, true);
 ?>
 
 <table>
+    <tr>
+        <th>Raw Material</th>
+        <th>RM Description</th>
+        <th>Component Quantity</th>
+        <th>uom</th>
+    </tr>
     <?php foreach ($data as $product => $details): ?>
         <?php if (isset($details['Raw Materials'])): ?>
-            <tr>
-                <th>Raw Material</th>
-                <th>RM Description</th>
-                <th>Component Quantity</th>
-                <th>uom</th>
-            </tr>
+
             <?php foreach ($details['Raw Materials'] as $raw_material): ?>
                 <tr>
                     <td><?php echo $raw_material['Raw Material']; ?></td>
