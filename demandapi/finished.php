@@ -24,7 +24,7 @@ function findSubRawMaterials($rawMaterialId, $data2, $level)
                 'uom' => $item['uom'],
                 '%_BOM_Share' => $item['%_BOM_Share']
             );
-            if ($level < 7) {
+            if ($level < 10) {
                 $subRawMaterial['Sub Raw Materials'] = findSubRawMaterials($item['Sub Raw Material'], $data2, $level + 1);
             }
             $subRawMaterials[] = $subRawMaterial;
