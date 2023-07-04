@@ -312,7 +312,6 @@ $conn->close();
         <?php endforeach; ?>
     <?php endif; ?>
     </tbody>
-
 </table>
 </body>
 </html>
