@@ -270,7 +270,19 @@ $conn->close();
                                                                             <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                             <td><?php echo $subSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                         </tr>
-
+                                                                <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <?php foreach ($subSubSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial) : ?>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
+                                                                        </tr>
+    <?php endforeach; ?>
+    <?php endif; ?>
                                                             <?php endforeach; ?>
                                                         <?php endif; ?>
                                                          <?php endforeach; ?>
