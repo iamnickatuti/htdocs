@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 
 include '../cradle_config.php';
 // Recursive function to build nested array structure
