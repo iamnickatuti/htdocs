@@ -218,28 +218,65 @@ $conn->close();
                         <?php if (isset($subSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
                             <?php foreach ($subSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                    <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
-                                    <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
-                                    <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
-                                          <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                          <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
-                                              <tr>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                                  <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                  <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                  <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
-                                              </tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
+                                <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
+                                <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
+                                <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                    <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
+                                        <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                        <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
+                                        <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                        <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
+                                        <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                            <?php foreach ($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubRawMaterial) : ?>
+                                                <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
+                                                <?php if (isset($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial) : ?>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
+                                                            <!-- Add more levels as needed -->
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                        </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                                 </tr>
@@ -254,6 +291,6 @@ $conn->close();
         </tr>
     <?php endforeach; ?>
     </tbody>
-</table>
+
 </body>
 </html>
