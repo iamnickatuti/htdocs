@@ -200,6 +200,9 @@ $conn->close();
                 <?php if (isset($product['Sub Raw Materials'])) : ?>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
                 <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
                             <td><?php echo $subRawMaterial['SRM Description']; ?></td>
                 </tr>
