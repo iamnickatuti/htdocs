@@ -56,7 +56,7 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
             $subRawMaterial = $row;
 
             // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 7) {
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 8) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
@@ -113,7 +113,7 @@ GROUP BY
     bom_details.status,
     bom_distribution_entries.bom_distribution_id,
     bom_distribution_entries.share";
-
+global $conn;
 $result = $conn->query($sqlStatement);
 
 // Check if the query was successful
@@ -259,9 +259,21 @@ $conn->close();
                                                             <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                             <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                         </tr>
-                                                                                    <?php endforeach; ?>
-
-                                                                            <?php endif; ?>
+                                                                <?php if (isset($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial) : ?>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                            <td><?php echo $subSubSubSubSubSubSubRawMaterial['uom']; ?></td>
+                                                                        </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                         <?php endforeach; ?>
+                                                         <?php endif; ?>
                                                                         <?php endforeach; ?>
 
                                                                 <?php endif; ?>
