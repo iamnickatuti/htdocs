@@ -227,7 +227,21 @@ $conn->close();
                                     <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
                                     <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
                                     <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
-                                    <?php // Continue nesting levels as needed ?>
+                                          <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                          <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
+                                              <tr>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                  <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                  <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                  <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
+                                              </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
