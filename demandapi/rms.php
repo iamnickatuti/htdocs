@@ -243,36 +243,18 @@ $conn->close();
                                         <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
                                             <?php foreach ($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubRawMaterial) : ?>
                                                 <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                                <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
-                                                <?php if (isset($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
-                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial) : ?>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
-                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
-                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                            <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
-                                                            <!-- Add more levels as needed -->
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                                    <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
+                                                    <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                    <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
+                                                    <!-- Add more levels as needed -->
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
@@ -291,6 +273,7 @@ $conn->close();
         </tr>
     <?php endforeach; ?>
     </tbody>
+
 
 </body>
 </html>
