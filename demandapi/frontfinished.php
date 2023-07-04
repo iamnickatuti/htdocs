@@ -114,24 +114,39 @@ $tableData = json_decode($outputData, true);
                                             <?php if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                         <?php foreach ($subSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubRawMaterial): ?>
                                                     <tr>
-                                                        <td><?php echo $subSubSubSubRawMaterial['Raw Material']; ?></td>
-                                                        <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
-                                                    </tr>                                                            <?php if (isset($subSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                        <td><?php echo $subSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                        <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                    </tr>
+                                                    <?php if (isset($subSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                 <?php foreach ($subSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial): ?>
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                                    <?php if (isset($subSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                            <tr>
+                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                            </tr>
+                                                            <?php if (isset($subSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                         <?php foreach ($subSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial): ?>
-                                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                                            <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                                    <tr>
+                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                    </tr>
+                                                                    <?php if (isset($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                                 <?php foreach ($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                                                    <?php if (isset($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                                            <tr>
+                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                            </tr>                                                                                          <?php if (isset($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                                         <?php foreach ($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                                                            <?php if (isset($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                                    </tr>
+                                                                                    <?php if (isset($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'])): ?>
                                                                                                 <?php foreach ($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubSubRawMaterial): ?>
-                                                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?><br>
-                                                                                                    <?php // Add more levels as needed... ?>
+                                                                                            <tr>
+                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
+                                                                                            </tr>
+                                                                                            <?php // Add more levels as needed... ?>
                                                                                                 <?php endforeach; ?>
                                                                                             <?php endif; ?>
                                                                                         <?php endforeach; ?>
