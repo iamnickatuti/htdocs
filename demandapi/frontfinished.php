@@ -87,7 +87,7 @@ $tableData = json_decode($outputData, true);
                 <?php foreach ($product['Raw Materials'] as $rawMaterial): ?>
                   <tr>
                     <td><?php echo $rawMaterial['Raw Material']; ?></td>
-                    <td><?php echo $rawMaterial['SRM Description']; ?></td>
+                    <td><?php echo $rawMaterial['Raw Material Description']; ?></td>
                     <td><?php echo $rawMaterial['Component Quantity']; ?></td>
                     <td><?php echo $rawMaterial['uom']; ?></td>
                   </tr>
