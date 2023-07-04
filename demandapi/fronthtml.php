@@ -1,32 +1,44 @@
 <?php
-$url = 'https://reports.moko.co.ke/demandapi/frontfinished';
+$url = "https://reports.moko.co.ke/demandapi/frontfinished";
 $json_data = file_get_contents($url);
 $data = json_decode($json_data, true);
+?>
 
-$html = '<table>';
-    $html .= '<tr><th>Product</th><th>Product Description</th></tr>';
-
-    foreach ($data as $product => $details) {
-    $html .= '<tr>';
-        $html .= '<h2>' . $product . '</h2>';
-        $html .= '<h2>' . $details['Product Description'] . '</h2>';
-        $html .= '</tr>';
-
-    if (isset($details['Raw Materials'])) {
-    $html .= '<tr><th>Raw Material</th><th>RM Description</th><th>Component Quantity</th><th>uom</th></tr>';
-
-    foreach ($details['Raw Materials'] as $raw_material) {
-    $html .= '<tr>';
-        $html .= '<td>' . $raw_material['Raw Material'] . '</td>';
-        $html .= '<td>' . $raw_material['RM Description'] . '</td>';
-        $html .= '<td>' . $raw_material['Component Quantity'] . '</td>';
-        $html .= '<td>' . $raw_material['uom'] . '</td>';
-        $html .= '</tr>';
-    }
-    }
-    }
-
-    $html .= '</table>';
-
-echo $html;
-
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Product Description</th>
+    </tr>
+    <?php foreach ($data as $product => $details): ?>
+        <tr>
+            <td><?php echo $product; ?></td>
+            <td><?php echo $details['Product Description']; ?></td>
+        </tr>
+        <?php if (isset($details['Raw Materials'])): ?>
+            <tr>
+                <th>Raw Material</th>
+                <th>RM Description</th>
+                <th>Component Quantity</th>
+                <th>uom</th>
+            </tr>
+            <?php foreach ($details['Raw Materials'] as $raw_material): ?>
+                <tr>
+                    <td><?php echo $raw_material['Raw Material']; ?></td>
+                    <td><?php echo $raw_material['RM Description']; ?></td>
+                    <td><?php echo $raw_material['Component Quantity']; ?></td>
+                    <td><?php echo $raw_material['uom']; ?></td>
+                </tr>
+                <?php if (isset($raw_material['Sub Raw Materials'])): ?>
+                    <?php foreach ($raw_material['Sub Raw Materials'] as $sub_raw_material): ?>
+                        <tr>
+                            <td><?php echo $sub_raw_material['Raw Material']; ?></td>
+                            <td><?php echo $sub_raw_material['RM Description']; ?></td>
+                            <td><?php echo $sub_raw_material['Component Quantity']; ?></td>
+                            <td><?php echo $sub_raw_material['uom']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</table>
