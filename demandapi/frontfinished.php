@@ -78,6 +78,8 @@ $tableData = json_decode($outputData, true);
     <tr>
         <th>Raw Materials</th>
         <th>Component Quantity</th>
+        <th>UOM</th>
+
     </tr>
     </thead>
     <tbody>
@@ -85,6 +87,7 @@ $tableData = json_decode($outputData, true);
                 <?php foreach ($product['Raw Materials'] as $rawMaterial): ?>
                   <tr>
                     <td><?php echo $rawMaterial['Raw Material']; ?></td>
+                    <td><?php echo $rawMaterial['SRM Description']; ?></td>
                     <td><?php echo $rawMaterial['Component Quantity']; ?></td>
                     <td><?php echo $rawMaterial['uom']; ?></td>
                   </tr>
@@ -92,6 +95,7 @@ $tableData = json_decode($outputData, true);
                         <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
                     <tr>
                         <td><?php echo $subRawMaterial['Raw Material']; ?></td>
+                        <td><?php echo $subRawMaterial['SRM Description']; ?></td>
                         <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
                         <td><?php echo $subRawMaterial['uom']; ?></td>
                     </tr>
@@ -99,6 +103,7 @@ $tableData = json_decode($outputData, true);
                                 <?php foreach ($subRawMaterial['Sub Raw Materials'] as $subSubRawMaterial): ?>
                             <tr>
                                 <td><?php echo $subSubRawMaterial['Raw Material']; ?></td>
+                                <td><?php echo $subSubRawMaterial['SRM Description']; ?></td>
                                 <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
                                 <td><?php echo $subSubRawMaterial['uom']; ?></td>
                             </tr>
@@ -106,6 +111,7 @@ $tableData = json_decode($outputData, true);
                                         <?php foreach ($subSubRawMaterial['Sub Raw Materials'] as $subSubSubRawMaterial): ?>
                                     <tr>
                                         <td><?php echo $subSubSubRawMaterial['Raw Material']; ?></td>
+                                        <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
                                         <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
                                         <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
                                     </tr>
@@ -113,6 +119,7 @@ $tableData = json_decode($outputData, true);
                                                 <?php foreach ($subSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubRawMaterial): ?>
                                             <tr>
                                                 <td><?php echo $subSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                <td><?php echo $subSubSubSubRawMaterial['SRM Description']; ?></td>
                                                 <td><?php echo $subSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                 <td><?php echo $subSubSubSubRawMaterial['uom']; ?></td>
                                             </tr>
@@ -120,6 +127,7 @@ $tableData = json_decode($outputData, true);
                                                         <?php foreach ($subSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubRawMaterial): ?>
                                                     <tr>
                                                         <td><?php echo $subSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                        <td><?php echo $subSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                         <td><?php echo $subSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                         <td><?php echo $subSubSubSubSubRawMaterial['uom']; ?></td>
                                                     </tr>
@@ -127,6 +135,7 @@ $tableData = json_decode($outputData, true);
                                                                 <?php foreach ($subSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial): ?>
                                                             <tr>
                                                                 <td><?php echo $subSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                <td><?php echo $subSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                                 <td><?php echo $subSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                 <td><?php echo $subSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                             </tr>
@@ -134,6 +143,7 @@ $tableData = json_decode($outputData, true);
                                                                         <?php foreach ($subSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubRawMaterial): ?>
                                                                     <tr>
                                                                         <td><?php echo $subSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                        <td><?php echo $subSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                                         <td><?php echo $subSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                         <td><?php echo $subSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                     </tr>
@@ -141,6 +151,7 @@ $tableData = json_decode($outputData, true);
                                                                                 <?php foreach ($subSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubRawMaterial): ?>
                                                                             <tr>
                                                                                 <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                                                 <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                                 <td><?php echo $subSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                             </tr>
@@ -148,6 +159,7 @@ $tableData = json_decode($outputData, true);
                                                                                         <?php foreach ($subSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubRawMaterial): ?>
                                                                                     <tr>
                                                                                         <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                        <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                                                         <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                                         <td><?php echo $subSubSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                                     </tr>
@@ -155,6 +167,7 @@ $tableData = json_decode($outputData, true);
                                                                                                 <?php foreach ($subSubSubSubSubSubSubSubSubRawMaterial['Sub Raw Materials'] as $subSubSubSubSubSubSubSubSubSubRawMaterial): ?>
                                                                                             <tr>
                                                                                                 <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Raw Material']; ?></td>
+                                                                                                <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['SRM Description']; ?></td>
                                                                                                 <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['Component Quantity']; ?></td>
                                                                                                 <td><?php echo $subSubSubSubSubSubSubSubSubSubRawMaterial['uom']; ?></td>
                                                                                             </tr>
