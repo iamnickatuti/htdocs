@@ -1,15 +1,30 @@
 <?php
-function generateTable($data, $level = 1) {
-    if ($level > 8) {
-        return; // Limit the recursion to 8 levels deep
+function generateTable($data, $level = 1)
+{
+    if ($level === 1) {
+        echo '<table>';
+        echo '<tr>';
+        echo '<th>Product</th>';
+        echo '<th>Product Description</th>';
+        echo '</tr>';
     }
+
     foreach ($data as $product => $details) {
         echo '<tr>';
-        echo '<td rowspan="' . (count($details['Raw Materials']) + 1) . '">' . $product . '</td>';
-        echo '<td rowspan="' . (count($details['Raw Materials']) + 1) . '">' . $details['Product Description'] . '</td>';
+        echo '<td>' . $product . '</td>';
+        echo '<td>' . $details['Product Description'] . '</td>';
         echo '</tr>';
 
         if (isset($details['Raw Materials'])) {
+            if ($level === 1) {
+                echo '<tr>';
+                echo '<th>Raw Material</th>';
+                echo '<th>RM Description</th>';
+                echo '<th>Component Quantity</th>';
+                echo '<th>uom</th>';
+                echo '</tr>';
+            }
+
             foreach ($details['Raw Materials'] as $raw_material) {
                 echo '<tr>';
                 echo '<td>' . $raw_material['Raw Material'] . '</td>';
@@ -18,27 +33,21 @@ function generateTable($data, $level = 1) {
                 echo '<td>' . $raw_material['uom'] . '</td>';
                 echo '</tr>';
 
-                if (isset($raw_material['Sub Raw Materials'])) {
+                if (isset($raw_material['Sub Raw Materials']) && $level < 8) {
                     generateTable($raw_material['Sub Raw Materials'], $level + 1);
                 }
             }
         }
+    }
+
+    if ($level === 1) {
+        echo '</table>';
     }
 }
 
 $url = "https://reports.moko.co.ke/demandapi/frontfinished";
 $json_data = file_get_contents($url);
 $data = json_decode($json_data, true);
-?>
 
-<table>
-    <tr>
-        <th>Product</th>
-        <th>Product Description</th>
-        <th>Raw Material</th>
-        <th>RM Description</th>
-        <th>Component Quantity</th>
-        <th>uom</th>
-    </tr>
-    <?php generateTable($data); ?>
-</table>
+generateTable($data);
+?>
