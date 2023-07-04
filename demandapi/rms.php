@@ -56,7 +56,7 @@ function substituteRawMaterial($conn, $rawMaterial, $depth = 1)
             $subRawMaterial = $row;
 
             // Check if Sub Raw Material starts with WP and depth is less than or equal to 7
-            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 8) {
+            if (strpos($row['Sub Raw Material'], 'WP') === 0 && $depth <= 7) {
                 // Call the function recursively to substitute the Sub Raw Material and increment the depth
                 $subSubRawMaterials = substituteRawMaterial($conn, $row['Sub Raw Material'], $depth + 1);
 
@@ -205,12 +205,31 @@ $conn->close();
                                 <ul>
                                     <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
                                         <li><?php echo $subSubRawMaterial['Sub Raw Material']; ?></li>
-                                        <!-- Continue nesting for more sub-sub raw materials if needed -->
-                                        <?php if (isset($subSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
+                                        <?php if (isset($subSubRawMaterial['Sub-Sub Raw Materials'])) : ?>
                                             <ul>
-                                                <?php foreach ($subSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
+                                                <?php foreach ($subSubRawMaterial['Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
                                                     <li><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></li>
-                                                    <!-- Continue nesting for more sub-sub-sub raw materials if needed -->
+                                                    <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
+                                                        <ul>
+                                                            <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
+                                                                <li><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                    <ul>
+                                                                        <?php foreach ($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubRawMaterial) : ?>
+                                                                            <li><?php echo $subSubSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                            <?php if (isset($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'])) : ?>
+                                                                                <ul>
+                                                                                    <?php foreach ($subSubSubSubSubRawMaterial['Sub-Sub-Sub-Sub-Sub Raw Materials'] as $subSubSubSubSubSubRawMaterial) : ?>
+                                                                                        <li><?php echo $subSubSubSubSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                                                                    <?php endforeach; ?>
+                                                                                </ul>
+                                                                            <?php endif; ?>
+                                                                        <?php endforeach; ?>
+                                                                    </ul>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </ul>
                                         <?php endif; ?>
@@ -219,8 +238,6 @@ $conn->close();
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
-                <?php else : ?>
-                    N/A
                 <?php endif; ?>
             </td>
         </tr>
