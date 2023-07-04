@@ -139,3 +139,5 @@ echo "Error executing query: " . $conn->error;
 }
 
 $conn->close();
+
+echo json_encode($products);
