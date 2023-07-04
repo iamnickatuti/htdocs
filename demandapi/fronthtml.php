@@ -1,4 +1,31 @@
 <?php
+function generateTable($data, $level = 1) {
+    if ($level > 8) {
+        return; // Limit the recursion to 8 levels deep
+    }
+    foreach ($data as $product => $details) {
+        echo '<tr>';
+        echo '<td rowspan="' . (count($details['Raw Materials']) + 1) . '">' . $product . '</td>';
+        echo '<td rowspan="' . (count($details['Raw Materials']) + 1) . '">' . $details['Product Description'] . '</td>';
+        echo '</tr>';
+
+        if (isset($details['Raw Materials'])) {
+            foreach ($details['Raw Materials'] as $raw_material) {
+                echo '<tr>';
+                echo '<td>' . $raw_material['Raw Material'] . '</td>';
+                echo '<td>' . $raw_material['RM Description'] . '</td>';
+                echo '<td>' . $raw_material['Component Quantity'] . '</td>';
+                echo '<td>' . $raw_material['uom'] . '</td>';
+                echo '</tr>';
+
+                if (isset($raw_material['Sub Raw Materials'])) {
+                    generateTable($raw_material['Sub Raw Materials'], $level + 1);
+                }
+            }
+        }
+    }
+}
+
 $url = "https://reports.moko.co.ke/demandapi/frontfinished";
 $json_data = file_get_contents($url);
 $data = json_decode($json_data, true);
@@ -8,37 +35,10 @@ $data = json_decode($json_data, true);
     <tr>
         <th>Product</th>
         <th>Product Description</th>
+        <th>Raw Material</th>
+        <th>RM Description</th>
+        <th>Component Quantity</th>
+        <th>uom</th>
     </tr>
-    <?php foreach ($data as $product => $details): ?>
-        <tr>
-            <td><?php echo $product; ?></td>
-            <td><?php echo $details['Product Description']; ?></td>
-        </tr>
-        <?php if (isset($details['Raw Materials'])): ?>
-            <tr>
-                <th>Raw Material</th>
-                <th>RM Description</th>
-                <th>Component Quantity</th>
-                <th>uom</th>
-            </tr>
-            <?php foreach ($details['Raw Materials'] as $raw_material): ?>
-                <tr>
-                    <td><?php echo $raw_material['Raw Material']; ?></td>
-                    <td><?php echo $raw_material['RM Description']; ?></td>
-                    <td><?php echo $raw_material['Component Quantity']; ?></td>
-                    <td><?php echo $raw_material['uom']; ?></td>
-                </tr>
-                <?php if (isset($raw_material['Sub Raw Materials'])): ?>
-                    <?php foreach ($raw_material['Sub Raw Materials'] as $sub_raw_material): ?>
-                        <tr>
-                            <td><?php echo $sub_raw_material['Raw Material']; ?></td>
-                            <td><?php echo $sub_raw_material['RM Description']; ?></td>
-                            <td><?php echo $sub_raw_material['Component Quantity']; ?></td>
-                            <td><?php echo $sub_raw_material['uom']; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    <?php endforeach; ?>
+    <?php generateTable($data); ?>
 </table>
