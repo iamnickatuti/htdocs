@@ -3,10 +3,10 @@ header('Content-Type: application/json');
 include '../cradle_config.php';
 // Execute the SQL query to retrieve the product and raw material details
 $sqlStatement = "SELECT
-    skus1.name AS 'Product',
-    skus1.description AS 'Product Description',
-    skus.name AS 'Raw Material',
-    skus.description AS 'RM Description',
+    skus1.name AS 'Raw Material',
+    skus1.description AS 'RM Description',
+    skus.name AS 'Sub Raw Material',
+    skus.description AS 'SRM Description',
     bom_details.quantity AS 'Component Quantity',
     units.name AS 'uom',
     bom_distribution_entries.share AS '%_BOM_Share'
