@@ -308,5 +308,3 @@ $conn->close();
 </table>
 </body>
 </html>
-
-Add to 10 levels
