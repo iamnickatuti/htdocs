@@ -82,11 +82,11 @@ $tableData = json_decode($outputData, true);
     </thead>
     <tbody>
     <?php foreach ($tableData as $product): ?>
-        <tr>
-            <td><?php echo $product['Product']; ?></td>
-            <td>
                 <?php foreach ($product['Raw Materials'] as $rawMaterial): ?>
-                    <?php echo $rawMaterial['Raw Material']; ?><br>
+                  <tr>
+                    <td><?php echo $rawMaterial['Raw Material']; ?></td>
+                    <td><?php echo $rawMaterial['Component Quantity']; ?></td>
+                  </tr>
                     <?php if (isset($rawMaterial['Sub Raw Materials'])): ?>
                         <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
                             &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $subRawMaterial['Raw Material']; ?><br>
