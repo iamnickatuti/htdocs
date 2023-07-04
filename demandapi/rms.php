@@ -6,7 +6,6 @@ include '../cradle_config.php';
 function buildHierarchy($conn, $rawMaterial)
 {
 $hierarchy = array();
-
 // Execute the SQL query to retrieve the raw material's details
 $sqlStatement = "SELECT
 production_lines.name AS 'Production_Line',
