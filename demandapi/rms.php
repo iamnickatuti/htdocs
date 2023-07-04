@@ -217,12 +217,18 @@ $conn->close();
                                         <td><?php echo $subSubRawMaterial['uom']; ?></td>
                     </tr>
                                         <?php if (isset($subSubRawMaterial['Sub-Sub Raw Materials'])) : ?>
-                                            <ul>
-                                                <?php foreach ($subSubRawMaterial['Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
-                                                    <li><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></li>
+                                        <?php foreach ($subSubRawMaterial['Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><?php echo $subSubSubRawMaterial['Sub Raw Material']; ?></td>
+                                    <td><?php echo $subSubSubRawMaterial['SRM Description']; ?></td>
+                                    <td><?php echo $subSubSubRawMaterial['Component Quantity']; ?></td>
+                                    <td><?php echo $subSubSubRawMaterial['uom']; ?></td>
+                                </tr>
                                                     <?php if (isset($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'])) : ?>
-                                                        <ul>
-                                                            <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
+                                                    <?php foreach ($subSubSubRawMaterial['Sub-Sub-Sub Raw Materials'] as $subSubSubSubRawMaterial) : ?>
                                                                 <li><?php echo $subSubSubSubRawMaterial['Sub Raw Material']; ?></li>
                                                                 <?php if (isset($subSubSubSubRawMaterial['Sub-Sub-Sub-Sub Raw Materials'])) : ?>
                                                                     <ul>
