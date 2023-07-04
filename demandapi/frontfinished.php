@@ -75,7 +75,7 @@ $outputData = json_encode($processedData);
     <tr>
         <th>Raw Material</th>
         <th>Raw Material Description</th>
-        <th>Component Quantity</th>
+        <th>Description</th>
         <th>UOM</th>
     </tr>
     </thead>
@@ -97,7 +97,7 @@ $outputData = json_encode($processedData);
             row.appendChild(rawMaterialCell);
 
             var descriptionCell = document.createElement('td');
-            descriptionCell.textContent = data[i]['RM Description'];
+            descriptionCell.textContent = data[i]['SRM Description'];
             row.appendChild(descriptionCell);
 
             var quantityCell = document.createElement('td');
