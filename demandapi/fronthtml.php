@@ -8,8 +8,8 @@ $html = '<table>';
 
     foreach ($data as $product => $details) {
     $html .= '<tr>';
-        $html .= '<td>' . $product . '</td>';
-        $html .= '<td>' . $details['Product Description'] . '</td>';
+        $html .= '<h2>' . $product . '</h2>';
+        $html .= '<h2>' . $details['Product Description'] . '</h2>';
         $html .= '</tr>';
 
     if (isset($details['Raw Materials'])) {
