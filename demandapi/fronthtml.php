@@ -5,6 +5,7 @@ $data = json_decode($json_data, true);
 ?>
 
 <table>
+    <?php foreach ($data as $product => $details): ?>
         <?php if (isset($details['Raw Materials'])): ?>
             <tr>
                 <th>Raw Material</th>
@@ -101,4 +102,5 @@ $data = json_decode($json_data, true);
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
+    <?php endforeach; ?>
 </table>
