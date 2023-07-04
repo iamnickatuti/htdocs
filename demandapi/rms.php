@@ -199,10 +199,12 @@ $conn->close();
             <td>
                 <?php if (isset($product['Sub Raw Materials'])) : ?>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
+                <tr>
                             <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
                             <td><?php echo $subRawMaterial['SRM Description']; ?></td>
-                            <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
-                                <ul>
+                </tr>
+                        <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
+
                                     <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
                                         <li><?php echo $subSubRawMaterial['Sub Raw Material']; ?></li>
                                         <?php if (isset($subSubRawMaterial['Sub-Sub Raw Materials'])) : ?>
