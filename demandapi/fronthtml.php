@@ -101,5 +101,4 @@ $data = json_decode($json_data, true);
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
-    <?php endforeach; ?>
 </table>
