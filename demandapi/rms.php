@@ -204,11 +204,18 @@ $conn->close();
                             <td></td>
                             <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
                             <td><?php echo $subRawMaterial['SRM Description']; ?></td>
+                            <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
+                            <td><?php echo $subRawMaterial['uom']; ?></td>
                 </tr>
                         <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
-
-                                    <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
+                        <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <li><?php echo $subSubRawMaterial['Sub Raw Material']; ?></li>
+                                        <li><?php echo $subSubRawMaterial['SRM Description']; ?></li>
+                                        <li><?php echo $subSubRawMaterial['Component Quantity']; ?></li>
+                                        <li><?php echo $subSubRawMaterial['uom']; ?></li>
                                         <?php if (isset($subSubRawMaterial['Sub-Sub Raw Materials'])) : ?>
                                             <ul>
                                                 <?php foreach ($subSubRawMaterial['Sub-Sub Raw Materials'] as $subSubSubRawMaterial) : ?>
