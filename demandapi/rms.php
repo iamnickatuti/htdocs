@@ -1,4 +1,6 @@
 <?php
+
+include '../cradle_config.php';
 // Recursive function to build nested array structure
 function buildHierarchy($conn, $rawMaterial)
 {
