@@ -204,6 +204,7 @@ $conn->close();
                             <td></td>
                             <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
                             <td><?php echo $subRawMaterial['SRM Description']; ?></td>
+                            <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
                 </tr>
                         <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
 
