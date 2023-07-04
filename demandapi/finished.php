@@ -12,7 +12,7 @@ $data1 = json_decode($json1, true);
 $data2 = json_decode($json2, true);
 
 // Helper function to find sub raw materials based on Raw Material ID
-function findSubRawMaterials($rawMaterialId, $data2)
+function findSubRawMaterials($rawMaterialId, $data2, $level)
 {
     $subRawMaterials = array();
     foreach ($data2 as $item) {
@@ -24,6 +24,9 @@ function findSubRawMaterials($rawMaterialId, $data2)
                 'uom' => $item['uom'],
                 '%_BOM_Share' => $item['%_BOM_Share']
             );
+            if ($level < 7) {
+                $subRawMaterial['Sub Raw Materials'] = findSubRawMaterials($item['Sub Raw Material'], $data2, $level + 1);
+            }
             $subRawMaterials[] = $subRawMaterial;
         }
     }
@@ -38,7 +41,7 @@ foreach ($data1 as $productKey => $product) {
     foreach ($rawMaterials as $rawMaterial) {
         $rawMaterialId = $rawMaterial['Raw Material'];
         if (substr($rawMaterialId, 0, 2) === "WP") {
-            $subRawMaterials = findSubRawMaterials($rawMaterialId, $data2);
+            $subRawMaterials = findSubRawMaterials($rawMaterialId, $data2, 1); // Start at level 1
             $rawMaterial['Sub Raw Materials'] = $subRawMaterials;
         }
         $processedRawMaterials[] = $rawMaterial;
