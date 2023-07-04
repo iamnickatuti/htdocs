@@ -198,10 +198,9 @@ $conn->close();
             <td><?php echo $product['%_BOM_Share']; ?></td>
             <td>
                 <?php if (isset($product['Sub Raw Materials'])) : ?>
-                    <ul>
                         <?php foreach ($product['Sub Raw Materials'] as $subRawMaterial) : ?>
-                            <li><?php echo $subRawMaterial['Sub Raw Material']; ?></li>
-                            <li><?php echo $subRawMaterial['SRM Description']; ?></li>
+                            <td><?php echo $subRawMaterial['Sub Raw Material']; ?></td>
+                            <td><?php echo $subRawMaterial['SRM Description']; ?></td>
                             <?php if (isset($subRawMaterial['Sub-Sub Raw Materials'])) : ?>
                                 <ul>
                                     <?php foreach ($subRawMaterial['Sub-Sub Raw Materials'] as $subSubRawMaterial) : ?>
@@ -238,7 +237,7 @@ $conn->close();
                                 </ul>
                             <?php endif; ?>
                         <?php endforeach; ?>
-                    </ul>
+
                 <?php endif; ?>
             </td>
         </tr>
