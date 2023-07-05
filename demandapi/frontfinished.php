@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json');
+
 // Fetch data from JSON endpoints
 $json1Url = "https://reports.moko.co.ke/demandapi/products";
 $json2Url = "https://reports.moko.co.ke/demandapi/rawmaterials";
@@ -48,7 +48,7 @@ foreach ($data1 as $productKey => $product) {
     $product['Raw Materials'] = $processedRawMaterials;
     $processedData[$productKey] = $product;
 }
-
+header('Content-Type: application/json');
 // Convert the processed data to JSON
-echo json_encode($processedData, JSON_PRETTY_PRINT);
+echo json_encode($processedData);
 ?>
