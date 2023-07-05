@@ -50,5 +50,5 @@ foreach ($data1 as $productKey => $product) {
 }
 
 // Convert the processed data to JSON
-echo json_encode($processedData);
+echo json_encode($processedData, JSON_PRETTY_PRINT);
 ?>
