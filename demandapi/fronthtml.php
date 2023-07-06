@@ -1,8 +1,9 @@
 <?php
-$url = "https://reports.moko.co.ke/demandapi/rm.json";
+$url = "http://localhost/demandapi/processed.json";
 $json_data = file_get_contents($url);
 $data = json_decode($json_data, true);
 ?>
+
 <table>
     <tr>
         <th>Raw Material</th>

@@ -1,8 +1,8 @@
 <?php
-
+header('Content-Type: application/json');
 // Fetch data from JSON endpoints
-$json1Url = "https://reports.moko.co.ke/demandapi/products";
-$json2Url = "https://reports.moko.co.ke/demandapi/rawmaterials";
+$json1Url = "http://localhost/demandapi/products.json";
+$json2Url = "http://localhost/demandapi/rm.json";
 $json1 = file_get_contents($json1Url);
 $json2 = file_get_contents($json2Url);
 
@@ -20,8 +20,7 @@ function findSubRawMaterials($rawMaterialId, $data2, $level)
                 'Raw Material' => $item['Sub Raw Material'],
                 'RM Description' => $item['SRM Description'],
                 'Component Quantity' => $item['Component Quantity'],
-                'uom' => $item['uom'],
-                '%_BOM_Share' => $item['%_BOM_Share']
+                'uom' => $item['uom']
             );
             if ($level < 10) {
                 $subRawMaterial['Sub Raw Materials'] = findSubRawMaterials($item['Sub Raw Material'], $data2, $level + 1);
@@ -48,7 +47,16 @@ foreach ($data1 as $productKey => $product) {
     $product['Raw Materials'] = $processedRawMaterials;
     $processedData[$productKey] = $product;
 }
-header('Content-Type: application/json');
 // Convert the processed data to JSON
-echo json_encode($processedData);
+$outputData = json_encode($processedData);
+
+// Set the file path and name
+$file_path = './processed.json';
+
+// Write the JSON data to a file
+if (file_put_contents($file_path, $outputData)) {
+    echo 'JSON file created successfully.';
+} else {
+    echo 'Error creating JSON file.';
+}
 ?>

@@ -9,13 +9,11 @@ $sqlStatement = "SELECT
     skus.name AS 'Raw Material',
     skus.description AS 'RM Description',
     bom_details.quantity AS 'Component Quantity',
-    units.name AS 'uom',
-    bom_distribution_entries.share AS '%_BOM_Share'
+    units.name AS 'uom'
 FROM
     bom_details
 LEFT JOIN skus ON skus.id = bom_details.sku_id
 LEFT JOIN boms ON boms.id = bom_details.bom_id
-LEFT JOIN production_lines ON production_lines.id = boms.production_line_id
 LEFT JOIN skus AS skus1 ON skus1.id = boms.sku_id
 LEFT JOIN units ON units.id = skus.unit_id
 LEFT JOIN sku_types ON sku_types.id = skus.sku_type_id
@@ -29,7 +27,6 @@ WHERE
 GROUP BY
     bom_details.bom_id,
     boms.name,
-    production_lines.name,
     skus1.name,
     skus1.description,
     skus.sku_type_id,
@@ -64,8 +61,7 @@ if ($result) {
             'Raw Material' => $row['Raw Material'],
             'RM Description' => $row['RM Description'],
             'Component Quantity' => $row['Component Quantity'],
-            'uom' => $row['uom'],
-            '%_BOM_Share' => $row['%_BOM_Share']
+            'uom' => $row['uom']
         );
         $products[$productName]['Raw Materials'][] = $rawMaterial;
     }
@@ -73,10 +69,15 @@ if ($result) {
     // Convert the nested array to JSON
     $outputData = json_encode($products);
 
-    // Set headers for JSON response
+    // Set the file path and name
+    $file_path = './products.json';
 
-    // Output the JSON data
-    echo $outputData;
+    // Write the JSON data to a file
+    if (file_put_contents($file_path, $outputData)) {
+        echo 'JSON file created successfully.';
+    } else {
+        echo 'Error creating JSON file.';
+    }
 } else {
     echo "Error executing query: " . $conn->error;
 }
