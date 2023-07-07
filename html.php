@@ -53,27 +53,9 @@ $data = json_decode($jsonData, true);?>
     <tbody>
     <?php foreach ($data as $item): ?>
         <?php foreach ($item['Raw Materials'] as $rawMaterial): ?>
-            <tr>
-                <td><?php echo $rawMaterial['Raw Material']; ?></td>
-                <td><?php echo $rawMaterial['RM Description']; ?></td>
-                <td><?php echo $rawMaterial['Component Quantity']; ?></td>
-                <td><?php echo $rawMaterial['uom']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['July/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['August/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['September/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['October/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['November/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['December/2023']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['January/2024']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['February/2024']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['March/2024']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['April/2024']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['May/2024']; ?></td>
-                <td><?php echo $rawMaterial['Multiplied_Values']['June/2024']; ?></td>
-            </tr>
-            <?php if (isset($rawMaterial['Sub Raw Materials'])): ?>
+            <?php if (isset($rawMaterial['Sub Raw Materials']) && substr($rawMaterial['Raw Material'], 0, 2) === 'wp'): ?>
                 <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
-                    <tr class="indent">
+                    <tr>
                         <td><?php echo $subRawMaterial['Raw Material']; ?></td>
                         <td><?php echo $subRawMaterial['RM Description']; ?></td>
                         <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
@@ -91,34 +73,32 @@ $data = json_decode($jsonData, true);?>
                         <td><?php echo $subRawMaterial['Multiplied_Values']['May/2024']; ?></td>
                         <td><?php echo $subRawMaterial['Multiplied_Values']['June/2024']; ?></td>
                     </tr>
-                    <?php if (isset($subRawMaterial['Sub Raw Materials'])): ?>
-                        <?php foreach ($subRawMaterial['Sub Raw Materials'] as $subSubRawMaterial): ?>
-                            <tr class="indent indent">
-                                <td><?php echo $subSubRawMaterial['Raw Material']; ?></td>
-                                <td><?php echo $subSubRawMaterial['RM Description']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Component Quantity']; ?></td>
-                                <td><?php echo $subSubRawMaterial['uom']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['July/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['August/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['September/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['October/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['November/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['December/2023']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['January/2024']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['February/2024']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['March/2024']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['April/2024']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['May/2024']; ?></td>
-                                <td><?php echo $subSubRawMaterial['Multiplied_Values']['June/2024']; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td><?php echo $rawMaterial['Raw Material']; ?></td>
+                    <td><?php echo $rawMaterial['RM Description']; ?></td>
+                    <td><?php echo $rawMaterial['Component Quantity']; ?></td>
+                    <td><?php echo $rawMaterial['uom']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['July/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['August/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['September/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['October/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['November/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['December/2023']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['January/2024']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['February/2024']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['March/2024']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['April/2024']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['May/2024']; ?></td>
+                    <td><?php echo $rawMaterial['Multiplied_Values']['June/2024']; ?></td>
+                </tr>
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endforeach; ?>
     </tbody>
 </table>
+
 
 </body>
 </html>
