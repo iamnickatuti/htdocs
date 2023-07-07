@@ -53,7 +53,7 @@ $data = json_decode($jsonData, true);?>
     <tbody>
     <?php foreach ($data as $item): ?>
         <?php foreach ($item['Raw Materials'] as $rawMaterial): ?>
-            <?php if (isset($rawMaterial['Sub Raw Materials']) && substr($rawMaterial['Raw Material'], 0, 2) === 'wp'): ?>
+            <?php if (isset($rawMaterial['Sub Raw Materials'])): ?>
                 <?php foreach ($rawMaterial['Sub Raw Materials'] as $subRawMaterial): ?>
                     <tr>
                         <td><?php echo $subRawMaterial['Raw Material']; ?></td>
@@ -98,7 +98,5 @@ $data = json_decode($jsonData, true);?>
     <?php endforeach; ?>
     </tbody>
 </table>
-
-
 </body>
 </html>
