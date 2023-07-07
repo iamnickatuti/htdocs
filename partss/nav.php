@@ -54,7 +54,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-charts">
                             <a href="../demand/salesProjection" class="dropdown-item">Sales Projection</a>
-                            <a href="../demand/rawmaterialProjection" class="dropdown-item">Raw Materials Projection</a>
+                            <a href="../demandapi/matresses/consumption" class="dropdown-item">Consumption Projection</a>
                             <a href="../demand/bomProjections" class="dropdown-item">BOM</a>
                         </div>
                     </li>
