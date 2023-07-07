@@ -77,7 +77,7 @@ include'./dash/funcDash.php';
                                             Consumption Projection<div class="arrow-down"></div>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-tables">
-                                            <a href="demandapi/matresses/consumption" class="dropdown-item">Monthly</a>
+                                            <a href="demandapi/matresses/consumption" class="dropdown-item">Mattresses</a>
                                         </div>
                                     </div>
                                     <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
