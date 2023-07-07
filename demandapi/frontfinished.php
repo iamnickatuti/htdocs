@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 // Fetch data from JSON endpoints
-$json1Url = "http://localhost/demandapi/products.json";
-$json2Url = "http://localhost/demandapi/rm.json";
+$json1Url = "https://reports.moko.co.ke/demandapi/products.json";
+$json2Url = "https://reports.moko.co.ke/demandapi/rm.json";
 $json1 = file_get_contents($json1Url);
 $json2 = file_get_contents($json2Url);
 
@@ -51,7 +51,7 @@ foreach ($data1 as $productKey => $product) {
 $outputData = json_encode($processedData);
 
 // Set the file path and name
-$file_path = './processed.json';
+$file_path = './matresses/processed.json';
 
 // Write the JSON data to a file
 if (file_put_contents($file_path, $outputData)) {

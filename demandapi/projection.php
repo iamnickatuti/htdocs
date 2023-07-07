@@ -1,6 +1,4 @@
 <?php
-
-
 // Set the response header to JSON
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -28,6 +26,8 @@ FROM
   LEFT JOIN financial_years ON financial_years.id = projections.financial_year_id)
   LEFT JOIN categories ON categories.id = projection_entries.category_id)
   LEFT JOIN categories AS parent_categories ON categories.parent_id = parent_categories.id)
+
+WHERE parent_categories.name = 'Mattresses'
 GROUP BY
   projection_entries.id,
   projections.financial_year_id,

@@ -17,6 +17,8 @@ FROM
   LEFT JOIN financial_years ON financial_years.id = category_mixes.financial_year_id
   LEFT JOIN categories ON categories.id = category_mix_entries.category_id
   LEFT JOIN skus ON skus.id = category_mix_entries.sku_id
+  
+  WHERE categories.name IN('Pouffes', 'HD Mattresses', 'MD Mattresses')
 GROUP BY
   category_mix_entries.id,
   category_mixes.financial_year_id,
