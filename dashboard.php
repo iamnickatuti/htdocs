@@ -72,8 +72,15 @@ include'./dash/funcDash.php';
                                     <i class="mdi mdi-toolbox"></i>Demand Planning <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-charts">
+                                    <div class="dropdown">
+                                        <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Consumption Projection<div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-tables">
+                                            <a href="demandapi/matresses/consumption" class="dropdown-item">Monthly</a>
+                                        </div>
+                                    </div>
                                     <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
-                                    <a href="demandapi/matresses/consumption" class="dropdown-item">Consumption Projection</a>
                                     <a href="demand/bomProjections" class="dropdown-item">BOM</a>
 
                                 </div>
