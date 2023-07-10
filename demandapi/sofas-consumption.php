@@ -74,7 +74,6 @@ include '../parts/header.php';
     <tr>
         <th>Raw Material</th>
         <th>Description</th>
-        <th>Component Quantity</th>
         <th>UOM</th>
         <th>July/2023</th>
         <th>August/2023</th>
@@ -102,7 +101,6 @@ include '../parts/header.php';
                     <tr>
                         <td><?php echo $subRawMaterial['Raw Material']; ?></td>
                         <td><?php echo $subRawMaterial['RM Description']; ?></td>
-                        <td><?php echo $subRawMaterial['Component Quantity']; ?></td>
                         <td><?php echo $subRawMaterial['uom']; ?></td>
                         <td><?php echo $subRawMaterial['Multiplied_Values']['July/2023']; ?></td>
                         <td><?php echo $subRawMaterial['Multiplied_Values']['August/2023']; ?></td>
