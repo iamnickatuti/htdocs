@@ -39,7 +39,7 @@ include '../parts/header.php';
         </div>
     </header>
 
-<?php include '../../parts/nav.php';
+<?php include '../parts/nav.php';
 ?>
     <div class="page-content">
     <div class="container-fluid">
