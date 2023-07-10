@@ -16,8 +16,8 @@ FROM
   LEFT JOIN financial_years ON financial_years.id = category_mixes.financial_year_id
   LEFT JOIN categories ON categories.id = category_mix_entries.category_id
   LEFT JOIN skus ON skus.id = category_mix_entries.sku_id
-  
-  WHERE categories.name IN('Pouffes', 'HD Mattresses', 'MD Mattresses')
+    WHERE categories.name IN('Ottoman', 'Mr Biggie 2 Seater', 'Mr Biggie 3 Seater','Mr Biggie 1 Seater', 'Jiji 3 Seater','Jiji 2 Seater')
+
 GROUP BY
   category_mix_entries.id,
   category_mixes.financial_year_id,
