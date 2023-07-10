@@ -1,9 +1,8 @@
 <?php
 session_start ();
 include '../../partss/header.php'; ?>
-
-    <body>
-    <!-- Begin page -->
+<body>
+<!-- Begin page -->
 <div id="layout-wrapper">
     <div class="main-content">
 
