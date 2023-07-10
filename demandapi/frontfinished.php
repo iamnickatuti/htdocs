@@ -51,7 +51,7 @@ foreach ($data1 as $productKey => $product) {
 $outputData = json_encode($processedData);
 
 // Set the file path and name
-$file_path = './matresses/processed.json';
+$file_path = './sofas/processed.json';
 
 // Write the JSON data to a file
 if (file_put_contents($file_path, $outputData)) {
