@@ -59,7 +59,7 @@
                                     Consumption Projection<div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-tables">
-                                    <a href="demandapi/matresses/consumption" class="dropdown-item">Mattresses</a>
+                                    <a href="demandapi/mattresses-consumptionn" class="dropdown-item">Mattresses</a>
                                 </div>
                             </div>
                             <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
