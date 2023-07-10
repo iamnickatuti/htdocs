@@ -91,7 +91,7 @@ include '../../partss/header.php'; ?>
     </thead>
     <tbody>
     <?php
-    $jsonData= file_get_contents('https://reports.moko.co.ke/demandapi/matresses/test.php');
+    $jsonData= file_get_contents('https://reports.moko.co.ke/demandapi/sofas/test.php');
     // Convert JSON to associative array
     $data = json_decode($jsonData, true);?>
     <?php foreach ($data as $item): ?>
