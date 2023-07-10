@@ -65,11 +65,11 @@ include '../parts/header.php';
     <div class="card-body">
 
     <h4 class="card-title">Orders</h4>
-    <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug
+<!--    <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug-->
     </p>
 
     <div class="table-responsive">
-    <table class="table table-centered table-striped table-nowrap mb-0">
+        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
     <thead>
     <tr>
         <th>Raw Material</th>
