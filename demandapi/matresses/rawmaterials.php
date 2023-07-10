@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 include '../cradle_config.php';
-
+global $conn;
 // Execute the SQL query to retrieve the product and raw material details
 $sqlStatement = "SELECT
     skus1.name AS 'Raw Material',
@@ -46,7 +46,7 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         $rawMaterials[] = $row;
     }
-
+}
     // Convert the array to JSON
     $outputData = json_encode($rawMaterials);
 
