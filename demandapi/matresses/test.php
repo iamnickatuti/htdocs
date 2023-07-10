@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 // JSON URLs
 $json1Url = "https://reports.moko.co.ke/demandapi/matresses/projmix.php";
-$json2Url = "https://reports.moko.co.ke/demandapi/matresses/processed.json";
+$json2Url = "https://reports.moko.co.ke/demandapi/matresses/frontfinished.php";
 
 // Retrieve JSON data
 $json1 = file_get_contents($json1Url);
