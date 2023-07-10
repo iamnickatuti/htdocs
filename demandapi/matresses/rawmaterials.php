@@ -50,18 +50,7 @@ if ($result) {
     // Convert the array to JSON
     $outputData = json_encode($rawMaterials);
 
-    // Set the file path and name
-    $file_path = './rm.json';
-
-    // Write the JSON data to a file
-    if (file_put_contents($file_path, $outputData)) {
-        echo 'JSON file created successfully.';
-    } else {
-        echo 'Error creating JSON file.';
-    }
-} else {
-    echo "Error executing query: " . $conn->error;
-}
+   echo $outputData;
 
 // Close the database connection
 $conn->close();
