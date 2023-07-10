@@ -1,6 +1,6 @@
 <?php
 session_start ();
-include '../../parts/header.php'; ?>
+include '../parts/header.php'; ?>
 
     <body>
     <!-- Begin page -->
