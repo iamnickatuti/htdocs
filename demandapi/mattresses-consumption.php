@@ -14,7 +14,7 @@ include '../parts/header.php';
                     <img class="align-middle" src="../assets/logo.svg" height="50px">
                 </a>
 
-                <button type="button" class="btn btn-sm mr-2 font-size-16 d-lg-none header-item waves-effect waves-light" data-toggle="collapse" data-target="#topnav-menu-content">
+                <button type="button" class="btn b  tn-sm mr-2 font-size-16 d-lg-none header-item waves-effect waves-light" data-toggle="collapse" data-target="#topnav-menu-content">
                     <i class="fa fa-fw fa-bars"></i>
                 </button>
             </div>
@@ -120,7 +120,6 @@ include '../parts/header.php';
                 <tr>
                     <td><?php echo $rawMaterial['Raw Material']; ?></td>
                     <td><?php echo $rawMaterial['RM Description']; ?></td>
-                    <td><?php echo $rawMaterial['Component Quantity']; ?></td>
                     <td><?php echo $rawMaterial['uom']; ?></td>
                     <td><?php echo $rawMaterial['Multiplied_Values']['July/2023']; ?></td>
                     <td><?php echo $rawMaterial['Multiplied_Values']['August/2023']; ?></td>

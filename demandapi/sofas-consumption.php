@@ -120,7 +120,6 @@ include '../parts/header.php';
                 <tr>
                     <td><?php echo $rawMaterial['Raw Material']; ?></td>
                     <td><?php echo $rawMaterial['RM Description']; ?></td>
-                    <td><?php echo $rawMaterial['Component Quantity']; ?></td>
                     <td><?php echo $rawMaterial['uom']; ?></td>
                     <td><?php echo $rawMaterial['Multiplied_Values']['July/2023']; ?></td>
                     <td><?php echo $rawMaterial['Multiplied_Values']['August/2023']; ?></td>
