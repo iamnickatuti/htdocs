@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 // Fetch data from JSON endpoints
-$json1Url = "https://reports.moko.co.ke/demandapi/products.php";
+$json1Url = "https://reports.moko.co.ke/demandapi/matresses/products.php";
 $json2Url = "https://reports.moko.co.ke/demandapi/matresses/rawmaterials.php";
 $json1 = file_get_contents($json1Url);
 $json2 = file_get_contents($json2Url);
