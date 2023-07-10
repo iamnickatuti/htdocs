@@ -72,7 +72,7 @@ if ($result) {
     $outputData = json_encode($products);
 
     // Set the file path and name
-    $file_path = './matteresses/products.json';
+    $file_path = './products.json';
 
     // Write the JSON data to a file
     if (file_put_contents($file_path, $outputData)) {
