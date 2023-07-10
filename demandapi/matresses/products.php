@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include '../cradle_config.php';
+include '../../cradle_config.php';
 
 // Execute the SQL query to retrieve the product and raw material details
 $sqlStatement = "SELECT
