@@ -69,7 +69,7 @@ include '../parts/header.php';
     </p>
 
     <div class="table-responsive">
-        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+        <table id="basic-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
     <thead>
     <tr>
         <th>Raw Material</th>
