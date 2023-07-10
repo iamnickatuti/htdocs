@@ -47,7 +47,7 @@ include '../parts/header.php';
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">Sofas Projection</h4>
+                <h4 class="mb-0 font-size-18">Sofas Consumptions</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
@@ -64,7 +64,7 @@ include '../parts/header.php';
     <div class="card">
     <div class="card-body">
 
-    <h4 class="card-title">Orders</h4>
+    <h4 class="card-title">Projections</h4>
 <!--    <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug-->
     </p>
 
