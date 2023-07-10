@@ -2,8 +2,8 @@
 session_start ();
 include '../parts/header.php';
 ?>
-    <body>
-    <!-- Begin page -->
+
+ <body>
 <div id="layout-wrapper">
     <div class="main-content">
 

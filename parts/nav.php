@@ -63,8 +63,8 @@
                                     <a href="../demandapi/sofas-consumption" class="dropdown-item">Sofas</a>
                                 </div>
                             </div>
-                            <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
-                            <a href="demand/bomProjections" class="dropdown-item">BOM</a>
+                            <a href="../demand/salesProjection" class="dropdown-item">Sales Projection</a>
+                            <a href="../demand/bomProjections" class="dropdown-item">BOM</a>
 
                         </div>
                     </li>
