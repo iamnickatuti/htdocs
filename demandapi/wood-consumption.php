@@ -92,7 +92,6 @@ include '../parts/header.php';
     <tbody>
     <?php
     $jsonData= file_get_contents('https://reports.moko.co.ke/demandapi/woodworking/test.php');
-    // Convert JSON to associative array
     $data = json_decode($jsonData, true);?>
     <?php foreach ($data as $item): ?>
         <?php foreach ($item['Raw Materials'] as $rawMaterial): ?>
