@@ -2,7 +2,6 @@
 session_start ();
 include '../../parts/header.php'; ?>
 
-
     <body>
     <!-- Begin page -->
 <div id="layout-wrapper">
@@ -153,4 +152,4 @@ include '../../parts/header.php'; ?>
     </div>
 </div>
     </body>
-<?php include '../parts/footer.php';?>
+<?php include '../../parts/footer.php';?>
