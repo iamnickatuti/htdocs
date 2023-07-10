@@ -60,7 +60,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-tables">
                                     <a href="demandapi/mattresses-consumption" class="dropdown-item">Mattresses</a>
-                                    <a href="demandapi/sofas-consumptionn" class="dropdown-item">Sofas</a>
+                                    <a href="demandapi/sofas-consumption" class="dropdown-item">Sofas</a>
                                 </div>
                             </div>
                             <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
