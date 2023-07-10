@@ -25,7 +25,7 @@ include '../parts/header.php'; ?>
     </thead>
     <tbody>
     <?php
-    $jsonData= file_get_contents('https://reports.moko.co.ke/test.php');
+    $jsonData= file_get_contents('https://reports.moko.co.ke/matresses/test.php');
     // Convert JSON to associative array
     $data = json_decode($jsonData, true);?>
     <?php foreach ($data as $item): ?>
