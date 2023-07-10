@@ -1,6 +1,6 @@
 <?php
 session_start ();
-include '../../parts/header.php'; ?>
+include '../parts/header.php'; ?>
 
     <body>
     <!-- Begin page -->
@@ -152,4 +152,4 @@ include '../../parts/header.php'; ?>
     </div>
 </div>
     </body>
-<?php include '../../parts/footer.php';?>
+<?php include '../parts/footer.php';?>
