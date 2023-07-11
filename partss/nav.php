@@ -58,8 +58,8 @@
                                     Consumption Projection<div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-tables">
-                                    <a href="demandapi/mattresses-consumption" class="dropdown-item">Mattresses</a>
-                                    <a href="demandapi/sofas-consumption" class="dropdown-item">Sofas</a>
+                                    <a href="demandapi/mattresses-consumption" class="dropdown-item">Mattresses and Sofas</a>
+                                    <a href="demandapi/wood-consumption" class="dropdown-item">Wood Working</a>
                                 </div>
                             </div>
                             <a href="demand/salesProjection" class="dropdown-item">Sales Projection</a>
