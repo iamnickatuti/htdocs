@@ -1,5 +1,4 @@
 <?php
-
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
@@ -28,7 +27,7 @@ function calculateMultipliedValues($rawMaterial, $multipliers, $level = 1) {
             $multipliedValues[$key] = $multipliedValue;
         }
     }
-    if ($level < 4 && isset($rawMaterial['Sub Raw Materials']) && is_array($rawMaterial['Sub Raw Materials'])) {
+    if ($level < 6 && isset($rawMaterial['Sub Raw Materials']) && is_array($rawMaterial['Sub Raw Materials'])) {
         $subRawMaterials = $rawMaterial['Sub Raw Materials'];
         foreach ($subRawMaterials as &$subRawMaterial) {
             $subRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subRawMaterial, $multipliers, $level + 1);
@@ -40,6 +39,20 @@ function calculateMultipliedValues($rawMaterial, $multipliers, $level = 1) {
                         $subSubSubRawMaterials = $subSubRawMaterial['Sub Raw Materials'];
                         foreach ($subSubSubRawMaterials as &$subSubSubRawMaterial) {
                             $subSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubRawMaterial, $multipliers, $level + 3);
+                            if (isset($subSubSubRawMaterial['Sub Raw Materials'])) {
+                                $subSubSubSubRawMaterials = $subSubSubRawMaterial['Sub Raw Materials'];
+                                foreach ($subSubSubSubRawMaterials as &$subSubSubSubRawMaterial) {
+                                    $subSubSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubSubRawMaterial, $multipliers, $level + 4);
+                                    if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])) {
+                                        $subSubSubSubSubRawMaterials = $subSubSubSubRawMaterial['Sub Raw Materials'];
+                                        foreach ($subSubSubSubSubRawMaterials as &$subSubSubSubSubRawMaterial) {
+                                            $subSubSubSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubSubSubRawMaterial, $multipliers, $level + 5);
+                                        }
+                                        $subSubSubSubRawMaterial['Sub Raw Materials'] = $subSubSubSubSubRawMaterials;
+                                    }
+                                }
+                                $subSubSubRawMaterial['Sub Raw Materials'] = $subSubSubSubRawMaterials;
+                            }
                         }
                         $subSubRawMaterial['Sub Raw Materials'] = $subSubSubRawMaterials;
                     }
@@ -72,6 +85,20 @@ foreach ($data1 as &$item) {
                                 $subSubSubRawMaterials = $subSubRawMaterial['Sub Raw Materials'];
                                 foreach ($subSubSubRawMaterials as &$subSubSubRawMaterial) {
                                     $subSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubRawMaterial, $multipliers);
+                                    if (isset($subSubSubRawMaterial['Sub Raw Materials'])) {
+                                        $subSubSubSubRawMaterials = $subSubSubRawMaterial['Sub Raw Materials'];
+                                        foreach ($subSubSubSubRawMaterials as &$subSubSubSubRawMaterial) {
+                                            $subSubSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubSubRawMaterial, $multipliers);
+                                            if (isset($subSubSubSubRawMaterial['Sub Raw Materials'])) {
+                                                $subSubSubSubSubRawMaterials = $subSubSubSubRawMaterial['Sub Raw Materials'];
+                                                foreach ($subSubSubSubSubRawMaterials as &$subSubSubSubSubRawMaterial) {
+                                                    $subSubSubSubSubRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subSubSubSubSubRawMaterial, $multipliers);
+                                                }
+                                                $subSubSubSubRawMaterial['Sub Raw Materials'] = $subSubSubSubSubRawMaterials;
+                                            }
+                                        }
+                                        $subSubSubRawMaterial['Sub Raw Materials'] = $subSubSubSubRawMaterials;
+                                    }
                                 }
                                 $subSubRawMaterial['Sub Raw Materials'] = $subSubSubRawMaterials;
                             }
@@ -91,4 +118,3 @@ $outputData = json_encode($data1, JSON_PRETTY_PRINT);
 
 // Output the JSON data
 echo $outputData;
-
