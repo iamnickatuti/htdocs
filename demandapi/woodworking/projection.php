@@ -8,7 +8,7 @@ include '../../cradle_config.php';
 global $conn;
 // SQL query to retrieve data
 $sql = "
-SELECT
+    SELECT
   MAX(projection_entries.projection_id) AS 'projection_id',
   projection_entries.month,
   projection_entries.year,
@@ -27,7 +27,7 @@ FROM
   LEFT JOIN categories ON categories.id = projection_entries.category_id)
   LEFT JOIN categories AS parent_categories ON categories.parent_id = parent_categories.id)
 
-WHERE parent_categories.name IN ('TG Timber','TV Stands','Coffee Tables','Beds')
+WHERE parent_categories.name IN ('TG Timber','TV Stands','Coffee Tables','Beds', 'Webbing', 'Rolls', 'FP Fibre')
 GROUP BY
   projection_entries.id,
   projections.financial_year_id,
