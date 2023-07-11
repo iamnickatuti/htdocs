@@ -27,7 +27,7 @@ FROM
   LEFT JOIN categories ON categories.id = projection_entries.category_id)
   LEFT JOIN categories AS parent_categories ON categories.parent_id = parent_categories.id)
 
-WHERE parent_categories.name IN ('TG Timber','TV Stands','Coffee Tables','Beds', 'Webbing', 'Rolls', 'FP Fibre')
+WHERE parent_categories.name IN ('TG Timber','TV Stands','Coffee Tables','Beds')
 GROUP BY
   projection_entries.id,
   projections.financial_year_id,
