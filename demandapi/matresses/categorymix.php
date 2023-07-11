@@ -17,7 +17,7 @@ FROM
   LEFT JOIN categories ON categories.id = category_mix_entries.category_id
   LEFT JOIN skus ON skus.id = category_mix_entries.sku_id
   
-  WHERE categories.name IN('Pouffes', 'HD Mattresses', 'MD Mattresses','Ottoman', 'Mr Biggie 2 Seater', 'Mr Biggie 3 Seater','Mr Biggie 1 Seater', 'Jiji 3 Seater','Jiji 2 Seater')
+  WHERE categories.name IN('HD Mattresses','MD Mattresses','Pouffes','Throw Pillows','Footstools','Headboard Cushions','Jiji 2 Seater','Jiji 3 Seater','Kutana Table','Mr Biggie 1 Seater', 'Mr Biggie 2 Seater', 'Mr Biggie 3 Seater','Ottoman','Mokoer Rug','Zzze Rug')
 GROUP BY
   category_mix_entries.id,
   category_mixes.financial_year_id,
