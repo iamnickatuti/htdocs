@@ -27,7 +27,7 @@ function calculateMultipliedValues($rawMaterial, $multipliers, $level = 1) {
             $multipliedValues[$key] = $multipliedValue;
         }
     }
-    if ($level < 6 && isset($rawMaterial['Sub Raw Materials']) && is_array($rawMaterial['Sub Raw Materials'])) {
+    if ($level < 10 && isset($rawMaterial['Sub Raw Materials']) && is_array($rawMaterial['Sub Raw Materials'])) {
         $subRawMaterials = $rawMaterial['Sub Raw Materials'];
         foreach ($subRawMaterials as &$subRawMaterial) {
             $subRawMaterial['Multiplied_Values'] = calculateMultipliedValues($subRawMaterial, $multipliers, $level + 1);
