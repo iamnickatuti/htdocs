@@ -17,7 +17,7 @@ foreach ($array2 as $item2) {
     // Check if the "Sub Category" exists in $array1
     $matchFound = false; // Flag to indicate if a match is found
     foreach ($array1 as $item1) {
-        if ($item1['Sub-category'] === $item2['Sub Category']) {
+        if (strcasecmp($item1['Sub-category'], $item2['Sub Category']) === 0) {
             $multipliedItem = [
                 "Parent Category" => $item2["Parent Category"],
                 "Sub Category" => $item2["Sub Category"],
