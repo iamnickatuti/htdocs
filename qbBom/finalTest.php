@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include '../../cradle_config.php';
+include '../cradle_config.php';
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');

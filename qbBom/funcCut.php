@@ -1,6 +1,6 @@
 <?php
 // Read the JSON file into a string
-$json_str = file_get_contents('http://localhost/production/api/api_cutting.php');
+$json_str = file_get_contents('https://reports.moko.co.ke/api/api_cutting.php');
 
 // Decode the JSON string into an array
 $data = json_decode($json_str, true);

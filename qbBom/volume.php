@@ -335,7 +335,7 @@ else{
     $resultqb = json_encode($jsonArray);
 
 
-    $url2 = "http://localhost/production/api/conversion.php";
+    $url2 = "https://reports.co.ke/api/conversion.php";
 
 // Fetch the JSON content from the URLs
     $json2 = file_get_contents($url2);

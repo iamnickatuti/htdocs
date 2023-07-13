@@ -31,7 +31,7 @@
                                             </tr>
                                             </thead>
                                             </tbody
-                                            <?php include 'functions/funcCut.php'; ?>
+                                            <?php include './funcCut.php'; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -42,11 +42,8 @@
                 </div> <!-- end col -->
                 <!-- end row-->
                 <style>
-                    p{
-                        font-size: 11px;
-                    }
+                    p{font-size: 11px;}
                 </style>
-
 
                 <div class="col-md-3 col-xl-3">
                     <div class="row">
@@ -214,7 +211,7 @@
                             </thead>
                             <tbody>
                             <?php
-                            $json_data = file_get_contents('http://localhost/production/functions/finalTest.php');
+                            $json_data = file_get_contents('https://reports.moko.co.ke/qbBom/finalTest.php');
                             $data = json_decode($json_data, true);
                             $groupedData = array_reduce($data, function ($result, $item) {
                                 $cut_sku_part_description = $item['Cut SKU Part Description'];
