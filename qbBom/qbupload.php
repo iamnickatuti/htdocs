@@ -356,7 +356,7 @@ else{
     $resultqb = json_encode($jsonArray);
 
 
-    $url2 = "https://report.moko.co.ke/api/conversion.php";
+    $url2 = "https://reports.moko.co.ke/api/conversion.php";
     $json2 = file_get_contents($url2);
 
 
