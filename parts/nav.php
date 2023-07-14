@@ -44,8 +44,16 @@
                             </div>
 
                             <a href="../production/cuttingInfo" class="dropdown-item">Cutting Info</a>
-                            <a href="../production/qbupload" class="dropdown-item">QB Upload</a>
-<!--                            <a href="../production/cuttingOutput" class="dropdown-item">Cutting Costs</a>-->
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    QB Upload<div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-tables">
+                                    <a href="https://reports.moko.co.ke/qbBom/qbuploadrecycle" class="dropdown-item">Recycle</a>
+                                    <a href="https://reports.moko.co.ke/qbBom/qbupload" class="dropdown-item">Cut SKUs</a>
+
+                                </div>
+                            </div>
                             <a href="../production/blockFlow" class="dropdown-item">Blocks Flow</a>
                         </div>
                     </li>
