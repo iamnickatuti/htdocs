@@ -61,143 +61,37 @@ include '../parts/header.php';
             </div>
             <!-- end row-->
             <div class="row">
-                <div class="col-xl-9">
+
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
 
+                            <h4 class="card-title">Default Tabs</h4>
+                            <p class="card-subtitle mb-4">Example of basic tabs.</p>
+
                             <ul class="nav nav-tabs mb-3">
-                                <li class="nav-item">
-                                    <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                                        <i class="mdi mdi-settings-outline d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Cut SKU Summary</span>
-                                    </a>
-                                </li>
                                 <li class="nav-item">
                                     <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link">
                                         <i class="mdi mdi-home-variant d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Cut SKU Densities Summary</span>
+                                        <span class="d-none d-lg-block">Home</span>
                                     </a>
                                 </li>
-                             </ul>
+                                <li class="nav-item">
+                                    <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link active">
+                                        <i class="mdi mdi-account-circle d-lg-none d-block"></i>
+                                        <span class="d-none d-lg-block">Profile</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                        <i class="mdi mdi-settings-outline d-lg-none d-block"></i>
+                                        <span class="d-none d-lg-block">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+
                             <div class="tab-content">
                                 <div class="tab-pane" id="home">
-
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Cut SKU Category</th>
-                                                <th>Finance Key</th>
-                                                <th>Part Number</th>
-                                                <th>Raw Material</th>
-                                                <th>Quantity</th>
-                                                <th>Average Unit SKU Weight (Kgs)</th>
-                                                <th>Cummulative Cut SKUs Weight (kgs)</th>
-                                                <th>Cut SKU Part Description</th>
-                                                <th>Dimensions</th>
-                                                <th>Unit Volume</th>
-                                                <th>Cummulative Volume</th>
-                                                <th>Unit Density</th>
-                                                <th>Cummulative Density</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php
-                                            $json_data = file_get_contents('https://reports.moko.co.ke/production/functions/finalTest.php');
-                                            $data = json_decode($json_data, true);
-                                            $groupedData = array_reduce($data, function ($result, $item) {
-                                                $cut_sku_part_description = $item['Cut SKU Part Description'];
-                                                $category = $item['Cut SKU Category'];
-                                                $financeKey = $item['Finance Key'];
-                                                $partNumber = $item['Cut SKU Part Number'];
-                                                $blockSKU = $item['Block SKU'];
-                                                $cut_sku_qty = $item['Cut SKU Quantity'];
-                                                $cut_sku_weight = $item['Average Cut SKU Weight'];
-                                                if (!isset($result[$category])) {
-                                                    $result[$category] = array();
-                                                }
-                                                if (!isset($result[$category][$financeKey])) {
-                                                    $result[$category][$financeKey] = array();
-                                                }
-                                                if (!isset($result[$category][$financeKey][$partNumber])) {
-                                                    $result[$category][$financeKey][$partNumber] = array();
-                                                }
-                                                if (!isset($result[$category][$financeKey][$partNumber][$blockSKU])) {
-                                                    $result[$category][$financeKey][$partNumber][$blockSKU] = array();
-                                                }
-                                                $result[$category][$financeKey][$partNumber][$blockSKU][] = $item;
-
-                                                return $result;
-                                            }, array());
-
-                                            $count = 1;
-
-                                            // Loop through the grouped data and display the items that have common Category, Finance Key, Part Number, and Block SKU
-                                            foreach ($groupedData as $category => $financeKeys) {
-                                                foreach ($financeKeys as $financeKey => $partNumbers) {
-                                                    foreach ($partNumbers as $partNumber => $blockSKUs) {
-                                                        foreach ($blockSKUs as $blockSKU => $items) {
-                                                            $cut_sku_qty = 0;
-                                                            $cut_sku_weight_total = 0; // Initialize total weight
-                                                            foreach ($items as $item) {
-                                                                $cut_sku_qty += $item['Cut SKU Quantity'];
-                                                                $cut_sku_weight_total += $item['Average Cut SKU Weight'] * $item['Cut SKU Quantity'];
-                                                            }
-                                                            $cut_sku_weight_avg = $cut_sku_qty != 0 ? $cut_sku_weight_total / $cut_sku_qty : 0; // Calculate average weight
-                                                            $cut_sku_part_description = $item['Cut SKU Part Description'];
-
-
-                                                            echo '<tr>';
-                                                            echo "<td>".$category."</td>";
-                                                            echo "<td>".$financeKey."</td>";
-                                                            echo "<td>".$partNumber."</td>";
-                                                            echo "<td>".$blockSKU."</td>";
-                                                            echo "<td>".$cut_sku_qty."</td>";
-                                                            echo "<td>".$cut_sku_weight_avg."</td>";
-                                                            echo "<td>".$cut_sku_weight_avg * $cut_sku_qty."</td>";
-                                                            echo "<td>".$cut_sku_part_description."</td>"; // Output cut SKU part description
-                                                            $pattern = '/(\d+\.?\d*)[xX\*](\d+\.?\d*)[xX\*](\d+\.?\d*)/'; // regular expression pattern to match dimensions and capture each dimension, including decimals
-                                                            preg_match($pattern, $cut_sku_part_description, $matches); // search for dimensions in the string and capture each dimension
-                                                            $length = isset($matches[1]) ? $matches[1] : ''; // extract the first captured dimension as length
-                                                            $width = isset($matches[2]) ? $matches[2] : ''; // extract the second captured dimension as width
-                                                            $height = isset($matches[3]) ? $matches[3] : ''; // extract the third captured dimension as height
-                                                            echo "<td>".$length."x".$width."x".$height."</td>";
-                                                            echo "<td>".(($length*$width*$height)/61023.7)."</td>";
-                                                            echo "<td>".(($length*$width*$height*$cut_sku_qty)/61023.7)."</td>";
-                                                            echo "<td>".$cut_sku_weight_avg/(($length*$width*$height)/61023.7)."</td>";
-                                                            echo "<td>".($cut_sku_weight_avg * $cut_sku_qty)/(($length*$width*$height*$cut_sku_qty)/61023.7)."</td>";
-                                                            echo "</tr>";
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                            ?>
-                                            </tbody>
-
-
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="profile">
-                                    <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Block SKU </th>
-                                                <th>Block SKU Count</th>
-                                                <th>Sum Dry Block Weight</th>
-                                                <!--                                                <th>Sum Original Rebonded Weight</th>-->
-                                                <!--                                                <th>Difference</th>-->
-                                                <th>Average Dry Block Weight</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php include 'functions/funcCutTwo.php'; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane show active" id="settings">
                                     <div class="table-responsive">
                                         <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
                                             <thead>
@@ -217,11 +111,36 @@ include '../parts/header.php';
                                         </table>
                                     </div>
                                 </div>
+                                <div class="tab-pane show active" id="profile">
+                                    <div class="table-responsive">
+                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
+                                            <thead>
+                                            <tr>
+                                                <th>Block SKU </th>
+                                                <th>Block SKU Count</th>
+                                                <th>Sum Dry Block Weight</th>
+                                                <!--                                                <th>Sum Original Rebonded Weight</th>-->
+                                                <!--                                                <th>Difference</th>-->
+                                                <th>Average Dry Block Weight</th>
+                                            </tr>
+                                            </thead>
+                                            </tbody
+                                            <?php include 'functions/funcCutTwo.php'; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="settings">
+                                    <p>Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                </div>
                             </div>
+
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div> <!-- end col -->
-                <!-- end row-->
+
+
                 <style>
                     p{
                         font-size: 11px;
