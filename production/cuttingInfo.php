@@ -61,79 +61,30 @@ include '../parts/header.php';
             </div>
             <!-- end row-->
             <div class="row">
-
-                <div class="col-xl-6">
+                <div class="col-xl-9">
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Default Tabs</h4>
-                            <p class="card-subtitle mb-4">Example of basic tabs.</p>
+<!--                            <h4 class="card-title">Default Tabs</h4>-->
+<!--                            <p class="card-subtitle mb-4">Example of basic tabs.</p>-->
 
-                            <ul class="nav nav-tabs mb-3">
-                                <li class="nav-item">
-                                    <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                        <i class="mdi mdi-home-variant d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Home</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                                        <i class="mdi mdi-account-circle d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Profile</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                        <i class="mdi mdi-settings-outline d-lg-none d-block"></i>
-                                        <span class="d-none d-lg-block">Settings</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content">
-                                <div class="tab-pane" id="home">
-                                    <div class="table-responsive">
-                                        <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Block ID</th>
-                                                <th>Block Type</th>
-                                                <th>Dry Block Weight</th>
-                                                <th>T.Cut SKU Weight</th>
-                                                <th>Act. Recycle Weight</th>
-                                                <th>Block SKU</th>
-                                                <th>Exp.Recycle Weight</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php include 'functions/funcCut.php'; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane show active" id="profile">
-                                    <div class="table-responsive">
-                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap" style="font-size: 11px;">
-                                            <thead>
-                                            <tr>
-                                                <th>Block SKU </th>
-                                                <th>Block SKU Count</th>
-                                                <th>Sum Dry Block Weight</th>
-                                                <!--                                                <th>Sum Original Rebonded Weight</th>-->
-                                                <!--                                                <th>Difference</th>-->
-                                                <th>Average Dry Block Weight</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody
-                                            <?php include 'functions/funcCutTwo.php'; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="settings">
-                                    <p>Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                                    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                                </div>
+                            <div class="table-responsive">
+                                <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
+                                    <thead>
+                                    <tr>
+                                        <th>Block ID</th>
+                                        <th>Block Type</th>
+                                        <th>Dry Block Weight</th>
+                                        <th>T.Cut SKU Weight</th>
+                                        <th>Act. Recycle Weight</th>
+                                        <th>Block SKU</th>
+                                        <th>Exp.Recycle Weight</th>
+                                    </tr>
+                                    </thead>
+                                    </tbody
+                                    <?php include 'functions/funcCut.php'; ?>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div> <!-- end card-body-->
