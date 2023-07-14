@@ -138,16 +138,12 @@ else{
         else{
             $foccurance = 'False';
         }
-//    echo '<td>' . $first_row_numbers[$block_id] . '</td>';
-
         if ($foccurance == 'True'){
             $iaw = number_format($first_instances[$block_id]/$row['Cut SKUs Quantity'],2);
         }
         else{
             $iaw = 0;
         }
-//    echo '<td>' .$iaw. '</td>';
-
         $current_weight = $row['Recycle Weight (kgs)'];
         if ($iaw !== 0) {
             $difference = 0;
@@ -155,8 +151,6 @@ else{
         else {
             $difference = $current_weight - $prev_weight;
         }
-//    echo "<td>" .$difference . "</td>";
-
         $prev_weight = $current_weight;
         $skuqty = $row['Cut SKUs Quantity'];
 
