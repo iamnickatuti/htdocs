@@ -46,12 +46,14 @@ include '../parts/header.php';
                         <div class="page-title-right">
                             <form method="post" action="">
                                 <div class="row">
+                                    <div class="col-6">
                                     <label for="start_date" style="font-size: 11px">Start Date:</label>
                                     <input type="date" id="start_date" name="start_date" class="form-control" required>
-
+                                    </div>
+                                    <div class="col-6">
                                     <label for="end_date"  style="font-size: 11px">End Date:</label>
                                     <input type="date" id="end_date" name="end_date" class="form-control" required>
-
+                                    <div class="col-6">
                                     <input class="btn btn-warning" type="submit" value="Filter">
                                 </div>
                             </form>
