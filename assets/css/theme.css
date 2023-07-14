@@ -286,7 +286,7 @@ input:checked + .slider:before {
     background-color: transparent;
   }
   .topnav .dropdown .dropdown-item.active, .topnav .dropdown .dropdown-item:active {
-    color: #1976d2;
+    color: #fa9037;
   }
   .topnav .arrow-down::after {
     right: 15px;
@@ -451,7 +451,7 @@ input:checked + .slider:before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #1976d2;
+  background-color: #fa9037;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -817,7 +817,7 @@ input:checked + .slider:before {
 }
 
 .swal2-modal .swal2-confirm.btn-confirm {
-  background-color: #1976d2 !important;
+  background-color: #fa9037 !important;
   font-size: 0.875rem;
 }
 
@@ -832,8 +832,8 @@ input:checked + .slider:before {
 }
 
 .swal2-icon.swal2-question {
-  color: #1976d2;
-  border-color: #1976d2;
+  color: #fa9037;
+  border-color: #fa9037;
 }
 
 .swal2-icon.swal2-success {
@@ -877,7 +877,7 @@ input:checked + .slider:before {
 
 .swal2-modal .swal2-file:focus, .swal2-modal .swal2-input:focus, .swal2-modal .swal2-textarea:focus {
   outline: 0;
-  border: 2px solid #1976d2;
+  border: 2px solid #fa9037;
 }
 
 .swal2-container.swal2-shown {
@@ -954,11 +954,11 @@ table.dataTable {
 }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
-  background-color: #1976d2;
+  background-color: #fa9037;
 }
 
 table.dataTable tbody > tr.selected td, table.dataTable tbody > tr > .selected td {
-  border-color: #1976d2;
+  border-color: #fa9037;
 }
 
 table.dataTable tbody td:focus {
@@ -966,9 +966,9 @@ table.dataTable tbody td:focus {
 }
 
 table.dataTable tbody th.focus, table.dataTable tbody td.focus {
-  outline: 2px solid #1976d2 !important;
+  outline: 2px solid #fa9037 !important;
   outline-offset: -1px;
-  color: #1976d2;
+  color: #fa9037;
   background-color: rgba(25, 118, 210, 0.15);
 }
 
@@ -989,7 +989,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before
 }
 
 div.dt-button-info {
-  background-color: #1976d2;
+  background-color: #fa9037;
   border: none;
   color: #fff;
   -webkit-box-shadow: none;
@@ -1115,8 +1115,8 @@ div.dt-button-info h2 {
   margin: 5px 0;
   padding: 5px 10px;
   background-color: #a9cff5;
-  color: #1976d2 !important;
-  border-left: 3px solid #1976d2;
+  color: #fa9037 !important;
+  border-left: 3px solid #fa9037;
 }
 
 .fc-cards {
@@ -1244,7 +1244,7 @@ div.dt-button-info h2 {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #1976d2;
+  background-color: #fa9037;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
@@ -1253,7 +1253,7 @@ div.dt-button-info h2 {
 }
 
 .select2-container--default .select2-results__option[aria-selected=true]:hover {
-  background-color: #1976d2;
+  background-color: #fa9037;
   color: #fff;
 }
 
@@ -1271,7 +1271,7 @@ div.dt-button-info h2 {
 }
 
 .select2-container .select2-selection--multiple .select2-selection__choice {
-  background-color: #1976d2;
+  background-color: #fa9037;
   border: none;
   color: #fff;
   border-radius: 3px;
@@ -1331,7 +1331,7 @@ div.dt-button-info h2 {
 .datepicker table tr td span.active:hover:hover,
 .datepicker table tr td span.active:hover[disabled],
 .datepicker table tr td span.active[disabled], .datepicker table tr td.today, .datepicker table tr td.today.disabled, .datepicker table tr td.today.disabled:hover, .datepicker table tr td.today:hover {
-  background-color: #1976d2 !important;
+  background-color: #fa9037 !important;
   background-image: none !important;
   color: #fff;
 }
@@ -1411,13 +1411,13 @@ div.dt-button-info h2 {
 }
 
 .daterangepicker td.active, .daterangepicker td.active:hover {
-  background-color: #1976d2;
+  background-color: #fa9037;
   color: #fff;
 }
 
 .daterangepicker td.available:hover,
 .daterangepicker th.available:hover {
-  background-color: #1976d2;
+  background-color: #fa9037;
   color: #fff;
 }
 
@@ -1430,7 +1430,7 @@ div.dt-button-info h2 {
 }
 
 .daterangepicker .ranges li.active {
-  background-color: #1976d2;
+  background-color: #fa9037;
 }
 
 .daterangepicker .ranges li:hover {
