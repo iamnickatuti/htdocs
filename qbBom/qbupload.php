@@ -35,7 +35,33 @@ include '../parts/header.php';
             </div>
         </header>
         <?php include '../parts/nav.php';?>
-
+        <div class="page-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0 font-size-18">
+                                Cutting Information
+                            </h4>
+                            <div class="col-4 float-right">
+                                <form method="post" action="">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="date" id="start_date" name="start_date" class="form-control" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <input class="btn btn-warning" type="submit" value="Filter">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row-->
 
 
 <?php
@@ -511,3 +537,6 @@ else{
             echo '</tbody></table>';
 }
 
+?>
+            </div>
+        </div>
