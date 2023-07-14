@@ -61,6 +61,10 @@ include '../parts/header.php';
                 </div>
             </div>
             <!-- end row-->
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="card">
+                        <div class="card-body">
 <?php
 include '../cradle_config.php';
 global $conn;
