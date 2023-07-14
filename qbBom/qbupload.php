@@ -44,13 +44,13 @@ include '../parts/header.php';
                                 Cut SKUs BOM
                             </h4>
                             <div class="col-4 float-right">
-                                <form method="post" action="">
+                                <form method="GET" action="">
                                     <div class="row">
                                         <div class="col-4">
-                                            <input type="date" id="start_date" name="start_date" class="form-control" required>
+                                            <input type="date" id="start_date" name="start" class="form-control" required>
                                         </div>
                                         <div class="col-4">
-                                            <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                            <input type="date" id="end_date" name="end" class="form-control" required>
                                         </div>
                                         <div class="col-4">
                                             <input class="btn btn-warning" type="submit" value="Filter">
@@ -70,12 +70,6 @@ include '../parts/header.php';
 <?php
 include '../cradle_config.php';
 global $conn;
-echo '<form method="GET" action="">
-    <label for="start">Start Date:</label><input type="date" id="start" name="start" required>
-    <label for="end">End Date:</label><input type="date" id="end" name="end" required>
-    <button type="submit">Filter</button>
-    </form>';
-
 $start = isset($_GET["start"]) ? date("Y-m-d", strtotime($_GET["start"])) : "";
 $end = isset($_GET["end"]) ? date("Y-m-d", strtotime($_GET["end"])) : "";
 
