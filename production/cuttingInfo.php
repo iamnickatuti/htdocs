@@ -43,7 +43,7 @@ include '../parts/header.php';
                         <h4 class="mb-0 font-size-18">
                             Cutting Information
                         </h4>
-                        <div class="col-5">
+                        <div class="col-5 float-right">
                             <form method="post" action="">
                                 <div class="row">
                                     <div class="col-4">
