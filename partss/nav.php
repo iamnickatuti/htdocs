@@ -58,7 +58,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-charts" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="mdi mdi-toolbox"></i>Demand Planning <div class="arrow-down"></div>
+                            <i class="mdi mdi-chart-line"></i>Demand Planning <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-charts">
                             <div class="dropdown">
