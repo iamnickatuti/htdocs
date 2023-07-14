@@ -69,18 +69,18 @@ else{
     while ($row = mysqli_fetch_assoc($result)) {
         $row_count++;
         $block_id = $row['Block_ID'];
-        $cut_sku_weight = $row['Cut_SKU_Weights'];
-        $value = $row['Cut_SKU_Weights'];
+        $cut_sku_weight = $row['Recycle Weight (kgs)'];
+        $value = $row['Recycle Weight (kgs)'];
 
         // Check if this is the first instance of this block ID
         if (!isset($first_instances[$block_id])) {
-            // If it is, store the Cut_SKU_Weights in the array for first instances
+            // If it is, store the Recycle Weight (kgs) in the array for first instances
             $first_instances[$block_id] = $cut_sku_weight;
             // Store the current row number in the array for first row numbers
             $first_row_numbers[$block_id] = $row_count;
         }
 
-        // Store the Cut_SKU_Weights in the array for last instances, overwriting any previous value
+        // Store the Recycle Weight (kgs) in the array for last instances, overwriting any previous value
         $last_instances[$block_id] = $cut_sku_weight;
 
         // Count the occurrences of each block ID
@@ -129,7 +129,7 @@ else{
         $cut_sku_part_description = $row['Cut SKU Part Description'];
         $cut_sku_category = $row['Cut SKU Category'];
         $cut_sku_quantity = $row['Cut SKUs Quantity'];
-        $cut_sku_weights =  $row['Cut_SKU_Weights'];
+        $cut_sku_weights =  $row['Recycle Weight (kgs)'];
         $counts_ =  $counts[$block_id];
 
         if ($first_row_numbers[$block_id] == $row_count){
@@ -148,7 +148,7 @@ else{
         }
 //    echo '<td>' .$iaw. '</td>';
 
-        $current_weight = $row['Cut_SKU_Weights'];
+        $current_weight = $row['Recycle Weight (kgs)'];
         if ($iaw !== 0) {
             $difference = 0;
         }
@@ -211,7 +211,7 @@ else{
             'Block SKU' => $block_sku,
             'Cut SKU Part Description' => $cut_sku_part_description,
             'Cut SKU Category' => $category,
-            'Cut SKU Weights' => $cut_sku_weights,
+            'Recycle Weight (kgs)' => $cut_sku_weights,
             'Finance Key' => $finance_key,
             'Average Cut SKU Weight'=> $average_unit_cut_weight
         );
