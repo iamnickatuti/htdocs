@@ -53,6 +53,7 @@ include '../parts/header.php';
                                     <div class="col-4">
                                     <label for="end_date"  style="font-size: 11px">End Date:</label>
                                     <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                    </div>
                                     <div class="col-4">
                                     <input class="btn btn-warning" type="submit" value="Filter">
                                     </div>
