@@ -45,13 +45,15 @@ include '../parts/header.php';
                         </h4>
                         <div class="page-title-right">
                             <form method="post" action="">
-                                <label for="start_date" style="font-size: 11px">Start Date:</label>
-                                <input type="date" id="start_date" name="start_date" class="form-control" required>
+                                <div class="row">
+                                    <label for="start_date" style="font-size: 11px">Start Date:</label>
+                                    <input type="date" id="start_date" name="start_date" class="form-control" required>
 
-                                <label for="end_date"  style="font-size: 11px">End Date:</label>
-                                <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                    <label for="end_date"  style="font-size: 11px">End Date:</label>
+                                    <input type="date" id="end_date" name="end_date" class="form-control" required>
 
-                                <input class="btn btn-warning" type="submit" value="Filter">
+                                    <input class="btn btn-warning" type="submit" value="Filter">
+                                </div>
                             </form>
                         </div>
                     </div>
