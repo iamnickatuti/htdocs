@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <a href="logistics/online" class="dropdown-item">Online Retail</a>
-                            <a href="../logistics/sla" class="dropdown-item">SLA</a>
+<!--                            <a href="../logistics/sla" class="dropdown-item">SLA</a>-->
                         </div>
                     </li>
                     <li class="nav-item dropdown">
