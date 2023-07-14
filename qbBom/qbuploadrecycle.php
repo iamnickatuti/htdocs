@@ -40,7 +40,7 @@ include '../parts/header.php';
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
                         <h4 class="mb-0 font-size-18">
-                            Cutting Information
+                           Recycle BOM
                         </h4>
                         <div class="col-4 float-right">
                             <form method="post" action="">
@@ -535,3 +535,4 @@ else{
 </div>
 </div>
 </div>
+    </body>
