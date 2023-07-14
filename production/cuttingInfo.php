@@ -3,7 +3,6 @@ session_start ();
 include '../parts/header.php';
 ?>
     <body style="color: black;">
-    <!-- Begin page -->
 <div id="layout-wrapper">
     <div class="main-content">
     <header id="page-topbar">
@@ -38,7 +37,6 @@ include '../parts/header.php';
 
     <div class="page-content">
         <div class="container-fluid">
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -48,10 +46,10 @@ include '../parts/header.php';
                         <div class="page-title-right">
                             <form method="post" action="">
                                 <label for="start_date" style="font-size: 11px">Start Date:</label>
-                                <input type="date" id="start_date" name="start_date" required>
+                                <input type="date" id="start_date" name="start_date" class="form-control" required>
 
                                 <label for="end_date"  style="font-size: 11px">End Date:</label>
-                                <input type="date" id="end_date" name="end_date" required>
+                                <input type="date" id="end_date" name="end_date" class="form-control" required>
 
                                 <input class="btn btn-warning" type="submit" value="Filter">
                             </form>
@@ -64,10 +62,6 @@ include '../parts/header.php';
                 <div class="col-xl-9">
                     <div class="card">
                         <div class="card-body">
-
-<!--                            <h4 class="card-title">Default Tabs</h4>-->
-<!--                            <p class="card-subtitle mb-4">Example of basic tabs.</p>-->
-
                             <div class="table-responsive">
                                 <table id="basic-datatable" class="table table-striped nowrap" style="font-size: 11px;">
                                     <thead>
